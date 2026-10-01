@@ -1,0 +1,8 @@
+dist/
+coverage/
+playwright-report/
+test-results/
+package-lock.json
+public/
+# A especificação é escrita à mão; não reformatar.
+docs/

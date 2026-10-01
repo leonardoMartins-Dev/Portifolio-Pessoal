@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Portifólio — Leonardo Martins Macedo</title>
+    <meta
+      name="description"
+      content="Portfólio interativo de Leonardo Martins Macedo: um notebook 3D com um sistema operacional próprio dentro."
+    />
+    <meta name="theme-color" content="#0e0f14" />
+    <link rel="icon" type="image/svg+xml" href="/brand/logo.svg" />
+    <link rel="canonical" href="%SITE_URL%/pt" />
+    <link rel="alternate" hreflang="pt" href="%SITE_URL%/pt" />
+    <link rel="alternate" hreflang="en" href="%SITE_URL%/en" />
+    <link rel="alternate" hreflang="x-default" href="%SITE_URL%/pt" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Portifólio" />
+    <meta property="og:title" content="Portifólio — Leonardo Martins Macedo" />
+    <meta
+      property="og:description"
+      content="Um notebook 3D com um sistema operacional próprio dentro. Cada seção do portfólio é um app."
+    />
+    <meta property="og:image" content="%SITE_URL%/brand/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script>
+      // Aplica o tema salvo antes da primeira pintura (evita piscar).
+      (function () {
+        try {
+          var saved = JSON.parse(localStorage.getItem('portifolio:prefs') || '{}');
+          var theme = (saved.state && saved.state.theme) || 'system';
+          if (theme === 'system') {
+            theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          document.documentElement.dataset.theme = theme;
+        } catch (e) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <noscript>
+      Este portfólio precisa de JavaScript. / This portfolio requires JavaScript.
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

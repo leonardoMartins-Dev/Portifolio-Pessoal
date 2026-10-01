@@ -1,0 +1,21 @@
+# dependências
+node_modules/
+
+# build
+dist/
+
+# testes
+coverage/
+playwright-report/
+test-results/
+
+# variáveis de ambiente: nunca versionar, exceto o exemplo
+.env*
+!.env.example
+
+# vercel
+.vercel
+
+# sistema / editores
+.DS_Store
+*.log
