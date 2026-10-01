@@ -3,6 +3,15 @@
 > **Documento de especificação.** É a fonte de verdade do projeto. Coloque este arquivo em `docs/PROJETO.md`.
 > Tudo entre colchetes (`[...]`) é decisão ou conteúdo do autor, ainda pendente. No código, use placeholders marcados com `TODO(conteúdo)`.
 
+> **Revisão de 01/10/2026 — mudanças em relação ao texto abaixo:**
+> - **Stack (decisão do autor):** React + Vite em **JavaScript** (sem TypeScript e sem Next.js). As rotas do servidor (IA, Spotify, WakaTime) viram **Vercel Functions** em `api/*.js`; o código compartilhado do servidor fica em `server/`.
+> - **i18n:** i18next + react-i18next (rotas `/pt` e `/en` com React Router).
+> - **Variáveis públicas:** prefixo `VITE_` (não `NEXT_PUBLIC_`).
+> - **Nome do sistema (decisão do autor):** Portifólio. **Provisórios até o autor decidir:** cor de destaque `#5a67f2` e logo (monograma "LM"), ambos em `src/site.config.js`.
+> - **Modelo de IA padrão:** `gpt-6-luna` (o mais barato da OpenAI em out/2026; ver §11.5).
+> - Onde o texto abaixo cita Next.js, Route Handlers, next-intl, `next/font` ou `next/image`, vale o equivalente desta revisão.
+
+
 ---
 
 ## Sumário
@@ -86,7 +95,7 @@ Esta tabela também vai para o README.
 | Design responsivo | Shell desktop (≥ 768px) e shell mobile (< 768px) |
 | Identidade visual coerente | Design system próprio (§7) |
 | Hospedagem gratuita em nuvem | Vercel (plano Hobby) |
-| Front-end, back-end e nuvem | Next.js (front) + Route Handlers (back: IA, Spotify, WakaTime) + Vercel |
+| Front-end, back-end e nuvem | React + Vite (front) + Vercel Functions em `api/` (back: IA, Spotify, WakaTime) + Vercel |
 | README completo no template | §18 |
 
 ## 4. Escopo
@@ -115,14 +124,14 @@ Esta tabela também vai para o README.
 
 | Camada | Escolha | Por quê |
 |---|---|---|
-| Framework | **Next.js (App Router) + TypeScript (strict)** | Front e back no mesmo projeto. Os Route Handlers guardam as chaves secretas no servidor |
+| Framework | **React + Vite (JavaScript)** + React Router | Decisão do autor (rev. 01/10/2026). O back-end são Vercel Functions em `api/`, que guardam as chaves secretas no servidor |
 | Hospedagem | **Vercel** | Gratuita, previews por branch/PR (servem de entrega da Sprint 2) e deploy automático |
 | Estilo | **Tailwind CSS** + variáveis CSS (tokens) | Rápido e consistente; os tokens permitem tema claro/escuro |
 | Animação de UI | **Framer Motion** (pacote `motion`) | Janelas, dock, transições |
 | 3D | **React Three Fiber + drei** | Notebook montado em código (`RoundedBox`, `instancedMesh`), `ContactShadows`, `Environment` com `Lightformer` |
 | Sequência da intro | **GSAP** (timeline) | Abrir a tampa, acender a tela e mover a câmera em sequência |
 | Estado | **Zustand** | Gerenciador de janelas e estado global do sistema |
-| i18n | **next-intl** | Rotas `/pt` e `/en`, mensagens de UI, formatação de datas |
+| i18n | **i18next + react-i18next** | Rotas `/pt` e `/en`, mensagens de UI; datas com `Intl` |
 | Formulário | **React Hook Form + Zod** | Validação tipada com mensagens traduzidas |
 | E-mail | **EmailJS** (`@emailjs/browser`, não o legado `emailjs-com`) | Mesmo fluxo do guia do professor: e-mail de notificação + confirmação |
 | IA | **AI SDK** (`ai` + `@ai-sdk/openai` + `@ai-sdk/react`) + **OpenAI** | Streaming, `useChat` e ferramentas (tools). Trocar de provedor é trocar uma linha |
@@ -138,14 +147,14 @@ Esta tabela também vai para o README.
 
 ```mermaid
 flowchart LR
-  V[Visitante] --> FE["Next.js na Vercel<br/>Intro 3D + Sistema"]
+  V[Visitante] --> FE["React + Vite na Vercel<br/>Intro 3D + Sistema"]
   C[("src/content<br/>dados PT/EN")] --> FE
   C --> CHAT
-  FE -->|/api/chat| CHAT[Route Handler IA]
+  FE -->|/api/chat| CHAT[Vercel Function IA]
   CHAT --> RL[("Upstash Redis<br/>rate limit")]
   CHAT --> OAI[OpenAI API]
-  FE -->|/api/spotify| SP[Route Handler Spotify] --> SAPI[Spotify Web API]
-  FE -->|/api/wakatime| WK[Route Handler WakaTime] --> WAPI[WakaTime JSON embutível]
+  FE -->|/api/spotify| SP[Vercel Function Spotify] --> SAPI[Spotify Web API]
+  FE -->|/api/wakatime| WK[Vercel Function WakaTime] --> WAPI[WakaTime JSON embutível]
   FE -->|formulário| EJS[EmailJS] --> MAIL[E-mails]
 ```
 
@@ -268,8 +277,8 @@ interface AppDefinition {
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | servidor | Rate limit |
 | `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN` | servidor | Música |
 | `WAKATIME_LANGUAGES_URL`, `WAKATIME_ACTIVITY_URL` | servidor | Atividade (URLs dos JSONs embutíveis) |
-| `NEXT_PUBLIC_EMAILJS_SERVICE_ID`, `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_FOR_ME`, `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_FOR_SENDER`, `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY` | cliente | Contato (públicas por design do EmailJS; restringir domínios no painel) |
-| `NEXT_PUBLIC_SITE_URL` | cliente | URLs absolutas (OG, sitemap) |
+| `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID_FOR_ME`, `VITE_EMAILJS_TEMPLATE_ID_FOR_SENDER`, `VITE_EMAILJS_PUBLIC_KEY` | cliente | Contato (públicas por design do EmailJS; restringir domínios no painel) |
+| `VITE_SITE_URL` | cliente | URLs absolutas (OG, sitemap) |
 
 **Toda integração sem variável configurada deve degradar com elegância.** Mostra um estado vazio amigável e não quebra o sistema nem o build.
 
@@ -280,7 +289,7 @@ interface AppDefinition {
   - Cores: `--bg`, `--surface`, `--surface-glass`, `--text`, `--text-muted`, `--border`, `--accent`, `--accent-contrast`, `--shadow`.
   - Forma e efeito: raios de 10, 14 e 20px; blur de vidro (`backdrop-filter`) na barra de menu e no dock.
   - Versões clara e escura; o padrão segue o sistema.
-- **Tipografia:** uma sans moderna (sugestão: Geist) para a UI e uma mono (Geist Mono ou JetBrains Mono) para o Terminal. Carregar via `next/font`.
+- **Tipografia:** uma sans moderna (sugestão: Geist) para a UI e uma mono (Geist Mono ou JetBrains Mono) para o Terminal. Carregar via `next/font` (rev.: Fontsource, hospedadas junto com o site).
 - **Cor de destaque:** `[COR]`, definida em `site.config.ts`.
 - **Papéis de parede:** 2 a 4 opções originais, como gradientes ou formas abstratas em SVG/imagem otimizada. Um deles é o padrão. O mesmo papel aparece na tela do notebook 3D, para a transição ficar contínua.
 - **Ícones dos apps:** conjunto coerente, por exemplo quadrados arredondados com gradiente suave e um glifo do lucide no centro.
@@ -601,12 +610,12 @@ Regras:
 ### 12.3 EmailJS (Contato)
 - Pacote `@emailjs/browser`.
 - **Dois templates**, como no README do professor: *FOR ME* (para o autor, com nome, e-mail, mensagem e horário) e *FOR SENDER* (confirmação para `{{email}}`).
-- As variáveis `NEXT_PUBLIC_EMAILJS_*` são públicas por design. No painel do EmailJS, restringir os domínios permitidos ao domínio da Vercel e a `localhost`.
+- As variáveis `VITE_EMAILJS_*` são públicas por design. No painel do EmailJS, restringir os domínios permitidos ao domínio da Vercel e a `localhost`.
 - O README traz o guia completo e os templates HTML usados.
 
 ## 13. Internacionalização (PT/EN)
 
-- **next-intl** com `locales: ['pt', 'en']` e `defaultLocale: 'pt'`.
+- **i18next** com os idiomas `pt` e `en` (padrão `pt`); o idioma vem do primeiro segmento da URL.
 - **Textos de UI** em `messages/pt.json` e `messages/en.json`. **Nenhum texto de interface fixo no código.**
 - **Conteúdo** (bio, projetos…) usa o tipo `Localized` em `src/content`.
 - `<html lang>` correto e datas/horas com `Intl` conforme o idioma.
@@ -694,7 +703,7 @@ Regras:
 │   │   │                       # Music, Activity, Assistant, Terminal, Settings, System
 │   │   └── ui/                 # botões, chips, inputs, ícones
 │   ├── content/                # profile.ts, projects.ts, experiences.ts, skills.ts, types.ts
-│   ├── i18n/                   # configuração do next-intl
+│   ├── i18n/                   # configuração do i18next e mensagens PT/EN
 │   ├── lib/
 │   │   ├── apps.ts             # registro de apps
 │   │   ├── os-store.ts         # Zustand
