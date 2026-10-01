@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1200" viewBox="0 0 1920 1200" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#05363c"/>
+      <stop offset="1" stop-color="#021316"/>
+    </linearGradient>
+    <radialGradient id="g1" cx="0.78" cy="0.18" r="0.6">
+      <stop offset="0" stop-color="#2fd3b5" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#2fd3b5" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g2" cx="0.12" cy="0.85" r="0.6">
+      <stop offset="0" stop-color="#2f6bd8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#2f6bd8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="w" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9ff5e4" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#9ff5e4" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#9ff5e4" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1200" fill="url(#bg)"/>
+  <rect width="1920" height="1200" fill="url(#g1)"/>
+  <rect width="1920" height="1200" fill="url(#g2)"/>
+  <g fill="none" stroke="url(#w)" stroke-width="2">
+    <path d="M-40 520 C 360 420 700 640 1080 540 S 1700 380 1960 460"/>
+    <path d="M-40 580 C 380 480 720 700 1100 600 S 1720 440 1960 520"/>
+    <path d="M-40 640 C 400 540 740 760 1120 660 S 1740 500 1960 580"/>
+    <path d="M-40 700 C 420 600 760 820 1140 720 S 1760 560 1960 640"/>
+  </g>
+</svg>
