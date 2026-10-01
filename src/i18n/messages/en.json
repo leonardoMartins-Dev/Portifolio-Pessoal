@@ -1,0 +1,356 @@
+{
+  "meta": {
+    "title": "{{system}} — {{name}}",
+    "appTitle": "{{app}} — {{name}}",
+    "description": "{{name}}'s interactive portfolio: a 3D laptop with its own operating system inside."
+  },
+  "common": {
+    "close": "Close",
+    "minimize": "Minimize",
+    "maximize": "Maximize",
+    "restore": "Restore",
+    "back": "Back",
+    "open": "Open",
+    "download": "Download",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "loading": "Loading…",
+    "retry": "Try again",
+    "newTab": "(opens in a new tab)",
+    "and": "and"
+  },
+  "languages": {
+    "label": "Language",
+    "switchTo": "Switch language to {{language}}",
+    "names": {
+      "pt": "Portuguese",
+      "en": "English"
+    },
+    "endonyms": {
+      "pt": "Português",
+      "en": "English"
+    }
+  },
+  "theme": {
+    "label": "Theme",
+    "toggle": "Toggle theme",
+    "toLight": "Switch to light theme",
+    "toDark": "Switch to dark theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "intro": {
+    "hint": "Click to open",
+    "skip": "Skip intro",
+    "loading": "Loading the laptop…",
+    "powerOn": "Power on",
+    "off": "Powered off",
+    "hintTarget": "the laptop"
+  },
+  "boot": {
+    "label": "Starting {{system}}",
+    "skip": "Click or press any key to skip"
+  },
+  "menu": {
+    "logo": "System menu",
+    "aboutSystem": "About this system",
+    "settings": "Settings",
+    "replayIntro": "Replay intro",
+    "shutdown": "Shut down",
+    "desktop": "Desktop",
+    "assistant": "Assistant",
+    "openAssistant": "Open the assistant ({{shortcut}})",
+    "header": "Menu bar"
+  },
+  "dock": {
+    "label": "App dock",
+    "open": "open",
+    "credits": "© {{year}} {{name}}"
+  },
+  "desktop": {
+    "label": "Desktop",
+    "shortcuts": "Desktop shortcuts",
+    "resumeFile": "Résumé.pdf",
+    "shortcutHint": "Double-click or press Enter to open"
+  },
+  "window": {
+    "controls": "Window controls",
+    "resize": "Resize"
+  },
+  "firstVisit": {
+    "title": "Welcome to {{system}}",
+    "body": "Open apps from the dock below, or press {{shortcut}} to chat with the assistant.",
+    "dismiss": "Got it"
+  },
+  "notFound": {
+    "title": "App not found",
+    "body": "There is no app at “{{path}}”.",
+    "action": "Back to the desktop"
+  },
+  "errors": {
+    "appCrashed": "Something went wrong in this app.",
+    "retry": "Try again"
+  },
+  "mobile": {
+    "home": "Home screen",
+    "apps": "Apps",
+    "statusBar": "Status bar",
+    "nowPlaying": "Now playing",
+    "lastPlayed": "Last played",
+    "weekHours": "Coding this week",
+    "hoursShort": "{{hours}}h {{minutes}}m"
+  },
+  "about": {
+    "photoAlt": "Photo of {{name}}",
+    "intro": "Introduction",
+    "education": "Education",
+    "interests": "Interests and focus area",
+    "goals": "Goals",
+    "quickLinks": "Quick links",
+    "resume": "View résumé",
+    "contact": "Get in touch",
+    "github": "GitHub"
+  },
+  "projects": {
+    "heading": "Timeline",
+    "subtitle": "From oldest to newest",
+    "filterLabel": "Filter by technology",
+    "all": "All",
+    "repo": "Repository",
+    "demo": "Demo",
+    "showDetails": "More details",
+    "hideDetails": "Fewer details",
+    "featured": "Featured",
+    "technologies": "Technologies",
+    "empty": "No project uses this technology."
+  },
+  "experience": {
+    "heading": "Experience",
+    "filterLabel": "Filter by type",
+    "all": "All",
+    "present": "Present",
+    "empty": "No experience of this type yet.",
+    "types": {
+      "job": "Job",
+      "internship": "Internship",
+      "freelance": "Freelance",
+      "open-source": "Open source",
+      "event": "Event",
+      "research": "Research",
+      "volunteer": "Volunteering"
+    }
+  },
+  "skills": {
+    "heading": "Skills",
+    "level": "Level {{level}} of 5"
+  },
+  "resume": {
+    "downloadPt": "Download PT",
+    "downloadEn": "Download EN",
+    "open": "Open PDF",
+    "download": "Download",
+    "viewerTitle": "{{name}}'s résumé",
+    "previewAlt": "Preview of the résumé's first page",
+    "unavailable": "The résumé hasn't been published yet.",
+    "unavailableHint": "Meanwhile, check the LinkedIn profile.",
+    "fallback": "Your browser can't display the PDF here. Use the buttons to open or download it."
+  },
+  "contact": {
+    "heading": "Let's talk",
+    "subtitle": "Pick a channel or send a message through the form.",
+    "channels": "Contact channels",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "copyEmail": "Copy email",
+    "emailCopied": "Email copied!",
+    "whatsappMessage": "Hi, {{name}}! I saw your portfolio and would like to talk.",
+    "form": {
+      "title": "Send a message",
+      "name": "Name",
+      "namePlaceholder": "What's your name?",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "message": "Message",
+      "messagePlaceholder": "Write your message…",
+      "honeypot": "Do not fill in this field",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "counter": "{{count}}/{{max}}",
+      "success": "Message sent! You'll get a confirmation by email.",
+      "sendAnother": "Send another message",
+      "error": "Couldn't send right now. Try again or write directly to",
+      "unavailable": "The contact form isn't configured yet. Write directly to",
+      "subjectForMe": "New portfolio message from: {{name}}",
+      "subjectForSender": "I got your message!"
+    },
+    "errors": {
+      "nameMin": "Enter your name (at least 2 characters).",
+      "nameMax": "The name can have at most 80 characters.",
+      "emailInvalid": "Enter a valid email.",
+      "messageMin": "The message needs at least 10 characters.",
+      "messageMax": "The message can have at most 2000 characters."
+    }
+  },
+  "music": {
+    "nowPlaying": "Listening now",
+    "lastPlayed": "Last played",
+    "recent": "Recently played",
+    "top": "Top tracks this month",
+    "openInSpotify": "Open in Spotify",
+    "by": "{{artist}}",
+    "progress": "Track progress",
+    "dataVia": "data via Spotify",
+    "loading": "Checking what's playing…",
+    "unconfigured": "The Spotify connection isn't configured yet.",
+    "expired": "The Spotify connection expired and needs to be renewed.",
+    "error": "Couldn't reach Spotify right now.",
+    "playlistHint": "Meanwhile, listen to a playlist:",
+    "playlistTitle": "Spotify playlist",
+    "miniPlayer": "Now playing: {{track}} by {{artist}}. Open the Music app.",
+    "empty": "Nothing here yet."
+  },
+  "activity": {
+    "heading": "Coding in the last 7 days",
+    "total": "Weekly total",
+    "average": "Daily average",
+    "byDay": "By day",
+    "languages": "Languages",
+    "other": "Other",
+    "duration": "{{hours}}h {{minutes}}m",
+    "dayBar": "{{day}}: {{hours}}h {{minutes}}m",
+    "dataVia": "data via WakaTime",
+    "loading": "Loading stats…",
+    "unconfigured": "WakaTime stats aren't configured yet.",
+    "error": "Couldn't load the stats right now."
+  },
+  "assistant": {
+    "intro": "Ask about {{name}}, the projects or how to use the system.",
+    "placeholder": "Ask something…",
+    "inputLabel": "Message to the assistant",
+    "send": "Send",
+    "stop": "Stop",
+    "newChat": "New chat",
+    "suggestionsLabel": "Suggestions",
+    "suggestions": {
+      "projects": "What are his main projects?",
+      "react": "Does he have experience with React?",
+      "contact": "How do I get in touch?",
+      "howTo": "How do I use this system?"
+    },
+    "disclaimer": "AI-generated answers may contain mistakes.",
+    "thinking": "Thinking…",
+    "you": "You",
+    "bot": "Assistant",
+    "unavailable": "The assistant is unavailable right now.",
+    "rateLimited": "Too many questions in a row. Try again in a few minutes.",
+    "tooLong": "Messages can have at most 500 characters.",
+    "error": "Something went wrong while answering.",
+    "errorContact": "Reach me through the Contact app",
+    "openFull": "Open in the Assistant app",
+    "launcherTitle": "Assistant",
+    "launcherHint": "Esc to close",
+    "tools": {
+      "openApp": "Opening {{app}}",
+      "showProject": "Showing the project {{project}}",
+      "setLanguage": "Switching language to {{language}}",
+      "setTheme": "Switching to the {{theme}} theme",
+      "running": "Working…"
+    }
+  },
+  "terminal": {
+    "inputLabel": "Terminal command",
+    "welcome": "{{system}} {{version}} — type help to see the commands.",
+    "tribute": "A tribute to {{professor}}'s terminal portfolio.",
+    "notFound": "command not found: {{name}}. Type help to see the list.",
+    "usage": "usage: {{usage}}",
+    "unknownApp": "app not found: {{name}}. Apps: {{apps}}",
+    "unknownProject": "project not found.",
+    "opening": "opening {{app}}…",
+    "langChanged": "language: {{language}}",
+    "themeChanged": "theme: {{theme}}",
+    "asking": "asking the assistant…",
+    "helpTitle": "Available commands:",
+    "aliases": "aliases",
+    "commands": {
+      "help": "Lists the commands",
+      "about": "Profile summary",
+      "projects": "Lists the projects",
+      "experience": "Lists the experience",
+      "skills": "Lists the skills",
+      "contact": "Shows the contacts",
+      "resume": "Opens the Résumé",
+      "open": "Opens an app",
+      "lang": "Switches the language",
+      "theme": "Switches the theme",
+      "ask": "Asks the assistant",
+      "whoami": "Who are you?",
+      "neofetch": "System information",
+      "clear": "Clears the screen"
+    },
+    "neofetch": {
+      "os": "OS",
+      "host": "Host",
+      "shell": "Shell",
+      "locale": "Locale",
+      "theme": "Theme",
+      "apps": "Apps",
+      "uptime": "Uptime",
+      "resolution": "Resolution",
+      "stack": "Built with"
+    },
+    "uptime": "{{minutes}} min",
+    "contactLines": {
+      "email": "email",
+      "whatsapp": "whatsapp",
+      "linkedin": "linkedin",
+      "github": "github"
+    }
+  },
+  "settings": {
+    "language": "Language",
+    "theme": "Theme",
+    "wallpaper": "Wallpaper",
+    "wallpapers": {
+      "aurora": "Aurora",
+      "dune": "Dune",
+      "tide": "Tide",
+      "graphite": "Graphite"
+    },
+    "motion": "Motion",
+    "reduceMotion": "Reduce motion",
+    "reduceMotionHint": "Turns off animations and the 3D intro.",
+    "sound": "Sounds",
+    "soundHint": "Subtle sounds when opening and closing windows.",
+    "intro": "Intro",
+    "replayIntro": "Replay intro",
+    "replayIntroHint": "Shows the 3D laptop again."
+  },
+  "system": {
+    "version": "Version {{version}}",
+    "tagline": "A portfolio operating system, built from scratch.",
+    "builtWith": "Built with",
+    "credits": "Credits",
+    "creditsText": "Built by {{name}} for the DIAW course — Software Engineering, PUC Minas.",
+    "tribute": "The Terminal app is a tribute to {{professor}}'s terminal portfolio.",
+    "repo": "Source code on GitHub",
+    "repoSoon": "Repository coming soon.",
+    "stack": {
+      "react": "Interface",
+      "vite": "Build and dev server",
+      "three": "3D laptop",
+      "gsap": "Intro sequence",
+      "motion": "UI animations",
+      "zustand": "System and window state",
+      "i18next": "Portuguese and English",
+      "rhf": "Form and validation",
+      "emailjs": "Email delivery",
+      "aisdk": "Streaming AI assistant",
+      "upstash": "Assistant rate limiting",
+      "tailwind": "Styles",
+      "vercel": "Hosting and functions"
+    }
+  }
+}

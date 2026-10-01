@@ -1,0 +1,356 @@
+{
+  "meta": {
+    "title": "{{system}} — {{name}}",
+    "appTitle": "{{app}} — {{name}}",
+    "description": "Portfólio interativo de {{name}}: um notebook 3D com um sistema operacional próprio dentro."
+  },
+  "common": {
+    "close": "Fechar",
+    "minimize": "Minimizar",
+    "maximize": "Maximizar",
+    "restore": "Restaurar",
+    "back": "Voltar",
+    "open": "Abrir",
+    "download": "Baixar",
+    "copy": "Copiar",
+    "copied": "Copiado!",
+    "loading": "Carregando…",
+    "retry": "Tentar de novo",
+    "newTab": "(abre em nova aba)",
+    "and": "e"
+  },
+  "languages": {
+    "label": "Idioma",
+    "switchTo": "Mudar o idioma para {{language}}",
+    "names": {
+      "pt": "português",
+      "en": "inglês"
+    },
+    "endonyms": {
+      "pt": "Português",
+      "en": "English"
+    }
+  },
+  "theme": {
+    "label": "Tema",
+    "toggle": "Alternar tema",
+    "toLight": "Mudar para o tema claro",
+    "toDark": "Mudar para o tema escuro",
+    "light": "Claro",
+    "dark": "Escuro",
+    "system": "Sistema"
+  },
+  "intro": {
+    "hint": "Clique para abrir",
+    "skip": "Pular intro",
+    "loading": "Carregando o notebook…",
+    "powerOn": "Ligar",
+    "off": "Desligado",
+    "hintTarget": "o notebook"
+  },
+  "boot": {
+    "label": "Iniciando o {{system}}",
+    "skip": "Clique ou pressione qualquer tecla para pular"
+  },
+  "menu": {
+    "logo": "Menu do sistema",
+    "aboutSystem": "Sobre este sistema",
+    "settings": "Ajustes",
+    "replayIntro": "Rever intro",
+    "shutdown": "Desligar",
+    "desktop": "Área de trabalho",
+    "assistant": "Assistente",
+    "openAssistant": "Abrir o assistente ({{shortcut}})",
+    "header": "Barra de menu"
+  },
+  "dock": {
+    "label": "Dock de apps",
+    "open": "aberto",
+    "credits": "© {{year}} {{name}}"
+  },
+  "desktop": {
+    "label": "Área de trabalho",
+    "shortcuts": "Atalhos da área de trabalho",
+    "resumeFile": "Currículo.pdf",
+    "shortcutHint": "Clique duplo ou Enter para abrir"
+  },
+  "window": {
+    "controls": "Controles da janela",
+    "resize": "Redimensionar"
+  },
+  "firstVisit": {
+    "title": "Bem-vindo ao {{system}}",
+    "body": "Abra os apps pelo dock, aqui embaixo, ou pressione {{shortcut}} para conversar com o assistente.",
+    "dismiss": "Entendi"
+  },
+  "notFound": {
+    "title": "App não encontrado",
+    "body": "Não existe nenhum app em “{{path}}”.",
+    "action": "Voltar à área de trabalho"
+  },
+  "errors": {
+    "appCrashed": "Algo deu errado neste app.",
+    "retry": "Tentar de novo"
+  },
+  "mobile": {
+    "home": "Tela inicial",
+    "apps": "Apps",
+    "statusBar": "Barra de status",
+    "nowPlaying": "Tocando agora",
+    "lastPlayed": "Tocou por último",
+    "weekHours": "Programando na semana",
+    "hoursShort": "{{hours}} h {{minutes}} min"
+  },
+  "about": {
+    "photoAlt": "Foto de {{name}}",
+    "intro": "Apresentação",
+    "education": "Formação",
+    "interests": "Interesses e área de atuação",
+    "goals": "Objetivos",
+    "quickLinks": "Links rápidos",
+    "resume": "Ver currículo",
+    "contact": "Entrar em contato",
+    "github": "GitHub"
+  },
+  "projects": {
+    "heading": "Linha do tempo",
+    "subtitle": "Do mais antigo ao mais recente",
+    "filterLabel": "Filtrar por tecnologia",
+    "all": "Todas",
+    "repo": "Repositório",
+    "demo": "Demo",
+    "showDetails": "Mais detalhes",
+    "hideDetails": "Menos detalhes",
+    "featured": "Destaque",
+    "technologies": "Tecnologias",
+    "empty": "Nenhum projeto usa essa tecnologia."
+  },
+  "experience": {
+    "heading": "Experiências",
+    "filterLabel": "Filtrar por tipo",
+    "all": "Todas",
+    "present": "atual",
+    "empty": "Nenhuma experiência desse tipo ainda.",
+    "types": {
+      "job": "Trabalho",
+      "internship": "Estágio",
+      "freelance": "Freela",
+      "open-source": "Open source",
+      "event": "Evento",
+      "research": "Pesquisa",
+      "volunteer": "Voluntariado"
+    }
+  },
+  "skills": {
+    "heading": "Habilidades",
+    "level": "Nível {{level}} de 5"
+  },
+  "resume": {
+    "downloadPt": "Baixar PT",
+    "downloadEn": "Baixar EN",
+    "open": "Abrir PDF",
+    "download": "Baixar",
+    "viewerTitle": "Currículo de {{name}}",
+    "previewAlt": "Prévia da primeira página do currículo",
+    "unavailable": "O currículo ainda não foi publicado.",
+    "unavailableHint": "Enquanto isso, veja o perfil no LinkedIn.",
+    "fallback": "Seu navegador não exibe o PDF aqui. Use os botões para abrir ou baixar."
+  },
+  "contact": {
+    "heading": "Vamos conversar",
+    "subtitle": "Escolha um canal ou mande uma mensagem pelo formulário.",
+    "channels": "Canais de contato",
+    "email": "E-mail",
+    "whatsapp": "WhatsApp",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "copyEmail": "Copiar e-mail",
+    "emailCopied": "E-mail copiado!",
+    "whatsappMessage": "Olá, {{name}}! Vi seu portfólio e gostaria de conversar.",
+    "form": {
+      "title": "Envie uma mensagem",
+      "name": "Nome",
+      "namePlaceholder": "Como você se chama?",
+      "email": "E-mail",
+      "emailPlaceholder": "voce@exemplo.com",
+      "message": "Mensagem",
+      "messagePlaceholder": "Escreva sua mensagem…",
+      "honeypot": "Não preencha este campo",
+      "submit": "Enviar mensagem",
+      "sending": "Enviando…",
+      "counter": "{{count}}/{{max}}",
+      "success": "Mensagem enviada! Você vai receber uma confirmação por e-mail.",
+      "sendAnother": "Enviar outra mensagem",
+      "error": "Não foi possível enviar agora. Tente de novo ou escreva direto para",
+      "unavailable": "O envio pelo formulário ainda não está configurado. Escreva direto para",
+      "subjectForMe": "Nova mensagem do portfólio de: {{name}}",
+      "subjectForSender": "Recebi sua mensagem!"
+    },
+    "errors": {
+      "nameMin": "Informe seu nome (mínimo de 2 caracteres).",
+      "nameMax": "O nome pode ter no máximo 80 caracteres.",
+      "emailInvalid": "Informe um e-mail válido.",
+      "messageMin": "A mensagem precisa de pelo menos 10 caracteres.",
+      "messageMax": "A mensagem pode ter no máximo 2000 caracteres."
+    }
+  },
+  "music": {
+    "nowPlaying": "Ouvindo agora",
+    "lastPlayed": "Tocou por último",
+    "recent": "Tocadas recentemente",
+    "top": "Mais ouvidas no último mês",
+    "openInSpotify": "Abrir no Spotify",
+    "by": "{{artist}}",
+    "progress": "Progresso da faixa",
+    "dataVia": "dados via Spotify",
+    "loading": "Buscando o que está tocando…",
+    "unconfigured": "A conexão com o Spotify ainda não está configurada.",
+    "expired": "A conexão com o Spotify expirou e precisa ser renovada.",
+    "error": "Não foi possível falar com o Spotify agora.",
+    "playlistHint": "Enquanto isso, ouça uma playlist:",
+    "playlistTitle": "Playlist no Spotify",
+    "miniPlayer": "Tocando agora: {{track}}, de {{artist}}. Abrir o app Música.",
+    "empty": "Nada por aqui ainda."
+  },
+  "activity": {
+    "heading": "Programando nos últimos 7 dias",
+    "total": "Total na semana",
+    "average": "Média diária",
+    "byDay": "Por dia",
+    "languages": "Linguagens",
+    "other": "Outras",
+    "duration": "{{hours}} h {{minutes}} min",
+    "dayBar": "{{day}}: {{hours}} h {{minutes}} min",
+    "dataVia": "dados via WakaTime",
+    "loading": "Carregando estatísticas…",
+    "unconfigured": "As estatísticas do WakaTime ainda não estão configuradas.",
+    "error": "Não foi possível carregar as estatísticas agora."
+  },
+  "assistant": {
+    "intro": "Pergunte sobre {{name}}, os projetos ou como usar o sistema.",
+    "placeholder": "Pergunte algo…",
+    "inputLabel": "Mensagem para o assistente",
+    "send": "Enviar",
+    "stop": "Parar",
+    "newChat": "Nova conversa",
+    "suggestionsLabel": "Sugestões",
+    "suggestions": {
+      "projects": "Quais são seus principais projetos?",
+      "react": "Ele tem experiência com React?",
+      "contact": "Como entro em contato?",
+      "howTo": "Como uso este sistema?"
+    },
+    "disclaimer": "Respostas geradas por IA podem conter erros.",
+    "thinking": "Pensando…",
+    "you": "Você",
+    "bot": "Assistente",
+    "unavailable": "O assistente está indisponível no momento.",
+    "rateLimited": "Muitas perguntas seguidas. Tente de novo em alguns minutos.",
+    "tooLong": "A mensagem pode ter no máximo 500 caracteres.",
+    "error": "Algo deu errado ao responder.",
+    "errorContact": "Fale comigo pelo app Contato",
+    "openFull": "Abrir no app Assistente",
+    "launcherTitle": "Assistente",
+    "launcherHint": "Esc para fechar",
+    "tools": {
+      "openApp": "Abrindo {{app}}",
+      "showProject": "Mostrando o projeto {{project}}",
+      "setLanguage": "Mudando o idioma para {{language}}",
+      "setTheme": "Mudando para o tema {{theme}}",
+      "running": "Executando…"
+    }
+  },
+  "terminal": {
+    "inputLabel": "Comando do terminal",
+    "welcome": "{{system}} {{version}} — digite help para ver os comandos.",
+    "tribute": "Homenagem ao portfólio-terminal do {{professor}}.",
+    "notFound": "comando não encontrado: {{name}}. Digite help para ver a lista.",
+    "usage": "uso: {{usage}}",
+    "unknownApp": "app não encontrado: {{name}}. Apps: {{apps}}",
+    "unknownProject": "projeto não encontrado.",
+    "opening": "abrindo {{app}}…",
+    "langChanged": "idioma: {{language}}",
+    "themeChanged": "tema: {{theme}}",
+    "asking": "perguntando ao assistente…",
+    "helpTitle": "Comandos disponíveis:",
+    "aliases": "aliases",
+    "commands": {
+      "help": "Lista os comandos",
+      "about": "Resumo do perfil",
+      "projects": "Lista os projetos",
+      "experience": "Lista as experiências",
+      "skills": "Lista as habilidades",
+      "contact": "Mostra os contatos",
+      "resume": "Abre o Currículo",
+      "open": "Abre um app",
+      "lang": "Troca o idioma",
+      "theme": "Troca o tema",
+      "ask": "Pergunta ao assistente",
+      "whoami": "Quem é você?",
+      "neofetch": "Informações do sistema",
+      "clear": "Limpa a tela"
+    },
+    "neofetch": {
+      "os": "Sistema",
+      "host": "Host",
+      "shell": "Shell",
+      "locale": "Idioma",
+      "theme": "Tema",
+      "apps": "Apps",
+      "uptime": "Ligado há",
+      "resolution": "Resolução",
+      "stack": "Feito com"
+    },
+    "uptime": "{{minutes}} min",
+    "contactLines": {
+      "email": "e-mail",
+      "whatsapp": "whatsapp",
+      "linkedin": "linkedin",
+      "github": "github"
+    }
+  },
+  "settings": {
+    "language": "Idioma",
+    "theme": "Tema",
+    "wallpaper": "Papel de parede",
+    "wallpapers": {
+      "aurora": "Aurora",
+      "dune": "Duna",
+      "tide": "Maré",
+      "graphite": "Grafite"
+    },
+    "motion": "Movimento",
+    "reduceMotion": "Reduzir movimento",
+    "reduceMotionHint": "Desliga animações e a intro 3D.",
+    "sound": "Sons",
+    "soundHint": "Sons discretos ao abrir e fechar janelas.",
+    "intro": "Intro",
+    "replayIntro": "Rever intro",
+    "replayIntroHint": "Mostra o notebook 3D de novo."
+  },
+  "system": {
+    "version": "Versão {{version}}",
+    "tagline": "Um sistema operacional de portfólio, feito do zero.",
+    "builtWith": "Feito com",
+    "credits": "Créditos",
+    "creditsText": "Desenvolvido por {{name}} para a disciplina DIAW — Engenharia de Software, PUC Minas.",
+    "tribute": "O app Terminal é uma homenagem ao portfólio-terminal do {{professor}}.",
+    "repo": "Código-fonte no GitHub",
+    "repoSoon": "Repositório em breve.",
+    "stack": {
+      "react": "Interface",
+      "vite": "Build e servidor de desenvolvimento",
+      "three": "Notebook 3D",
+      "gsap": "Sequência da intro",
+      "motion": "Animações da interface",
+      "zustand": "Estado do sistema e janelas",
+      "i18next": "Português e inglês",
+      "rhf": "Formulário e validação",
+      "emailjs": "Envio de e-mail",
+      "aisdk": "Assistente de IA com streaming",
+      "upstash": "Limite de uso do assistente",
+      "tailwind": "Estilos",
+      "vercel": "Hospedagem e funções"
+    }
+  }
+}
