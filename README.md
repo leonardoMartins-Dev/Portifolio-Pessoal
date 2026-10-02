@@ -99,6 +99,7 @@
 
 - 💻 **Intro 3D:** notebook que abre, liga e leva a câmera para dentro da tela. Pulável, acessível por teclado e desativada com movimento reduzido ou sem WebGL.
 - 🪟 **Gerenciador de janelas:** abrir saindo do dock, focar, arrastar, redimensionar, minimizar para o dock, maximizar (ou clique duplo no título) e fechar. Cada app é único e tem rota própria.
+- 🖥️ **Área de trabalho:** ícones de todos os apps à esquerda (clique duplo ou Enter abre) e GitHub/LinkedIn à direita.
 - 📱 **Versão mobile:** tela inicial com perfil, widgets, grade de apps e dock; apps em tela cheia; o Voltar do navegador fecha o app.
 - 🌐 **PT/EN:** rotas `/pt` e `/en`; a troca mantém o app aberto (`/pt/projects` ↔ `/en/projects`).
 - 🌗 **Tema claro, escuro ou do sistema**, 4 papéis de parede originais.

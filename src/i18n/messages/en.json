@@ -70,8 +70,8 @@
   },
   "desktop": {
     "label": "Desktop",
-    "shortcuts": "Desktop shortcuts",
-    "resumeFile": "Résumé.pdf",
+    "apps": "Desktop apps",
+    "links": "Links",
     "shortcutHint": "Double-click or press Enter to open"
   },
   "window": {

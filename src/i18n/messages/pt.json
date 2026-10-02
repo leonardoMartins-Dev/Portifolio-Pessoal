@@ -70,8 +70,8 @@
   },
   "desktop": {
     "label": "Área de trabalho",
-    "shortcuts": "Atalhos da área de trabalho",
-    "resumeFile": "Currículo.pdf",
+    "apps": "Apps da área de trabalho",
+    "links": "Links",
     "shortcutHint": "Clique duplo ou Enter para abrir"
   },
   "window": {

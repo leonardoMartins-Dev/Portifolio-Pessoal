@@ -109,3 +109,20 @@ test('Terminal executa comandos e abre apps', async ({ page }) => {
   await input.press('Enter');
   await expect(page.locator('[data-window="contact"]')).toBeVisible();
 });
+
+test('ícones da área de trabalho: apps à esquerda abrem com clique duplo ou Enter', async ({
+  page,
+}) => {
+  await markVisited(page);
+  await skipIntro(page);
+  const apps = page.getByRole('navigation', { name: 'Apps da área de trabalho' });
+  await expect(apps.getByRole('button')).toHaveCount(DOCK_APPS.length);
+  await page.locator('[data-desktop-app="experience"]').dblclick();
+  await expect(page.locator('[data-window="experience"]')).toBeVisible();
+  await page.locator('[data-desktop-app="resume"]').focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('[data-window="resume"]')).toBeVisible();
+  const links = page.getByRole('navigation', { name: 'Links' });
+  await expect(links.getByRole('button', { name: 'GitHub' })).toBeVisible();
+  await expect(links.getByRole('button', { name: 'LinkedIn' })).toBeVisible();
+});

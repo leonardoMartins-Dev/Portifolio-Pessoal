@@ -8,6 +8,7 @@
 > - **i18n:** i18next + react-i18next (rotas `/pt` e `/en` com React Router).
 > - **Variáveis públicas:** prefixo `VITE_` (não `NEXT_PUBLIC_`).
 > - **Nome do sistema (decisão do autor):** Portifólio. **Provisórios até o autor decidir:** cor de destaque `#5a67f2` e logo (monograma "LM"), ambos em `src/site.config.js`.
+> - **Área de trabalho (decisão do autor):** ícones de todos os apps do dock na coluna da esquerda; GitHub e LinkedIn à direita (substitui os atalhos da §9.1).
 > - **Modelo de IA padrão:** `gpt-6-luna` (o mais barato da OpenAI em out/2026; ver §11.5).
 > - Onde o texto abaixo cita Next.js, Route Handlers, next-intl, `next/font` ou `next/image`, vale o equivalente desta revisão.
 
