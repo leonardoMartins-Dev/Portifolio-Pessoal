@@ -1,5 +1,5 @@
 /**
- * EmailJS (§12.3). As variáveis VITE_EMAILJS_* são públicas por design;
+ * EmailJS (§12.4). As variáveis VITE_EMAILJS_* são públicas por design;
  * restrinja os domínios permitidos no painel do EmailJS.
  */
 export const emailConfig = {

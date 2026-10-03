@@ -22,8 +22,9 @@ export function prefersReducedMotion() {
 /**
  * Fase inicial do sistema (§8.3):
  * - deep link (/{locale}/{appId}) → direto ao desktop, sem boot;
- * - intro já vista na sessão, movimento reduzido ou sem WebGL → boot curto em HTML;
- * - senão → intro 3D.
+ * - intro já vista na sessão (recarregou) → boot curto em HTML;
+ * - movimento reduzido ou sem WebGL → tela de bloqueio, sem a mesa 3D;
+ * - senão → intro 3D (mesa), que termina na tela de bloqueio.
  */
 export function decideInitialPhase({
   pathname,
@@ -34,7 +35,8 @@ export function decideInitialPhase({
   const segments = pathname.split('/').filter(Boolean);
   const deepLink = segments.length >= 2 || (segments.length === 1 && !isLocale(segments[0]));
   if (deepLink) return 'desktop';
-  if (introSeen || reducedMotion || !supportsIntro()) return 'boot';
+  if (introSeen) return 'boot';
+  if (reducedMotion || !supportsIntro()) return 'lock';
   return 'intro';
 }
 

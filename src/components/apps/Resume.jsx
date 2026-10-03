@@ -55,11 +55,11 @@ export default function Resume() {
 
   const downloads = (
     <>
-      <Button size="sm" href={profile.resume.pt} download>
+      <Button size="sm" href={profile.resume.pt} download={profile.resumeFileName.pt}>
         <Download aria-hidden className="size-3.5" />
         {t('resume.downloadPt')}
       </Button>
-      <Button size="sm" href={profile.resume.en} download>
+      <Button size="sm" href={profile.resume.en} download={profile.resumeFileName.en}>
         <Download aria-hidden className="size-3.5" />
         {t('resume.downloadEn')}
       </Button>
@@ -90,7 +90,9 @@ export default function Resume() {
         </Button>
         {downloads}
       </div>
+      {/* key: o <object> não recarrega sozinho quando `data` muda (troca PT ↔ EN). */}
       <object
+        key={pdf}
         data={pdf}
         type="application/pdf"
         aria-label={t('resume.viewerTitle', { name: profile.name })}

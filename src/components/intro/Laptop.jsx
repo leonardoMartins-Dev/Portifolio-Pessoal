@@ -5,17 +5,17 @@ import { BASE, HINGE, LID, SCREEN } from './laptop-geometry.js';
 
 const COLORS = {
   light: {
-    metal: '#c9ccd3',
-    keys: '#202227',
-    well: '#aeb2ba',
-    trackpad: '#bfc2c9',
+    metal: '#c3c6cc',
+    keys: '#1c1d21',
+    well: '#a9adb5',
+    trackpad: '#b9bcc3',
     logo: '#9ea2ab',
   },
   dark: {
-    metal: '#6a6e77',
-    keys: '#17181c',
-    well: '#45484f',
-    trackpad: '#5a5e66',
+    metal: '#5c5f66',
+    keys: '#141518',
+    well: '#46484e',
+    trackpad: '#55585f',
     logo: '#8b909a',
   },
 };
@@ -54,9 +54,10 @@ const KEYS = keyLayout();
 /**
  * Notebook montado em código (sem Blender): base com teclado em
  * instancedMesh e trackpad; tampa com pivô na dobradiça, moldura, tela 16:10
- * e o logo do autor na parte de trás.
+ * e o logo do autor na parte de trás. O LED na borda da frente pulsa enquanto
+ * o notebook espera o clique.
  */
-export function Laptop({ theme, lidRef, screenTexture, logoTexture, ...props }) {
+export function Laptop({ theme, lidRef, ledRef, screenTexture, logoTexture, ...props }) {
   const colors = COLORS[theme] ?? COLORS.dark;
   const keysRef = useRef(null);
 
@@ -74,9 +75,9 @@ export function Laptop({ theme, lidRef, screenTexture, logoTexture, ...props }) 
   const metal = (
     <meshStandardMaterial
       color={colors.metal}
-      metalness={0.85}
-      roughness={0.32}
-      envMapIntensity={1.1}
+      metalness={0.9}
+      roughness={0.38}
+      envMapIntensity={1.2}
     />
   );
 
@@ -89,9 +90,16 @@ export function Laptop({ theme, lidRef, screenTexture, logoTexture, ...props }) 
         smoothness={4}
         position={[0, BASE.h / 2, 0]}
         castShadow
+        receiveShadow
       >
         {metal}
       </RoundedBox>
+
+      {/* LED de "dormindo" na borda da frente */}
+      <mesh position={[BASE.w * 0.38, BASE.h * 0.55, BASE.d / 2 + 0.002]}>
+        <planeGeometry args={[0.07, 0.022]} />
+        <meshBasicMaterial ref={ledRef} color="#ffffff" toneMapped={false} />
+      </mesh>
 
       {/* Área do teclado, levemente mais escura (efeito rebaixado) */}
       <mesh rotation-x={-Math.PI / 2} position={[0, BASE.h + 0.0008, -0.38]}>

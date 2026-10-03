@@ -58,8 +58,12 @@ function osState(set, get) {
     }));
 
   return {
-    phase: 'desktop', // 'intro' | 'boot' | 'desktop'
+    phase: 'desktop', // 'intro' | 'boot' | 'lock' | 'desktop' | 'off'
     introMode: 'open', // 'open' | 'shutdown'
+    // App a abrir quando o visitante sair da tela de bloqueio (atalho da mesa 3D ou notificação).
+    pendingApp: null,
+    // A tela de bloqueio veio do menu "Bloquear" (com o desktop já visível)?
+    lockedFromDesktop: false,
     windows: [],
     focusedId: null,
     zCounter: 0,
@@ -68,7 +72,19 @@ function osState(set, get) {
     launcherOpen: false,
     ...defaultPrefs,
 
-    setPhase: (phase, introMode = 'open') => set({ phase, introMode }),
+    setPhase: (phase, introMode = 'open') => set({ phase, introMode, lockedFromDesktop: false }),
+
+    setPendingApp: (pendingApp) => set({ pendingApp }),
+
+    /** "Bloquear": a tela de bloqueio cobre o desktop; as janelas continuam abertas. */
+    lock: () => set({ phase: 'lock', lockedFromDesktop: true, launcherOpen: false }),
+
+    /** Sai da tela de bloqueio e devolve o app pendente (se houver), já limpo. */
+    unlock: () => {
+      const { pendingApp } = get();
+      set({ phase: 'desktop', pendingApp: null, lockedFromDesktop: false });
+      return pendingApp;
+    },
 
     setWorkArea: (area) =>
       set((state) => ({

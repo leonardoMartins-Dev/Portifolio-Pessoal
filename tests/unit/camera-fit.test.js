@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { coverDistance, visibleSize } from '../../src/lib/camera-fit.js';
+import { coverDistance, fitDistance, visibleSize } from '../../src/lib/camera-fit.js';
 
 const SCREEN = { planeWidth: 2.8, planeHeight: 1.75 };
 const FOV = 35;
@@ -32,5 +32,16 @@ describe('enquadramento final da intro (cover)', () => {
     const visible = visibleSize({ distance, fov: FOV, aspect: 16 / 10 });
     expect(visible.width).toBeCloseTo(2.8);
     expect(visible.height).toBeCloseTo(1.75);
+  });
+});
+
+describe('enquadramento inicial da mesa (fit)', () => {
+  it.each(VIEWPORTS)('a área pedida cabe inteira no viewport %ix%i', (width, height) => {
+    const aspect = width / height;
+    const area = { width: 15.5, height: 10.4 };
+    const distance = fitDistance({ ...area, fov: FOV, aspect });
+    const visible = visibleSize({ distance, fov: FOV, aspect });
+    expect(visible.width).toBeGreaterThanOrEqual(area.width - 1e-9);
+    expect(visible.height).toBeGreaterThanOrEqual(area.height - 1e-9);
   });
 });

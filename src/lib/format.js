@@ -54,6 +54,58 @@ export function formatTime(date, locale) {
   }).format(date);
 }
 
+/** "quinta-feira, 2 de outubro" / "Thursday, October 2" (tela de bloqueio). */
+export function formatLongDate(date, locale) {
+  return new Intl.DateTimeFormat(intlLocale(locale), {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  }).format(date);
+}
+
+/** 'YYYY-MM' → "set" (pt) / "Sep" (en). */
+export function formatMonthName(yearMonth, locale) {
+  return new Intl.DateTimeFormat(intlLocale(locale), { month: 'short', timeZone: 'UTC' })
+    .format(toDate(yearMonth))
+    .replace('.', '');
+}
+
+/** 'YYYY-MM-DD' → "2 de out. de 2026" (pt) / "Oct 2, 2026" (en). */
+export function formatDate(isoDate, locale) {
+  return new Intl.DateTimeFormat(intlLocale(locale), {
+    dateStyle: 'medium',
+    timeZone: 'UTC',
+  }).format(new Date(`${isoDate}T00:00:00Z`));
+}
+
+/** 'YYYY-MM-DD' → "14 de set." (pt) / "Sep 14" (en). */
+export function formatDayMonth(isoDate, locale) {
+  return new Intl.DateTimeFormat(intlLocale(locale), {
+    day: 'numeric',
+    month: 'short',
+    timeZone: 'UTC',
+  }).format(new Date(`${isoDate}T00:00:00Z`));
+}
+
+const RELATIVE_UNITS = [
+  ['year', 365 * 86_400],
+  ['month', 30 * 86_400],
+  ['week', 7 * 86_400],
+  ['day', 86_400],
+  ['hour', 3600],
+  ['minute', 60],
+];
+
+/** Data ISO → "há 3 dias", "ontem" (pt) / "3 days ago", "yesterday" (en). */
+export function formatRelative(isoDate, locale, now = new Date()) {
+  const seconds = (Date.parse(isoDate) - now.getTime()) / 1000;
+  const format = new Intl.RelativeTimeFormat(intlLocale(locale), { numeric: 'auto' });
+  for (const [unit, size] of RELATIVE_UNITS) {
+    if (Math.abs(seconds) >= size) return format.format(Math.round(seconds / size), unit);
+  }
+  return format.format(0, 'second');
+}
+
 export function formatWeekday(isoDate, locale) {
   return new Intl.DateTimeFormat(intlLocale(locale), {
     weekday: 'short',

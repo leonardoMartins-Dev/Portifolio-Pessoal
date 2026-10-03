@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { existsSync } from 'node:fs';
+import { certificates } from '../../src/content/certificates.js';
 import { experiences } from '../../src/content/experiences.js';
 import { profile } from '../../src/content/profile.js';
 import { projects } from '../../src/content/projects.js';
@@ -12,16 +14,18 @@ import { localizedPath } from '../../src/lib/os-bridge.js';
 const YEAR_MONTH = /^\d{4}-(0[1-9]|1[0-2])$/;
 
 describe('registro de apps', () => {
-  it('tem os 12 apps da especificação, com IDs únicos', () => {
+  it('tem os 14 apps (12 da especificação + Certificados e GitHub), com IDs únicos', () => {
     expect(APP_IDS).toEqual([
       'about',
       'projects',
       'experience',
       'skills',
+      'certificates',
       'resume',
       'contact',
       'music',
       'activity',
+      'github',
       'assistant',
       'terminal',
       'settings',
@@ -63,6 +67,21 @@ describe('conteúdo', () => {
     }
   });
 
+  it('certificados: IDs únicos, data YYYY-MM-DD e arquivos que existem em public/', () => {
+    const ids = certificates.map((certificate) => certificate.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const certificate of certificates) {
+      expect(certificate.date, certificate.id).toMatch(
+        /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/,
+      );
+      expect(certificate.description.pt && certificate.description.en, certificate.id).toBeTruthy();
+      for (const path of [certificate.file, certificate.image].filter(Boolean)) {
+        expect(existsSync(`public${path}`), path).toBe(true);
+      }
+      if (certificate.credentialUrl) expect(certificate.credentialUrl).toMatch(/^https:\/\//);
+    }
+  });
+
   it('WhatsApp só com dígitos e DDI', () => {
     expect(profile.whatsapp).toMatch(/^\d{12,15}$/);
     expect(formatPhone(profile.whatsapp)).toBe('+55 (31) 98745-1563');
@@ -100,10 +119,15 @@ describe('rotas e idioma', () => {
     expect(decideInitialPhase({ ...base, pathname: '/pt' })).toBe('intro');
     expect(decideInitialPhase({ ...base, pathname: '/en/projects' })).toBe('desktop');
     expect(decideInitialPhase({ ...base, pathname: '/projects' })).toBe('desktop');
+    // Recarregou na mesma sessão: boot curto, sem tela de bloqueio.
     expect(decideInitialPhase({ ...base, pathname: '/pt', introSeen: true })).toBe('boot');
-    expect(decideInitialPhase({ ...base, pathname: '/pt', reducedMotion: true })).toBe('boot');
+    expect(
+      decideInitialPhase({ ...base, pathname: '/pt', introSeen: true, reducedMotion: true }),
+    ).toBe('boot');
+    // Primeira visita sem a mesa 3D: direto na tela de bloqueio.
+    expect(decideInitialPhase({ ...base, pathname: '/pt', reducedMotion: true })).toBe('lock');
     expect(decideInitialPhase({ ...base, pathname: '/pt', supportsIntro: () => false })).toBe(
-      'boot',
+      'lock',
     );
   });
 });

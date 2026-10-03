@@ -13,7 +13,7 @@ import { Spinner } from '../ui/Spinner.jsx';
 import { Markdown } from './Markdown.jsx';
 
 export const MAX_INPUT_CHARS = 500;
-const SUGGESTIONS = ['projects', 'react', 'contact', 'howTo'];
+const SUGGESTIONS = ['projects', 'springBoot', 'contact', 'howTo'];
 
 /** Disponibilidade do assistente (GET /api/chat), com cache. */
 function useAvailability() {

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { certificates } from '../../src/content/certificates.js';
 import { experiences } from '../../src/content/experiences.js';
 import { profile } from '../../src/content/profile.js';
 import { projects } from '../../src/content/projects.js';
@@ -12,13 +13,14 @@ import {
   resolveCommand,
   runCommand,
 } from '../../src/lib/terminal.js';
+import { sortProjects } from '../../src/lib/timeline.js';
 import { siteConfig } from '../../src/site.config.js';
 
 const ctx = {
   t: i18n.getFixedT('pt'),
   locale: 'pt',
   l: (value) => value?.pt ?? '',
-  content: { profile, projects, experiences, skills },
+  content: { profile, projects, experiences, skills, certificates },
   apps: APP_META,
   site: siteConfig,
   theme: 'dark',
@@ -88,17 +90,32 @@ describe('comandos do Terminal', () => {
     ]);
   });
 
-  it('projects lista os projetos em ordem crescente', () => {
+  it('projects lista os projetos do mais recente ao mais antigo, como o app', () => {
     const { lines } = runCommand('projetos', ctx);
-    expect(lines.map((line) => line.text.includes(projects[0].name)).filter(Boolean)).toHaveLength(
-      1,
-    );
     expect(lines).toHaveLength(projects.length);
+    sortProjects(projects).forEach((project, index) => {
+      expect(lines[index].text).toContain(project.name);
+    });
   });
 
   it('contact mostra os canais com links', () => {
     const { lines } = runCommand('contato', ctx);
     expect(lines.some((line) => line.href === `mailto:${profile.email}`)).toBe(true);
+  });
+
+  it('certificados lista do mais recente ao mais antigo, com emissor e carga horária', () => {
+    const { lines } = runCommand('certificados', ctx);
+    expect(lines).toHaveLength(certificates.length);
+    expect(lines[0].text).toBe(
+      'out 2026   Gemini Academy para Universitários 2026 — Google for Education (2 h)',
+    );
+  });
+
+  it('about mostra o resumo e os hobbies', () => {
+    const { lines } = runCommand('sobre', ctx);
+    const text = lines.map((line) => line.text).join('\n');
+    expect(text).toContain(profile.name);
+    expect(text).toContain('Fora do código: One Piece · Tênis · Atlético Mineiro');
   });
 
   it('whoami e neofetch usam o perfil', () => {

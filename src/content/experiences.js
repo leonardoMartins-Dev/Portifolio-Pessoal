@@ -24,31 +24,23 @@ export const EXPERIENCE_TYPES = [
   'volunteer',
 ];
 
-// TODO(conteúdo): substituir as 2 experiências de exemplo pelas reais.
+// Fonte: currículo.
 /** @type {Experience[]} */
 export const experiences = [
   {
-    id: 'exemplo-estagio',
-    organization: 'Organização de exemplo',
-    role: { pt: 'Cargo (a preencher)', en: 'Role (to be filled in)' },
-    type: 'internship',
-    start: '2025-08',
-    end: null,
-    description: {
-      pt: 'Descrição da experiência (a preencher).',
-      en: 'Experience description (to be filled in).',
+    id: 'tropeiro-tia-bete',
+    organization: 'Restaurante Tropeiro da Tia Bete',
+    role: {
+      pt: 'Auxiliar Administrativo e Operacional',
+      en: 'Administrative and Operations Assistant',
     },
-  },
-  {
-    id: 'exemplo-evento',
-    organization: 'Evento de exemplo',
-    role: { pt: 'Participação (a preencher)', en: 'Participation (to be filled in)' },
-    type: 'event',
-    start: '2025-05',
-    end: '2025-05',
+    type: 'job',
+    start: '2026-01',
+    end: null,
+    location: { pt: 'Belo Horizonte, MG', en: 'Belo Horizonte, MG, Brazil' },
     description: {
-      pt: 'Descrição da experiência (a preencher).',
-      en: 'Experience description (to be filled in).',
+      pt: 'Criei e gerencio os canais de delivery do restaurante nas plataformas iFood e 99Food. Também cuido das redes sociais do estabelecimento e opero o caixa, organizando o fluxo de atendimento ao cliente.',
+      en: "Set up and manage the restaurant's delivery channels on the iFood and 99Food platforms. I also run the restaurant's social media and operate the cash register, organizing the customer service flow.",
     },
   },
 ];

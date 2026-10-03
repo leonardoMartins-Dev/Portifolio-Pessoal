@@ -1,4 +1,4 @@
-import { createOpenAI } from '@ai-sdk/openai';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createAssistantResponse, DEFAULT_MODEL } from '../server/assistant.js';
 import { parseChatRequest } from '../server/chat-request.js';
 import { clientIp, json } from '../server/http.js';
@@ -10,14 +10,14 @@ export const config = { maxDuration: 30 };
 /** GET /api/chat → o assistente está disponível? (sem expor a chave) */
 export function GET() {
   return json(
-    { available: Boolean(process.env.OPENAI_API_KEY) },
+    { available: Boolean(process.env.GOOGLE_GENERATIVE_AI_API_KEY) },
     { headers: { 'cache-control': 'no-store' } },
   );
 }
 
 /** POST /api/chat → resposta do assistente em streaming. */
 export async function POST(request) {
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
   if (!apiKey) return json({ error: 'unavailable' }, { status: 503 });
 
   let body;
@@ -38,12 +38,12 @@ export async function POST(request) {
     );
   }
 
-  // Privacidade: o conteúdo das conversas não é armazenado nem logado.
+  // Privacidade: o conteúdo das conversas não é armazenado nem logado por este servidor.
   try {
-    const modelId = process.env.OPENAI_MODEL || DEFAULT_MODEL;
-    const openai = createOpenAI({ apiKey });
+    const modelId = process.env.GEMINI_MODEL || DEFAULT_MODEL;
+    const google = createGoogleGenerativeAI({ apiKey });
     return await createAssistantResponse({
-      model: openai(modelId),
+      model: google(modelId),
       modelId,
       messages: parsed.messages,
       locale: parsed.locale,

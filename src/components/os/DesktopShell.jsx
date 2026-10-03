@@ -71,6 +71,8 @@ function useGlobalShortcuts() {
   useEffect(() => {
     function onKeyDown(event) {
       const state = useOS.getState();
+      // Bloqueado: as teclas são da tela de bloqueio.
+      if (state.phase !== 'desktop') return;
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
         state.toggleLauncher();

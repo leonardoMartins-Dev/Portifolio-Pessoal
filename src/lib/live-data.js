@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react';
 
 /**
- * Pequeno cache compartilhado para os dados ao vivo (Spotify, WakaTime).
+ * Pequeno cache compartilhado para os dados ao vivo (Spotify, WakaTime, GitHub).
  * Vários componentes (mini player, app Música, widget do celular) leem o
  * mesmo dado com uma única requisição. O polling só roda com a aba visível.
  */
@@ -85,3 +85,7 @@ export const useSpotify = spotifyResource.use;
 /** WakaTime: estatísticas da semana (o servidor guarda em cache por 1h). */
 export const wakatimeResource = createLiveResource('/api/wakatime');
 export const useWakatime = wakatimeResource.use;
+
+/** GitHub: repositórios, commits e contribuições (o servidor guarda em cache por 30 min). */
+export const githubResource = createLiveResource('/api/github');
+export const useGithub = githubResource.use;

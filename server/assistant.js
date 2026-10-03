@@ -7,18 +7,31 @@ import {
 import { buildSystemPrompt } from '../src/lib/ai/system-prompt.js';
 import { assistantTools } from '../src/lib/ai/tools.js';
 
-/** Modelo barato atual da OpenAI (out/2026). Troque com OPENAI_MODEL. */
-export const DEFAULT_MODEL = 'gpt-6-luna';
+/**
+ * Gemini Flash-Lite: tem plano gratuito no Google AI Studio (out/2026), aceita
+ * ferramentas e responde rápido. Troque com GEMINI_MODEL.
+ */
+export const DEFAULT_MODEL = 'gemini-3.5-flash-lite';
 
 /**
- * Modelos de raciocínio (o*, gpt-5+) não aceitam temperature e gastam tokens
- * de saída "pensando" — com limite de 500, pedimos o mínimo de raciocínio.
+ * Os Gemini "pensam" antes de responder, e esses tokens contam no limite de
+ * 500 de saída — então pedimos o mínimo de raciocínio que cada modelo aceita:
+ * - Gemini 2.5: orçamento 0 (desliga);
+ * - Flash-Lite e Flash 3.5/3.6: nível `minimal`;
+ * - os demais (Flash 3.7+, Pro): `low`, o menor que aceitam.
+ * Nos Gemini 3+ a temperatura fica no padrão (1.0), como o Google recomenda.
  */
 export function generationSettings(modelId) {
-  const reasoning = /^(o\d|gpt-([5-9]|\d{2}))/.test(modelId) && !modelId.includes('chat');
-  if (!reasoning) return { temperature: 0.3 };
-  const effort = /^gpt-6(\.\d+)?-(luna|sol)$/.test(modelId) ? 'none' : 'low';
-  return { providerOptions: { openai: { reasoningEffort: effort } } };
+  if (/^gemini-2\./.test(modelId)) {
+    return {
+      temperature: 0.3,
+      providerOptions: { google: { thinkingConfig: { thinkingBudget: 0 } } },
+    };
+  }
+  const minimal = /-lite\b/.test(modelId) || /^gemini-3\.[56]-flash\b/.test(modelId);
+  return {
+    providerOptions: { google: { thinkingConfig: { thinkingLevel: minimal ? 'minimal' : 'low' } } },
+  };
 }
 
 /**

@@ -16,3 +16,9 @@ export function visibleSize({ distance, fov, aspect }) {
   const height = 2 * distance * Math.tan((fov * Math.PI) / 360);
   return { width: height * aspect, height };
 }
+
+/** Distância da câmera para que uma área `width` × `height` caiba inteira no viewport. */
+export function fitDistance({ width, height, fov, aspect }) {
+  const tan = Math.tan((fov * Math.PI) / 360);
+  return Math.max(height / (2 * tan), width / (2 * tan * aspect));
+}

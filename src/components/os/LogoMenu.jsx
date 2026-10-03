@@ -5,7 +5,7 @@ import { navigateToApp } from '../../lib/os-bridge.js';
 import { useOS } from '../../lib/os-store.js';
 import { Logo } from '../ui/Logo.jsx';
 
-/** Menu do logo: Sobre este sistema, Ajustes, Rever intro e Desligar. */
+/** Menu do logo: Sobre este sistema, Ajustes, Rever intro, Bloquear e Desligar. */
 export function LogoMenu() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -24,6 +24,7 @@ export function LogoMenu() {
         useOS.getState().setPhase('intro', 'open');
       },
     },
+    { label: t('menu.lock'), action: () => useOS.getState().lock() },
     { label: t('menu.shutdown'), action: () => useOS.getState().setPhase('intro', 'shutdown') },
   ];
 

@@ -1,8 +1,15 @@
 // @vitest-environment node
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { simulateReadableStream } from 'ai';
 import { MockLanguageModelV4 } from 'ai/test';
 import { describe, expect, it } from 'vitest';
-import { createAssistantResponse, generationSettings } from '../../server/assistant.js';
+import {
+  createAssistantResponse,
+  DEFAULT_MODEL,
+  generationSettings,
+} from '../../server/assistant.js';
+import { parseChatRequest } from '../../server/chat-request.js';
+import { assistantTools } from '../../src/lib/ai/tools.js';
 
 const usage = {
   inputTokens: { total: 10, noCache: 10, cacheRead: undefined, cacheWrite: undefined },
@@ -54,7 +61,6 @@ describe('resposta do assistente (modelo simulado)', () => {
 
     const [options] = calls;
     expect(options.maxOutputTokens).toBe(500);
-    expect(options.temperature).toBe(0.3);
     expect(options.tools.map((tool) => tool.name).sort()).toEqual(
       ['openApp', 'setLanguage', 'setTheme', 'showProject'].sort(),
     );
@@ -93,13 +99,96 @@ describe('resposta do assistente (modelo simulado)', () => {
 });
 
 describe('configuração de geração por modelo', () => {
-  it('modelos de raciocínio não recebem temperature', () => {
-    expect(generationSettings('gpt-6-luna')).toEqual({
-      providerOptions: { openai: { reasoningEffort: 'none' } },
+  it('pede o mínimo de raciocínio que cada Gemini aceita', () => {
+    const level = (id) => generationSettings(id).providerOptions.google.thinkingConfig;
+    expect(level('gemini-3.5-flash-lite')).toEqual({ thinkingLevel: 'minimal' });
+    expect(level('gemini-3.5-flash')).toEqual({ thinkingLevel: 'minimal' });
+    // Flash 3.7+ não aceita `minimal`.
+    expect(level('gemini-3.8-flash')).toEqual({ thinkingLevel: 'low' });
+    expect(level('gemini-2.5-flash')).toEqual({ thinkingBudget: 0 });
+  });
+
+  it('nos Gemini 3+ deixa a temperatura no padrão', () => {
+    expect(generationSettings('gemini-3.5-flash-lite').temperature).toBeUndefined();
+    expect(generationSettings('gemini-2.5-flash').temperature).toBe(0.3);
+  });
+});
+
+describe('integração com o Gemini (fetch simulado)', () => {
+  const sse = (chunk) => `data: ${JSON.stringify(chunk)}\r\n\r\n`;
+
+  function geminiWith(requests) {
+    return createGoogleGenerativeAI({
+      apiKey: 'test',
+      fetch: async (url, init) => {
+        requests.push({ url: String(url), body: JSON.parse(init.body) });
+        const reply = {
+          candidates: [
+            { content: { role: 'model', parts: [{ text: 'Pronto.' }] }, finishReason: 'STOP' },
+          ],
+        };
+        return new Response(sse(reply), { headers: { 'content-type': 'text/event-stream' } });
+      },
     });
-    expect(generationSettings('gpt-5.4-mini')).toEqual({
-      providerOptions: { openai: { reasoningEffort: 'low' } },
+  }
+
+  it('manda o prompt, as ferramentas e o raciocínio mínimo para o modelo padrão', async () => {
+    const requests = [];
+    const response = await createAssistantResponse({
+      model: geminiWith(requests)(DEFAULT_MODEL),
+      modelId: DEFAULT_MODEL,
+      locale: 'pt',
+      messages: [{ id: '1', role: 'user', parts: [{ type: 'text', text: 'Oi' }] }],
     });
-    expect(generationSettings('gpt-4.1-mini')).toEqual({ temperature: 0.3 });
+    await response.text();
+    const [{ url, body }] = requests;
+    expect(url).toContain(`/models/${DEFAULT_MODEL}:streamGenerateContent`);
+    expect(body.systemInstruction).toBeDefined();
+    expect(body.generationConfig).toMatchObject({
+      maxOutputTokens: 500,
+      thinkingConfig: { thinkingLevel: 'minimal' },
+    });
+    expect(body.tools[0].functionDeclarations.map((tool) => tool.name)).toEqual(
+      Object.keys(assistantTools),
+    );
+  });
+
+  it('devolve ao Gemini a assinatura da chamada de ferramenta feita no navegador', async () => {
+    // O Gemini 3 recusa (HTTP 400) a chamada repetida sem a thoughtSignature.
+    const requests = [];
+    const parsed = await parseChatRequest(
+      {
+        messages: [
+          { id: '1', role: 'user', parts: [{ type: 'text', text: 'Mostre os projetos' }] },
+          {
+            id: '2',
+            role: 'assistant',
+            parts: [
+              {
+                type: 'tool-openApp',
+                toolCallId: 'call-1',
+                state: 'output-available',
+                input: { appId: 'projects' },
+                output: { ok: true },
+                callProviderMetadata: { google: { thoughtSignature: 'assinatura' } },
+              },
+            ],
+          },
+        ],
+      },
+      assistantTools,
+    );
+    const response = await createAssistantResponse({
+      model: geminiWith(requests)(DEFAULT_MODEL),
+      modelId: DEFAULT_MODEL,
+      locale: 'pt',
+      messages: parsed.messages,
+    });
+    await response.text();
+    const modelTurn = requests[0].body.contents.find((content) => content.role === 'model');
+    expect(modelTurn.parts[0]).toMatchObject({
+      functionCall: { name: 'openApp' },
+      thoughtSignature: 'assinatura',
+    });
   });
 });

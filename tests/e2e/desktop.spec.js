@@ -1,21 +1,32 @@
 import { expect, test } from '@playwright/test';
-import { markVisited, mockAssistant, skipIntro } from './helpers.js';
+import {
+  enterSystem,
+  markVisited,
+  mockAssistant,
+  skipIntro,
+  skipToLockScreen,
+  unlock,
+} from './helpers.js';
 
 const DOCK_APPS = [
   'about',
   'projects',
   'experience',
   'skills',
+  'certificates',
   'resume',
   'contact',
   'music',
   'activity',
+  'github',
   'assistant',
   'terminal',
   'settings',
 ];
 
 test('pula a intro e mostra o sistema com o app Sobre na primeira visita', async ({ page }) => {
+  // A mesa 3D roda no WebGL por software nos testes: bem mais lenta que numa GPU.
+  test.slow();
   await skipIntro(page);
   await expect(page.getByRole('banner', { name: 'Barra de menu' })).toBeVisible();
   await expect(page.getByRole('navigation', { name: 'Dock de apps' })).toBeVisible();
@@ -24,9 +35,34 @@ test('pula a intro e mostra o sistema com o app Sobre na primeira visita', async
   await expect(page.getByText('Bem-vindo ao Portifólio')).toBeVisible();
 });
 
+test('tela de bloqueio: qualquer tecla entra; "Bloquear" no menu mantém as janelas', async ({
+  page,
+}) => {
+  await markVisited(page);
+  // Primeira visita sem a mesa 3D (movimento reduzido): abre direto na tela de bloqueio.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const lock = await skipToLockScreen(page);
+  await expect(lock.getByText('Leonardo Martins Macedo')).toBeVisible();
+  // O foco em "Entrar" indica que a tela já está ouvindo o teclado.
+  await expect(lock.getByRole('button', { name: 'Entrar', exact: true })).toBeFocused();
+  await page.keyboard.press('a');
+  await expect(lock).toBeHidden();
+
+  await page.locator('[data-dock-app="skills"]').click();
+  const window = page.locator('[data-window="skills"]');
+  await expect(window).toBeVisible();
+
+  await page.getByRole('button', { name: 'Menu do sistema' }).click();
+  await page.getByRole('menuitem', { name: 'Bloquear' }).click();
+  await expect(lock).toBeVisible();
+  await unlock(page);
+  await expect(window).toBeVisible();
+  await expect(window).toBeFocused();
+});
+
 test('abre cada app pelo dock e a URL acompanha', async ({ page }) => {
   await markVisited(page);
-  await skipIntro(page);
+  await enterSystem(page);
   for (const appId of DOCK_APPS) {
     await page.locator(`[data-dock-app="${appId}"]`).click();
     const window = page.locator(`[data-window="${appId}"]`);
@@ -89,7 +125,8 @@ test('assistente (API simulada) responde e abre o app pedido', async ({ page }) 
     tool: { name: 'openApp', input: { appId: 'projects' } },
   });
   await markVisited(page);
-  await skipIntro(page);
+  await enterSystem(page);
+  await expect(page.getByRole('navigation', { name: 'Dock de apps' })).toBeVisible();
   await page.keyboard.press('Control+k');
   const launcher = page.getByRole('dialog', { name: 'Assistente' });
   await expect(launcher).toBeVisible();
@@ -97,6 +134,70 @@ test('assistente (API simulada) responde e abre o app pedido', async ({ page }) 
   await expect(launcher.getByText('Aqui estão os projetos do Leonardo.')).toBeVisible();
   await expect(page.locator('[data-window="projects"]')).toBeVisible();
   await expect(launcher.getByText('Abrindo Projetos')).toBeVisible();
+});
+
+test('abrir Projetos acorda o servidor da demo do WaveHub', async ({ page }) => {
+  const pings = [];
+  await page.route('https://wavehub-fhec.onrender.com/**', (route) => {
+    pings.push(route.request().url());
+    return route.fulfill({ status: 200, body: '' });
+  });
+  await markVisited(page);
+  await enterSystem(page);
+  await expect(page.getByRole('navigation', { name: 'Dock de apps' })).toBeVisible();
+  expect(pings).toEqual([]);
+  await page.locator('[data-dock-app="projects"]').click();
+  await expect(page.locator('[data-window="projects"]')).toBeVisible();
+  await expect.poll(() => pings).toEqual(['https://wavehub-fhec.onrender.com/login']);
+});
+
+test('GitHub (API simulada): números, gráfico, repositórios e commits', async ({ page }) => {
+  // Um ano de dias, com contribuições só no último mês.
+  const days = Array.from({ length: 365 }, (_, index) => {
+    const date = new Date(Date.UTC(2025, 9, 4) + index * 86_400_000).toISOString().slice(0, 10);
+    const count = index > 335 && index % 3 === 0 ? 5 : 0;
+    return { date, count, level: count ? 3 : 0 };
+  });
+  await page.route('**/api/github', (route) =>
+    route.fulfill({
+      json: {
+        status: 'ok',
+        login: 'leonardoMartins-Dev',
+        profileUrl: 'https://github.com/leonardoMartins-Dev',
+        repoCount: 12,
+        repos: [
+          {
+            name: 'WaveHub',
+            description: 'Rádios ao vivo do mundo inteiro',
+            language: { name: 'Java', color: '#b07219' },
+            stars: 1,
+            url: 'https://github.com/leonardoMartins-Dev/WaveHub',
+            pushedAt: '2026-09-29T17:13:10Z',
+          },
+        ],
+        commits: [
+          {
+            sha: 'abc1234',
+            message: 'feat: player único no rodapé',
+            repo: 'WaveHub',
+            url: 'https://github.com/leonardoMartins-Dev/WaveHub/commit/abc1234',
+            date: '2026-09-29T17:13:10Z',
+          },
+        ],
+        calendar: { total: days.reduce((sum, day) => sum + day.count, 0), days },
+      },
+    }),
+  );
+  await page.goto('/pt/github');
+  const window = page.locator('[data-window="github"]');
+  await expect(window.getByRole('heading', { name: 'Programando em público' })).toBeVisible();
+  await expect(window.getByRole('img', { name: /^Gráfico de contribuições: 50 no/ })).toBeVisible();
+  await expect(window.getByRole('link', { name: /^WaveHub/ })).toHaveAttribute(
+    'href',
+    'https://github.com/leonardoMartins-Dev/WaveHub',
+  );
+  await expect(window.getByText('feat: player único no rodapé')).toBeVisible();
+  await expect(window.getByRole('link', { name: /Ver perfil no GitHub/ })).toBeVisible();
 });
 
 test('Terminal executa comandos e abre apps', async ({ page }) => {
@@ -114,7 +215,7 @@ test('ícones da área de trabalho: apps à esquerda abrem com clique duplo ou E
   page,
 }) => {
   await markVisited(page);
-  await skipIntro(page);
+  await enterSystem(page);
   const apps = page.getByRole('navigation', { name: 'Apps da área de trabalho' });
   await expect(apps.getByRole('button')).toHaveCount(DOCK_APPS.length);
   await page.locator('[data-desktop-app="experience"]').dblclick();

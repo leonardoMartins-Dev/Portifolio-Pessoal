@@ -2,7 +2,7 @@
   "meta": {
     "title": "{{system}} — {{name}}",
     "appTitle": "{{app}} — {{name}}",
-    "description": "Portfólio interativo de {{name}}: um notebook 3D com um sistema operacional próprio dentro."
+    "description": "Portfólio interativo de {{name}}: a mesa de trabalho dele em 3D, com um notebook que abre um sistema operacional próprio."
   },
   "common": {
     "close": "Fechar",
@@ -41,22 +41,40 @@
     "system": "Sistema"
   },
   "intro": {
-    "hint": "Clique para abrir",
+    "hint": "Clique no notebook para abrir",
+    "hintTouch": "Toque no notebook para abrir",
     "skip": "Pular intro",
-    "loading": "Carregando o notebook…",
+    "loading": "Carregando a cena…",
     "powerOn": "Ligar",
     "off": "Desligado",
-    "hintTarget": "o notebook"
+    "loadingProgress": "Carregando a cena… {{progress}}%",
+    "shortcuts": "Atalhos da mesa",
+    "openLaptop": "Abrir o notebook",
+    "openApp": "Abrir {{app}}",
+    "lamp": "Acender ou apagar a luminária"
   },
   "boot": {
     "label": "Iniciando o {{system}}",
     "skip": "Clique ou pressione qualquer tecla para pular"
+  },
+  "lock": {
+    "label": "Tela de bloqueio do {{system}}",
+    "enter": "Entrar",
+    "enterAndOpen": "Entrar e abrir {{app}}",
+    "hint": "Clique ou aperte qualquer tecla para entrar",
+    "hintTouch": "Toque para entrar",
+    "notification": {
+      "app": "Assistente",
+      "time": "agora",
+      "body": "Oi! Pergunte qualquer coisa sobre o {{name}}."
+    }
   },
   "menu": {
     "logo": "Menu do sistema",
     "aboutSystem": "Sobre este sistema",
     "settings": "Ajustes",
     "replayIntro": "Rever intro",
+    "lock": "Bloquear",
     "shutdown": "Desligar",
     "desktop": "Área de trabalho",
     "assistant": "Assistente",
@@ -110,11 +128,19 @@
     "quickLinks": "Links rápidos",
     "resume": "Ver currículo",
     "contact": "Entrar em contato",
-    "github": "GitHub"
+    "github": "GitHub",
+    "openToWork": "Aberto a estágio",
+    "focus": "Foco atual",
+    "linkedin": "LinkedIn",
+    "hobbies": "Fora do código"
   },
   "projects": {
     "heading": "Linha do tempo",
-    "subtitle": "Do mais antigo ao mais recente",
+    "subtitleNewest": "Do mais recente ao mais antigo",
+    "subtitleOldest": "Do mais antigo ao mais recente",
+    "orderLabel": "Ordem da linha do tempo",
+    "newest": "Mais recentes",
+    "oldest": "Mais antigos",
     "filterLabel": "Filtrar por tecnologia",
     "all": "Todas",
     "repo": "Repositório",
@@ -143,7 +169,20 @@
   },
   "skills": {
     "heading": "Habilidades",
-    "level": "Nível {{level}} de 5"
+    "learning": "Em estudo"
+  },
+  "certificates": {
+    "heading": "Cursos e certificados",
+    "count_one": "{{count}} certificado",
+    "count_other": "{{count}} certificados",
+    "totalHours": "{{hours}} h de formação",
+    "hours": "{{hours}} h",
+    "topics": "Temas",
+    "open": "Ver certificado",
+    "download": "Baixar PDF",
+    "verify": "Verificar autenticidade",
+    "previewAlt": "Certificado {{name}}, emitido por {{issuer}}",
+    "empty": "Nenhum certificado publicado ainda."
   },
   "resume": {
     "downloadPt": "Baixar PT",
@@ -226,6 +265,29 @@
     "unconfigured": "As estatísticas do WakaTime ainda não estão configuradas.",
     "error": "Não foi possível carregar as estatísticas agora."
   },
+  "github": {
+    "heading": "Programando em público",
+    "profile": "Ver perfil no GitHub",
+    "contributionsYear": "Contribuições no último ano",
+    "activeDays": "Dias ativos (últimos 30)",
+    "repos": "Repositórios próprios",
+    "contributions": "Contribuições",
+    "calendarLabel": "Gráfico de contribuições: {{count}} no último ano",
+    "dayContributions_zero": "Nenhuma contribuição em {{date}}",
+    "dayContributions_one": "{{count}} contribuição em {{date}}",
+    "dayContributions_other": "{{count}} contribuições em {{date}}",
+    "less": "Menos",
+    "more": "Mais",
+    "recentRepos": "Repositórios recentes",
+    "recentCommits": "Últimos commits",
+    "stars_one": "{{count}} estrela",
+    "stars_other": "{{count}} estrelas",
+    "updated": "atualizado {{when}}",
+    "dataVia": "dados via GitHub, atualizados a cada 30 minutos",
+    "loading": "Carregando o GitHub…",
+    "unconfigured": "O perfil do GitHub ainda não está configurado.",
+    "error": "Não foi possível carregar os dados do GitHub agora."
+  },
   "assistant": {
     "intro": "Pergunte sobre {{name}}, os projetos ou como usar o sistema.",
     "placeholder": "Pergunte algo…",
@@ -236,11 +298,11 @@
     "suggestionsLabel": "Sugestões",
     "suggestions": {
       "projects": "Quais são seus principais projetos?",
-      "react": "Ele tem experiência com React?",
+      "springBoot": "Ele tem experiência com Spring Boot?",
       "contact": "Como entro em contato?",
       "howTo": "Como uso este sistema?"
     },
-    "disclaimer": "Respostas geradas por IA podem conter erros.",
+    "disclaimer": "Respostas geradas por IA (Google Gemini) podem conter erros. Não envie dados pessoais.",
     "thinking": "Pensando…",
     "you": "Você",
     "bot": "Assistente",
@@ -280,6 +342,7 @@
       "projects": "Lista os projetos",
       "experience": "Lista as experiências",
       "skills": "Lista as habilidades",
+      "certificates": "Lista os certificados",
       "contact": "Mostra os contatos",
       "resume": "Abre o Currículo",
       "open": "Abre um app",
@@ -307,7 +370,8 @@
       "whatsapp": "whatsapp",
       "linkedin": "linkedin",
       "github": "github"
-    }
+    },
+    "hobbies": "Fora do código: {{list}}"
   },
   "settings": {
     "language": "Idioma",
@@ -326,7 +390,7 @@
     "soundHint": "Sons discretos ao abrir e fechar janelas.",
     "intro": "Intro",
     "replayIntro": "Rever intro",
-    "replayIntroHint": "Mostra o notebook 3D de novo."
+    "replayIntroHint": "Mostra a mesa 3D de novo."
   },
   "system": {
     "version": "Versão {{version}}",
@@ -340,7 +404,7 @@
     "stack": {
       "react": "Interface",
       "vite": "Build e servidor de desenvolvimento",
-      "three": "Notebook 3D",
+      "three": "Mesa 3D",
       "gsap": "Sequência da intro",
       "motion": "Animações da interface",
       "zustand": "Estado do sistema e janelas",

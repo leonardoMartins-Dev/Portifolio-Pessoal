@@ -16,7 +16,7 @@ const STACK = [
   { id: 'i18next', name: 'i18next', url: 'https://www.i18next.com/' },
   { id: 'rhf', name: 'React Hook Form + Zod', url: 'https://react-hook-form.com/' },
   { id: 'emailjs', name: 'EmailJS', url: 'https://www.emailjs.com/' },
-  { id: 'aisdk', name: 'AI SDK + OpenAI', url: 'https://ai-sdk.dev/' },
+  { id: 'aisdk', name: 'AI SDK + Gemini', url: 'https://ai-sdk.dev/' },
   { id: 'upstash', name: 'Upstash Redis', url: 'https://upstash.com/' },
   { id: 'tailwind', name: 'Tailwind CSS', url: 'https://tailwindcss.com/' },
   { id: 'vercel', name: 'Vercel', url: 'https://vercel.com/' },

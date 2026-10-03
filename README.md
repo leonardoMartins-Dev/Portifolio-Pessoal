@@ -7,7 +7,7 @@
   <tr>
     <td width="800px">
       <div align="justify">
-        Este repositório contém o <b>Portifólio</b>, desenvolvido no <b>Laboratório 01</b> da disciplina <i>Desenvolvimento e Integração de Aplicações Web</i> (DIAW) do curso de <b>Engenharia de Software da PUC Minas</b>. Feito com <b>React + Vite</b>, <b>Three.js (React Three Fiber)</b> e <b>Vercel Functions</b>, ele tem versão para celular, português e inglês, tema claro e escuro, dados ao vivo do <b>Spotify</b> e do <b>WakaTime</b>, formulário de contato com <b>EmailJS</b> e um <b>assistente de IA</b> (OpenAI via AI SDK) com ferramentas que agem no próprio sistema.
+        Este repositório contém o <b>Portifólio</b>, desenvolvido no <b>Laboratório 01</b> da disciplina <i>Desenvolvimento e Integração de Aplicações Web</i> (DIAW) do curso de <b>Engenharia de Software da PUC Minas</b>. Feito com <b>React + Vite</b>, <b>Three.js (React Three Fiber)</b> e <b>Vercel Functions</b>, ele tem versão para celular, português e inglês, tema claro e escuro, dados ao vivo do <b>Spotify</b> e do <b>WakaTime</b>, formulário de contato com <b>EmailJS</b> e um <b>assistente de IA</b> (Google Gemini via AI SDK, no plano gratuito) com ferramentas que agem no próprio sistema.
       </div>
     </td>
     <td>
@@ -31,8 +31,7 @@
 ![Vercel](https://img.shields.io/badge/Deploy-Vercel-007ec6?style=for-the-badge&logo=vercel&logoColor=white)
 ![Licença](https://img.shields.io/badge/Licen%C3%A7a-MIT-007ec6?style=for-the-badge)
 
-<!-- TODO: quando o repositório estiver no GitHub, adicionar o badge do CI:
-[![CI](https://github.com/leonardoMartins-Dev/<repo>/actions/workflows/ci.yml/badge.svg)](https://github.com/leonardoMartins-Dev/<repo>/actions/workflows/ci.yml) -->
+[![CI](https://github.com/leonardoMartins-Dev/Portifolio-Pessoal/actions/workflows/ci.yml/badge.svg)](https://github.com/leonardoMartins-Dev/Portifolio-Pessoal/actions/workflows/ci.yml)
 
 ---
 
@@ -53,10 +52,12 @@
   - [Instalação de Dependências](#-instalação-de-dependências)
   - [Como Executar a Aplicação](#-como-executar-a-aplicação)
 - [Guias de configuração das integrações](#-guias-de-configuração-das-integrações)
-  - [Assistente de IA: OpenAI + Upstash](#-assistente-de-ia-openai--upstash)
+  - [Assistente de IA: Google Gemini + Upstash](#-assistente-de-ia-google-gemini--upstash)
   - [Spotify](#-spotify)
   - [WakaTime](#️-wakatime)
+  - [GitHub](#-github)
   - [EmailJS](#-emailjs)
+- [Como adicionar um certificado](#-como-adicionar-um-certificado)
 - [Deploy](#-deploy)
 - [Estrutura de Pastas](#-estrutura-de-pastas)
 - [Demonstração](#-demonstração)
@@ -85,10 +86,10 @@
 
 **O que o diferencia.** Em vez de uma página com seções, o portfólio é uma experiência:
 
-1. **Entrada 3D** — um notebook montado em código (sem Blender) abre ao clique; a tela acende, roda o boot e a câmera entra até a tela cobrir a janela.
+1. **Entrada 3D** — a mesa de trabalho do autor: notebook, luminária, livros, currículo, celular e objetos pessoais (boneco do Luffy, raquete de tênis, quadro do Galo). Cada objeto é um atalho para um app; no clique, o notebook abre, a tela acende e a câmera entra até a tela cobrir a janela, já na **tela de bloqueio**.
 2. **Sistema operacional próprio** — barra de menu, dock e janelas que se arrastam, redimensionam, minimizam e maximizam. Identidade própria: inspirado em laptops modernos, sem copiar nenhum sistema existente.
 3. **Assistente de IA com ferramentas** — responde sobre o autor e sobre o sistema e **executa ações**: abre apps, mostra um projeto específico, troca idioma e tema.
-4. **Dados ao vivo** — música tocando agora (Spotify) e horas programando na semana (WakaTime).
+4. **Dados ao vivo** — música tocando agora (Spotify), horas programando na semana (WakaTime) e atividade no GitHub (contribuições, repositórios e commits).
 5. **Celular** — abaixo de 768px o sistema vira uma interface de telefone, com os mesmos apps.
 
 **Para quem.** Recrutadores, professores e colegas que querem conhecer o autor de forma rápida e memorável.
@@ -97,39 +98,42 @@
 
 ## ✨ Funcionalidades Principais
 
-- 💻 **Intro 3D:** notebook que abre, liga e leva a câmera para dentro da tela. Pulável, acessível por teclado e desativada com movimento reduzido ou sem WebGL.
+- 💻 **Intro 3D:** a mesa de trabalho do autor (noite no tema escuro, dia no claro), com objetos clicáveis que abrem apps e um notebook que abre, liga e leva a câmera para dentro da tela. Pulável, acessível por teclado e desativada com movimento reduzido ou sem WebGL.
+- 🔒 **Tela de bloqueio:** relógio, foto, nome e "Entrar" (sem senha; clique ou qualquer tecla), notificação do assistente e "Bloquear" no menu do logo.
 - 🪟 **Gerenciador de janelas:** abrir saindo do dock, focar, arrastar, redimensionar, minimizar para o dock, maximizar (ou clique duplo no título) e fechar. Cada app é único e tem rota própria.
 - 🖥️ **Área de trabalho:** ícones de todos os apps à esquerda (clique duplo ou Enter abre) e GitHub/LinkedIn à direita.
 - 📱 **Versão mobile:** tela inicial com perfil, widgets, grade de apps e dock; apps em tela cheia; o Voltar do navegador fecha o app.
 - 🌐 **PT/EN:** rotas `/pt` e `/en`; a troca mantém o app aberto (`/pt/projects` ↔ `/en/projects`).
 - 🌗 **Tema claro, escuro ou do sistema**, 4 papéis de parede originais.
-- 🗂️ **Projetos em linha do tempo** (do mais antigo ao mais recente), com tecnologias, GitHub, demo, imagem/GIF/vídeo, filtro por tecnologia e `?project=` para destacar um projeto.
+- 🙋 **Sobre:** apresentação, formação, foco atual, objetivos e "Fora do código" (One Piece, tênis e Galo, os mesmos objetos da mesa 3D).
+- 🗂️ **Projetos em linha do tempo**, do mais recente ao mais antigo, com um botão que inverte para a ordem do mais antigo ao mais recente, com tecnologias, GitHub, demo, imagem/GIF/vídeo, filtro por tecnologia e `?project=` para destacar um projeto. Demos em plano gratuito (o WaveHub, no Render) são **acordadas assim que o app abre**, para o servidor já estar ligado no clique em Demo.
 - 💼 **Experiências** com tipo, período ("mar 2024 – atual") e filtro.
+- 🏅 **Certificados:** cursos concluídos do mais recente ao mais antigo, com prévia, emissor, data, carga horária, PDF para ver ou baixar e link de verificação (o QR code do certificado). Para adicionar um novo, veja [Como adicionar um certificado](#-como-adicionar-um-certificado).
 - 📨 **Contato:** e-mail (com copiar), WhatsApp, LinkedIn e GitHub + formulário validado (Zod) que envia dois e-mails pelo EmailJS.
 - 🤖 **Assistente de IA** em streaming, com markdown, sugestões, Ctrl/⌘K, limite de uso e ferramentas no cliente.
-- 🎵 **Spotify** (tocando agora, recentes, top + mini player na barra de menu) e ⏱️ **WakaTime** (horas na semana, por dia e por linguagem).
+- 🎵 **Spotify** (tocando agora, recentes, top + mini player na barra de menu), ⏱️ **WakaTime** (horas na semana, por dia e por linguagem) e 🐙 **GitHub** (gráfico de contribuições do último ano, repositórios recentes e últimos commits; funciona sem chave).
 - ⌨️ **Terminal** com comandos PT/EN, histórico (↑/↓) e autocompletar (Tab) — homenagem ao portfólio-terminal do professor.
 - ♿ **Acessibilidade:** navegação completa por teclado, foco visível, `role="dialog"`, rótulos traduzidos, contraste AA e `prefers-reduced-motion`.
 
 ### Requisitos da disciplina e onde são atendidos
 
-| Requisito do PDF                                               | Onde está no projeto                                                                         |
-| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| Menu de navegação                                              | Dock, barra de menu, ícones do desktop e assistente. No celular: grade de apps e dock        |
-| Cabeçalho / rodapé / área de conteúdo                          | Barra de menu (topo, `<header>`) / dock com créditos (base, `<footer>`) / janelas (`<main>`) |
-| Estrutura de páginas e links entre seções                      | Cada app tem rota própria (`/{locale}/{appId}`); deep links funcionam                        |
-| Sobre Mim em PT e EN                                           | App **Sobre** + troca PT/EN na barra de menu e em Ajustes                                    |
-| Projetos em linha do tempo, do mais antigo ao mais recente     | App **Projetos**: timeline ordenada por data crescente (com teste)                           |
-| Projeto: nome, descrição, tecnologias, link GitHub, imagem/GIF | Card de projeto (mídia com lazy-load e texto alternativo traduzido)                          |
-| Experiências: empresa, cargo, período, descrição               | App **Experiências**                                                                         |
-| Contato: ícones clicáveis (e-mail, WhatsApp, LinkedIn…)        | App **Contato** + atalhos no desktop                                                         |
-| Formulário (nome, e-mail, mensagem) com envio por e-mail       | App **Contato**: React Hook Form + Zod + EmailJS (dois templates)                            |
-| Validações básicas                                             | Zod com mensagens traduzidas                                                                 |
-| Design responsivo                                              | Shell desktop (≥ 768px), tablets com janelas maximizadas e shell mobile (< 768px)            |
-| Identidade visual coerente                                     | Design system próprio (tokens claro/escuro, vidro, ícones, papéis de parede)                 |
-| Hospedagem gratuita em nuvem                                   | Vercel (plano Hobby)                                                                         |
-| Front-end, back-end e nuvem                                    | React + Vite (front) + Vercel Functions em `api/` (back: IA, Spotify, WakaTime) + Vercel     |
-| README completo no template                                    | Este arquivo                                                                                 |
+| Requisito do PDF                                               | Onde está no projeto                                                                             |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Menu de navegação                                              | Dock, barra de menu, ícones do desktop e assistente. No celular: grade de apps e dock            |
+| Cabeçalho / rodapé / área de conteúdo                          | Barra de menu (topo, `<header>`) / dock com créditos (base, `<footer>`) / janelas (`<main>`)     |
+| Estrutura de páginas e links entre seções                      | Cada app tem rota própria (`/{locale}/{appId}`); deep links funcionam                            |
+| Sobre Mim em PT e EN                                           | App **Sobre** + troca PT/EN na barra de menu e em Ajustes                                        |
+| Projetos em linha do tempo, do mais antigo ao mais recente     | App **Projetos**: timeline por data; o botão "Mais antigos" mostra essa ordem (com teste)        |
+| Projeto: nome, descrição, tecnologias, link GitHub, imagem/GIF | Card de projeto (mídia com lazy-load e texto alternativo traduzido)                              |
+| Experiências: empresa, cargo, período, descrição               | App **Experiências**                                                                             |
+| Contato: ícones clicáveis (e-mail, WhatsApp, LinkedIn…)        | App **Contato** + atalhos no desktop                                                             |
+| Formulário (nome, e-mail, mensagem) com envio por e-mail       | App **Contato**: React Hook Form + Zod + EmailJS (dois templates)                                |
+| Validações básicas                                             | Zod com mensagens traduzidas                                                                     |
+| Design responsivo                                              | Shell desktop (≥ 768px), tablets com janelas maximizadas e shell mobile (< 768px)                |
+| Identidade visual coerente                                     | Design system próprio (tokens claro/escuro, vidro, ícones, papéis de parede)                     |
+| Hospedagem gratuita em nuvem                                   | Vercel (plano Hobby)                                                                             |
+| Front-end, back-end e nuvem                                    | React + Vite (front) + Vercel Functions em `api/` (back: IA, Spotify, WakaTime, GitHub) + Vercel |
+| README completo no template                                    | Este arquivo                                                                                     |
 
 ---
 
@@ -150,9 +154,9 @@
 ### 🖥️ Back-end
 
 - **Runtime:** Node.js (Vercel Functions em `api/`, handlers Web padrão)
-- **IA:** AI SDK 7 + OpenAI (`gpt-6-luna` por padrão)
+- **IA:** AI SDK 7 + Google Gemini (`gemini-3.5-flash-lite` por padrão, plano gratuito)
 - **Limite de uso:** Upstash Redis + `@upstash/ratelimit`
-- **APIs externas:** Spotify Web API, embeds JSON do WakaTime, EmailJS
+- **APIs externas:** Spotify Web API, embeds JSON do WakaTime, GitHub (REST e GraphQL), EmailJS
 
 ### ⚙️ Infraestrutura & DevOps
 
@@ -162,28 +166,31 @@
 
 ### 📦 Dependências
 
-| Pacote                                                                                                                  | Para que serve                                                                       |
-| ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| `react`, `react-dom`                                                                                                    | Biblioteca de interface                                                              |
-| `react-router`                                                                                                          | Rotas `/{locale}/{appId}`, deep links e botão Voltar                                 |
-| `i18next`, `react-i18next`                                                                                              | Textos de interface em português e inglês                                            |
-| `zustand`                                                                                                               | Estado do sistema: janelas, foco, fase (intro/boot/desktop) e preferências           |
-| `motion`                                                                                                                | Animações das janelas, do dock (magnificação) e transições                           |
-| `three`, `@react-three/fiber`, `@react-three/drei`                                                                      | Notebook 3D em código, sombras de contato e iluminação com Lightformers              |
-| `gsap`                                                                                                                  | Linha do tempo da intro (tampa → tela → boot → câmera)                               |
-| `lucide-react`                                                                                                          | Ícones dos apps e da interface                                                       |
-| `react-icons`                                                                                                           | Ícones de marca (GitHub, LinkedIn, WhatsApp, Spotify)                                |
-| `@fontsource-variable/geist`, `@fontsource-variable/geist-mono`                                                         | Fontes Geist hospedadas junto com o site (sem CSS externo bloqueando a renderização) |
-| `react-hook-form`, `@hookform/resolvers`, `zod`                                                                         | Formulário de contato e validação (também valida o pedido ao assistente no servidor) |
-| `@emailjs/browser`                                                                                                      | Envio dos dois e-mails do formulário (carregado só na hora do envio)                 |
-| `ai`, `@ai-sdk/react`, `@ai-sdk/openai`                                                                                 | Assistente: streaming, `useChat` e ferramentas executadas no cliente                 |
-| `react-markdown`                                                                                                        | Markdown simples (com links clicáveis) nas respostas do assistente                   |
-| `@upstash/ratelimit`, `@upstash/redis`                                                                                  | Limite de uso do assistente (por IP e teto diário)                                   |
-| `vite`, `@vitejs/plugin-react`, `tailwindcss`, `@tailwindcss/vite`                                                      | Build, servidor de desenvolvimento e estilos (dev)                                   |
-| `eslint`, `@eslint/js`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, `eslint-config-prettier`, `globals` | Lint, incluindo as regras do React Compiler (dev)                                    |
-| `prettier`, `prettier-plugin-tailwindcss`                                                                               | Formatação e ordem das classes do Tailwind (dev)                                     |
-| `vitest`, `jsdom`, `@testing-library/react`, `@testing-library/user-event`                                              | Testes de unidade e de componentes (dev)                                             |
-| `@playwright/test`                                                                                                      | Testes e2e no navegador e geração dos prints do README (dev)                         |
+| Pacote                                                                                                                  | Para que serve                                                                         |
+| ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `react`, `react-dom`                                                                                                    | Biblioteca de interface                                                                |
+| `react-router`                                                                                                          | Rotas `/{locale}/{appId}`, deep links e botão Voltar                                   |
+| `i18next`, `react-i18next`                                                                                              | Textos de interface em português e inglês                                              |
+| `zustand`                                                                                                               | Estado do sistema: janelas, foco, fase (intro/boot/bloqueio/desktop) e preferências    |
+| `motion`                                                                                                                | Animações das janelas, do dock (magnificação) e transições                             |
+| `three`, `@react-three/fiber`, `@react-three/drei`                                                                      | Mesa 3D: objetos em código, modelos glTF (meshopt), luz HDRI, sombras e rótulos        |
+| `@react-three/postprocessing`, `postprocessing`                                                                         | Acabamento da mesa 3D: bloom, vinheta e tone mapping neutro (~26 KB gzip, só na intro) |
+| `gsap`                                                                                                                  | Linha do tempo da intro (tampa → tela → boot → câmera)                                 |
+| `lucide-react`                                                                                                          | Ícones dos apps e da interface                                                         |
+| `react-icons`                                                                                                           | Ícones de marca (GitHub, LinkedIn, WhatsApp, Spotify)                                  |
+| `@fontsource-variable/geist`, `@fontsource-variable/geist-mono`                                                         | Fontes Geist hospedadas junto com o site (sem CSS externo bloqueando a renderização)   |
+| `react-hook-form`, `@hookform/resolvers`, `zod`                                                                         | Formulário de contato e validação (também valida o pedido ao assistente no servidor)   |
+| `@emailjs/browser`                                                                                                      | Envio dos dois e-mails do formulário (carregado só na hora do envio)                   |
+| `ai`, `@ai-sdk/react`, `@ai-sdk/google`                                                                                 | Assistente: streaming, `useChat`, ferramentas no cliente e o Gemini (plano gratuito)   |
+| `react-markdown`                                                                                                        | Markdown simples (com links clicáveis) nas respostas do assistente                     |
+| `@upstash/ratelimit`, `@upstash/redis`                                                                                  | Limite de uso do assistente (por IP e teto diário)                                     |
+| `vite`, `@vitejs/plugin-react`, `tailwindcss`, `@tailwindcss/vite`                                                      | Build, servidor de desenvolvimento e estilos (dev)                                     |
+| `eslint`, `@eslint/js`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, `eslint-config-prettier`, `globals` | Lint, incluindo as regras do React Compiler (dev)                                      |
+| `prettier`, `prettier-plugin-tailwindcss`                                                                               | Formatação e ordem das classes do Tailwind (dev)                                       |
+| `vitest`, `jsdom`, `@testing-library/react`, `@testing-library/user-event`                                              | Testes de unidade e de componentes (dev)                                               |
+| `@playwright/test`                                                                                                      | Testes e2e no navegador e geração dos prints do README (dev)                           |
+
+Para os modelos e as HDRIs não há dependência nova: o `npm run models` usa o [glTF Transform](https://gltf-transform.dev/) via `npx` só para comprimir os modelos uma vez, reduz as HDRIs com um script próprio, e o decodificador meshopt já vem no three/drei.
 
 ---
 
@@ -192,7 +199,7 @@
 O projeto é um **SPA em React + Vite** com **funções serverless** na mesma hospedagem:
 
 - **Front-end:** o sistema (shell) fica montado na rota `/:locale/:appId?` e **não remonta** ao trocar de app ou idioma. Cada app e a intro 3D são carregados sob demanda (`React.lazy`), então o three.js só é baixado se a intro rodar.
-- **Back-end:** Vercel Functions em `api/` (`chat`, `spotify`, `wakatime`) guardam as chaves secretas no servidor. Em desenvolvimento, um plugin do Vite (`server/vite-api-plugin.js`) serve as mesmas funções, então `npm run dev` tem front e back juntos.
+- **Back-end:** Vercel Functions em `api/` (`chat`, `spotify`, `wakatime`, `github`) guardam as chaves secretas no servidor. Em desenvolvimento, um plugin do Vite (`server/vite-api-plugin.js`) serve as mesmas funções, então `npm run dev` tem front e back juntos.
 - **Conteúdo como fonte única:** perfil, projetos, experiências e skills ficam em `src/content/*.js`, nos dois idiomas. Alimentam os apps, o Terminal e o **prompt do assistente**: mudou aqui, muda em tudo.
 - **Registro de apps:** `src/lib/apps-meta.js` (dados puros, lidos também no servidor) + `src/lib/apps.jsx` (ícones e componentes). Dock, desktop, grade mobile, Terminal e as ferramentas do assistente leem daqui.
 - **A URL é o comando:** abrir `/{locale}/{appId}` abre o app — seja um link direto, o Voltar do navegador, o Terminal ou uma ferramenta do assistente. Focar uma janela atualiza a URL.
@@ -205,9 +212,11 @@ flowchart LR
   C --> CHAT
   FE -->|/api/chat| CHAT[Vercel Function IA]
   CHAT --> RL[("Upstash Redis<br/>rate limit")]
-  CHAT --> OAI[OpenAI API]
+  CHAT --> GEM[Google Gemini API]
   FE -->|/api/spotify| SP[Vercel Function Spotify] --> SAPI[Spotify Web API]
   FE -->|/api/wakatime| WK[Vercel Function WakaTime] --> WAPI[WakaTime JSON embutível]
+  FE -->|/api/github| GH[Vercel Function GitHub] --> GAPI[GitHub REST + contribuições]
+  FE -.->|ao abrir Projetos| RENDER[Demo no Render]
   FE -->|formulário| EJS[EmailJS] --> MAIL[E-mails]
 ```
 
@@ -216,21 +225,24 @@ flowchart LR
 | Rota                         | Comportamento                                                      |
 | ---------------------------- | ------------------------------------------------------------------ |
 | `/`                          | Redireciona para `/pt` ou `/en` (idioma do navegador; padrão `pt`) |
-| `/{locale}`                  | Intro 3D (se não foi vista nesta sessão) e depois o desktop        |
+| `/{locale}`                  | Intro 3D e tela de bloqueio (uma vez por sessão), depois o desktop |
 | `/{locale}/{appId}`          | Deep link: pula a intro e abre o sistema com o app em foco         |
 | `/{locale}/{appId}` inválido | Janela "App não encontrado" no estilo do sistema                   |
 | `/api/chat`                  | `GET`: o assistente está disponível? `POST`: resposta em streaming |
 | `/api/spotify`               | `GET`: tocando agora, recentes e top (cache de 30s)                |
 | `/api/wakatime`              | `GET`: estatísticas da semana (cache de 1h)                        |
+| `/api/github`                | `GET`: contribuições, repositórios e commits (cache de 30 min)     |
 
-Apps (`appId`, iguais nos dois idiomas): `about`, `projects`, `experience`, `skills`, `resume`, `contact`, `music`, `activity`, `assistant`, `terminal`, `settings`, `system`.
+Apps (`appId`, iguais nos dois idiomas): `about`, `projects`, `experience`, `skills`, `certificates`, `resume`, `contact`, `music`, `activity`, `github`, `assistant`, `terminal`, `settings`, `system`.
 
 ### 🎯 Decisões de design
 
-- **Por que um notebook 3D?** A primeira impressão de um portfólio dura segundos. Abrir um notebook é um gesto que todo mundo entende, cria expectativa e apresenta o que vem depois — e mostra domínio de 3D e animação sem atrapalhar quem só quer o conteúdo (a intro é pulável, só roda uma vez por sessão e é desligada com movimento reduzido ou sem WebGL).
+- **Por que uma mesa 3D?** A primeira impressão de um portfólio dura segundos. A mesa conta quem é o autor antes de qualquer texto (as tecnologias nos livros, o currículo impresso, o time, o anime e o esporte de que ele gosta), e abrir um notebook é um gesto que todo mundo entende. Mostra domínio de 3D e animação sem atrapalhar quem só quer o conteúdo: a intro é pulável, só roda uma vez por sessão e é desligada com movimento reduzido ou sem WebGL.
+- **Por que realista?** A primeira versão misturava modelos realistas com objetos de cor chapada e não tinha unidade. Agora tudo segue a mesma regra: materiais de verdade (tecido, cerâmica, vidro, alumínio, palha), luz de uma sala real (HDRI) e uma paleta quente única. Madeira, planta e luminária vêm do Poly Haven (CC0); o resto é código, sem peso extra. Modelos + HDRI somam ~2 MB.
+- **Por que uma tela de bloqueio?** Ela faz a ponte entre o 3D e o sistema (a tela do notebook já a mostra antes da câmera chegar, então a troca não tem corte) e é o "olá" do portfólio: foto, nome e cargo antes do desktop.
 - **Por que um sistema operacional?** Ele resolve o requisito de navegação de forma natural: a barra de menu é o cabeçalho, o dock é o rodapé, as janelas são o conteúdo e cada seção é um app com endereço próprio. E permite ver várias seções lado a lado, como um recrutador compararia projetos.
 - **Por que IA com ferramentas?** Um chatbot que só conversa é mais uma caixa de texto. Com ferramentas, o assistente **age no sistema**: perguntar sobre projetos abre o app Projetos no projeto certo. O prompt é gerado do mesmo conteúdo do site, então ele não inventa dados — e as ferramentas rodam no navegador, sem nenhum poder no servidor.
-- **Segredos no servidor:** chaves da OpenAI, do Spotify e do Upstash só existem nas funções em `api/` (nunca com prefixo `VITE_`). As do EmailJS são públicas por design e restritas por domínio no painel.
+- **Segredos no servidor:** chaves do Gemini, do Spotify e do Upstash só existem nas funções em `api/` (nunca com prefixo `VITE_`). As do EmailJS são públicas por design e restritas por domínio no painel.
 
 ---
 
@@ -266,22 +278,23 @@ cp .env.example .env.local
 
 | Variável                                                                                                                       | Onde     | Uso                                            |
 | :----------------------------------------------------------------------------------------------------------------------------- | :------- | :--------------------------------------------- |
-| `OPENAI_API_KEY`                                                                                                               | servidor | Assistente de IA                               |
-| `OPENAI_MODEL`                                                                                                                 | servidor | ID do modelo (vazio = `gpt-6-luna`)            |
+| `GOOGLE_GENERATIVE_AI_API_KEY`                                                                                                 | servidor | Assistente de IA (Google Gemini)               |
+| `GEMINI_MODEL`                                                                                                                 | servidor | ID do modelo (vazio = `gemini-3.5-flash-lite`) |
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`                                                                           | servidor | Limite de uso do assistente                    |
 | `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN`                                                          | servidor | App Música e mini player                       |
 | `WAKATIME_LANGUAGES_URL`, `WAKATIME_ACTIVITY_URL`                                                                              | servidor | App Atividade                                  |
+| `GITHUB_TOKEN` (opcional)                                                                                                      | servidor | App GitHub: limite maior e gráfico via GraphQL |
 | `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID_FOR_ME`, `VITE_EMAILJS_TEMPLATE_ID_FOR_SENDER`, `VITE_EMAILJS_PUBLIC_KEY` | cliente  | Formulário de Contato                          |
 | `VITE_SITE_URL`                                                                                                                | cliente  | URLs absolutas (Open Graph, sitemap, hreflang) |
 
 > [!IMPORTANT]
-> Tudo com prefixo `VITE_` vai para o JavaScript público. As chaves da **OpenAI**, do **Spotify** e do **Upstash** nunca usam esse prefixo: são lidas só pelas funções em `api/`. As do EmailJS são públicas por design — restrinja os domínios permitidos no painel do EmailJS.
+> Tudo com prefixo `VITE_` vai para o JavaScript público. As chaves do **Gemini**, do **Spotify**, do **Upstash** e o token do **GitHub** nunca usam esse prefixo: são lidas só pelas funções em `api/`. As do EmailJS são públicas por design — restrinja os domínios permitidos no painel do EmailJS.
 
 ### 📦 Instalação de Dependências
 
 ```bash
-git clone <URL_DO_REPOSITÓRIO>
-cd <pasta-do-projeto>
+git clone https://github.com/leonardoMartins-Dev/Portifolio-Pessoal.git
+cd Portifolio-Pessoal
 npm install
 ```
 
@@ -303,23 +316,24 @@ Abra [http://localhost:5173](http://localhost:5173): você será redirecionado p
 | `npm run test:e2e`                        | Testes e2e (Playwright; faz o build antes)                                    |
 | `npm run spotify:token`                   | Gera o refresh token do Spotify                                               |
 | `npm run screenshots`                     | Gera os prints deste README e a imagem Open Graph (com `npm run dev` rodando) |
+| `npm run models`                          | Baixa e prepara os modelos 3D e as HDRIs da intro (Poly Haven)                |
 
 ---
 
 ## 🧭 Guias de configuração das integrações
 
-### 🤖 Assistente de IA: OpenAI + Upstash
+### 🤖 Assistente de IA: Google Gemini + Upstash
 
-**OpenAI**
+**Google Gemini (plano gratuito)**
 
-1. Acesse [platform.openai.com](https://platform.openai.com/) e crie uma conta.
-2. Em **Billing**, adicione crédito e **defina um limite de gastos mensal** (por exemplo, US$ 5). Isso protege o orçamento mesmo se algo der errado.
-3. Em **API keys**, clique em **Create new secret key** e copie a chave (`sk-...`).
-4. Coloque em `OPENAI_API_KEY` (no `.env.local` e nas variáveis de ambiente da Vercel). `OPENAI_MODEL` é opcional: vazio usa `gpt-6-luna`.
+1. Acesse [aistudio.google.com/apikey](https://aistudio.google.com/apikey) com uma conta Google.
+2. Clique em **Create API key** e copie a chave (`AIza...`). Não precisa de cartão.
+3. Coloque em `GOOGLE_GENERATIVE_AI_API_KEY` (no `.env.local` e nas variáveis de ambiente da Vercel). `GEMINI_MODEL` é opcional: vazio usa `gemini-3.5-flash-lite`.
+4. As cotas gratuitas (pedidos por minuto e por dia) aparecem no painel do AI Studio e mudam com o tempo. O limite do próprio site (abaixo) evita que um visitante esgote a cota sozinho.
 
-**Custo estimado (out/2026):** o GPT-6 Luna custa US$ 0,10 por milhão de tokens de entrada e US$ 0,50 por milhão de saída. Com ~5 mil tokens de entrada (prompt + conversa) e ~300 de saída por pergunta, dá **cerca de US$ 0,65 a cada mil perguntas**.
+**Custo:** zero. Sem faturamento ativo no projeto do Google, nada é cobrado: quando a cota acaba, a API responde 429 e o chat mostra "indisponível" até ela renovar. A contrapartida do plano gratuito é que o Google pode usar o conteúdo das conversas para melhorar os produtos dele — por isso o chat avisa para não enviar dados pessoais.
 
-> 💡 **Alternativa gratuita:** o AI SDK troca de provedor mudando uma linha em `api/chat.js` (por exemplo, `@ai-sdk/google` com Gemini ou `@ai-sdk/groq`, que têm planos gratuitos).
+> 💡 **Outros modelos:** `GEMINI_MODEL=gemini-3.8-flash` responde melhor perguntas complexas, mas costuma ter cota gratuita menor. O nível de raciocínio é ajustado sozinho para cada modelo (`server/assistant.js`).
 
 **Upstash Redis (limite de uso)**
 
@@ -329,7 +343,7 @@ Abra [http://localhost:5173](http://localhost:5173): você será redirecionado p
 
 > Sem o Upstash, em desenvolvimento o limite é pulado (com aviso no console) e em produção usa um limite em memória por instância.
 
-**Como funciona:** `api/chat.js` valida o pedido (só as últimas 10 mensagens, no máximo 500 caracteres por mensagem do visitante), aplica o limite, gera o prompt a partir de `src/content` e responde em streaming com `streamText` (máx. 500 tokens). As ferramentas (`openApp`, `showProject`, `setLanguage`, `setTheme`) são declaradas **sem `execute`** no servidor e executadas no navegador. O conteúdo das conversas não é armazenado nem logado.
+**Como funciona:** `api/chat.js` valida o pedido (só as últimas 10 mensagens, no máximo 500 caracteres por mensagem do visitante), aplica o limite, gera o prompt a partir de `src/content` e responde em streaming com `streamText` (máx. 500 tokens). As ferramentas (`openApp`, `showProject`, `setLanguage`, `setTheme`) são declaradas **sem `execute`** no servidor e executadas no navegador. Este servidor não armazena nem loga o conteúdo das conversas.
 
 ### 🎵 Spotify
 
@@ -357,6 +371,19 @@ Escopos usados: `user-read-currently-playing user-read-recently-played user-top-
    - **Coding Activity** → copie a URL para `WAKATIME_ACTIVITY_URL`;
    - **Languages** → copie a URL para `WAKATIME_LANGUAGES_URL`.
 3. Pronto: `/api/wakatime` busca os dois JSONs no servidor (eles não têm CORS), normaliza para `{ totalSeconds, dailyAverageSeconds, days, languages }` e guarda em cache por 1h.
+
+### 🐙 GitHub
+
+O app **GitHub** funciona **sem configuração**: o usuário vem de `social.github` no `src/site.config.js`.
+
+- **Repositórios e commits:** API REST pública (`/users/{login}/repos` e `/repos/{login}/{repo}/commits?author={login}`). Os commits vêm dos 4 repositórios com push mais recente, sem merges, porque o evento de push da API pública não traz mais a lista de commits.
+- **Gráfico de contribuições:** sem token, vem da página pública do perfil (`github.com/users/{login}/contributions`); com token, da API GraphQL oficial (`contributionsCollection`), com a página pública de reserva.
+- `/api/github` junta tudo, guarda em cache por 30 min e, se o GitHub falhar, devolve o último resumo bom.
+
+Sem token, a API REST aceita 60 requisições por hora **por IP**, e na Vercel o IP é compartilhado com outros sites. Para não depender disso em produção:
+
+1. Acesse [github.com/settings/personal-access-tokens](https://github.com/settings/personal-access-tokens) e crie um **fine-grained token** com acesso a **Public repositories** e nenhuma permissão extra.
+2. Coloque o token em `GITHUB_TOKEN` no `.env.local` e na Vercel. O limite sobe para 5.000 requisições por hora.
 
 ### 📬 EmailJS
 
@@ -439,6 +466,35 @@ Variáveis enviadas aos templates: `{{name}}`, `{{email}}`, `{{message}}`, `{{ti
 
 ---
 
+## 🏅 Como adicionar um certificado
+
+Os certificados ficam em [`src/content/certificates.js`](src/content/certificates.js) e os arquivos em `public/certificates/`. O app **Certificados**, o Terminal (`certificados`) e o assistente leem da mesma lista.
+
+1. Copie o PDF para `public/certificates/`, com um nome curto e sem espaços (ex.: `curso-spring-2026.pdf`).
+2. (Opcional) Gere a prévia. No macOS:
+   ```bash
+   sips -s format png -Z 1200 public/certificates/curso-spring-2026.pdf --out public/certificates/curso-spring-2026.png
+   ```
+   Sem prévia, o card mostra um selo no lugar da imagem.
+3. Acrescente um item na lista. A ordem não importa: o app ordena pela data.
+   ```js
+   {
+     id: 'curso-spring-2026',
+     name: 'Nome do curso como está no certificado',
+     issuer: 'Quem emitiu',
+     date: '2026-11-20', // AAAA-MM-DD
+     hours: 10, // opcional
+     description: { pt: 'O que o curso cobriu.', en: 'What the course covered.' },
+     topics: [{ pt: 'Spring Boot', en: 'Spring Boot' }], // opcional
+     file: '/certificates/curso-spring-2026.pdf',
+     image: '/certificates/curso-spring-2026.png', // opcional
+     credentialUrl: 'https://…', // opcional: o link do QR code, vira "Verificar autenticidade"
+   },
+   ```
+4. Rode `npm test`: ele confere o formato da data e se os arquivos existem em `public/`.
+
+---
+
 ## 🚀 Deploy
 
 O deploy é feito na **Vercel**, conectada ao repositório do GitHub. As funções em `api/` viram Vercel Functions automaticamente e o `vercel.json` faz o fallback do SPA (`/qualquer/rota` → `index.html`).
@@ -457,23 +513,23 @@ Todo push na `main` gera um deploy de produção e todo Pull Request gera uma **
 ```
 .
 ├── .github/workflows/ci.yml   # 🤖 CI: lint, formatação, testes, build e e2e
-├── api/                       # ☁️ Vercel Functions (servidor): chat, spotify, wakatime
-├── server/                    # 🔒 Código só do servidor: rate limit, Spotify, WakaTime, plugins do Vite
+├── api/                       # ☁️ Vercel Functions (servidor): chat, spotify, wakatime, github
+├── server/                    # 🔒 Código só do servidor: rate limit, Spotify, WakaTime, GitHub, plugins do Vite
 ├── docs/
 │   ├── PROJETO.md             # 📘 Especificação (fonte de verdade)
 │   ├── apresentacao.md        # 🎤 Roteiro da apresentação
 │   ├── wireframes/            # 🎨 Protótipos exportados do Figma
 │   └── screenshots/           # 🖼️ Prints deste README (npm run screenshots)
-├── public/                    # 📁 Estáticos: brand (logo, OG), cv, images, projects, wallpapers
-├── scripts/                   # 🛠️ spotify-token.mjs, screenshots.mjs
+├── public/                    # 📁 Estáticos: brand (logo, OG), certificates, cv, hdri, images, models (3D), projects, wallpapers
+├── scripts/                   # 🛠️ spotify-token.mjs, screenshots.mjs, fetch-models.mjs
 ├── src/
 │   ├── components/
-│   │   ├── intro/             # 💻 Notebook 3D, cena, textura da tela, sequência GSAP
-│   │   ├── os/                # 🪟 Shell: barra de menu, dock, janelas, desktop, mobile, lançador
+│   │   ├── intro/             # 💻 Mesa 3D (desk/: um arquivo por objeto), notebook, textura da tela, sequência GSAP
+│   │   ├── os/                # 🪟 Shell: barra de menu, dock, janelas, desktop, mobile, lançador, tela de bloqueio
 │   │   ├── apps/              # 🧩 Um componente por app (Sobre, Projetos, …)
 │   │   ├── chat/              # 🤖 Painel do assistente e markdown
 │   │   └── ui/                # 🎛️ Botões, chips, ícones, estados vazios
-│   ├── content/               # 🗂️ Perfil, projetos, experiências e skills (PT/EN)
+│   ├── content/               # 🗂️ Perfil, projetos, experiências, skills e certificados (PT/EN)
 │   ├── i18n/                  # 🌐 i18next e mensagens pt.json / en.json
 │   ├── lib/                   # ⚙️ Registro de apps, store, assistente, Terminal, formatação…
 │   ├── styles/globals.css     # 🎨 Tokens de tema e estilos globais
@@ -498,13 +554,17 @@ Todo push na `main` gera um deploy de produção e todo Pull Request gera uma **
 
 ### 🌐 Aplicação Web
 
-|                                                 Intro 3D                                                  |                                            Boot na tela do notebook                                            |
-| :-------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: |
-| <img src="docs/screenshots/intro.png" alt="Notebook 3D fechado com a dica Clique para abrir" width="420"> | <img src="docs/screenshots/intro-boot.png" alt="Notebook aberto mostrando o boot com o monograma" width="420"> |
-|                                   **Desktop com janelas (tema escuro)**                                   |                                            **Ajustes (tema claro)**                                            |
-|    <img src="docs/screenshots/desktop.png" alt="Desktop com as janelas Projetos e Sobre" width="420">     |           <img src="docs/screenshots/desktop-light.png" alt="App Ajustes no tema claro" width="420">           |
-|                                               **Terminal**                                                |                                              **Contato (inglês)**                                              |
-|  <img src="docs/screenshots/terminal.png" alt="Terminal com neofetch e a lista de projetos" width="420">  |  <img src="docs/screenshots/contact-en.png" alt="App Contato em inglês com canais e formulário" width="420">   |
+|                                                                            Intro 3D: a mesa à noite (tema escuro)                                                                            |                                                      A mesma mesa de dia (tema claro)                                                      |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="docs/screenshots/intro.png" alt="Mesa de trabalho à noite com notebook fechado, luminária, livros, currículo, celular, boneco do Luffy, raquete e quadro do Atlético" width="420"> |                 <img src="docs/screenshots/intro-light.png" alt="A mesma mesa de dia, com céu azul na janela" width="420">                 |
+|                                                                                     **Notebook abrindo**                                                                                     |                                                            **Tela de bloqueio**                                                            |
+|                            <img src="docs/screenshots/intro-boot.png" alt="Notebook aberto mostrando o boot, com a luz da tela iluminando o teclado" width="420">                            | <img src="docs/screenshots/lock.png" alt="Tela de bloqueio com relógio, notificação do assistente, foto, nome e botão Entrar" width="420"> |
+|                                                                            **Desktop com janelas (tema escuro)**                                                                             |                                                          **Ajustes (tema claro)**                                                          |
+|                                              <img src="docs/screenshots/desktop.png" alt="Desktop com as janelas Projetos e Sobre" width="420">                                              |                         <img src="docs/screenshots/desktop-light.png" alt="App Ajustes no tema claro" width="420">                         |
+|                                                                                         **Terminal**                                                                                         |                                                            **Contato (inglês)**                                                            |
+|                                           <img src="docs/screenshots/terminal.png" alt="Terminal com neofetch e a lista de projetos" width="420">                                            |                <img src="docs/screenshots/contact-en.png" alt="App Contato em inglês com canais e formulário" width="420">                 |
+|                                                                                      **GitHub ao vivo**                                                                                      |                                                         **Sobre: fora do código**                                                          |
+|                    <img src="docs/screenshots/github.png" alt="App GitHub com contribuições no último ano, gráfico de contribuições e repositórios recentes" width="420">                    | <img src="docs/screenshots/about-hobbies.png" alt="App Sobre com a seção Fora do código: One Piece, tênis e Atlético Mineiro" width="420"> |
 
 ### 📱 Celular
 
@@ -522,7 +582,7 @@ Todo push na `main` gera um deploy de produção e todo Pull Request gera uma **
 npm test
 ```
 
-_Ferramentas: Vitest + Testing Library._ Cobrem (§15): store de janelas (abrir, focar, minimizar, maximizar, fechar, limites), ordenação da timeline, schema do formulário, gerador do prompt do assistente (contém todos os projetos e apps, nenhuma variável de ambiente, < 6 mil tokens), paridade de chaves do i18n, parser e comandos do Terminal, enquadramento _cover_ da intro nos 4 viewports do critério de aceite, normalização do Spotify e do WakaTime, validação do pedido ao `/api/chat`, rate limit e componentes (timeline, validação do Contato, carregamento de cada app).
+_Ferramentas: Vitest + Testing Library._ Cobrem (§15): store de janelas (abrir, focar, minimizar, maximizar, fechar, limites), ordenação da timeline e dos certificados (com os arquivos de cada um existindo em `public/`), schema do formulário, gerador do prompt do assistente (contém todos os projetos e apps, nenhuma variável de ambiente, < 6 mil tokens), paridade de chaves do i18n, parser e comandos do Terminal, enquadramento _cover_ da intro nos 4 viewports do critério de aceite, normalização do Spotify e do WakaTime, resumo do GitHub (repositórios, commits, gráfico pela página pública e pela GraphQL, falhas parciais) e o gráfico em semanas, despertar da demo (sem CORS, uma vez a cada 10 min), validação do pedido ao `/api/chat`, rate limit e componentes (timeline, validação do Contato, carregamento de cada app).
 
 ### Testes End-to-End (E2E)
 
@@ -531,7 +591,7 @@ npx playwright install chromium   # uma vez
 npm run test:e2e
 ```
 
-_Ferramenta: Playwright_ (contra o build de produção). **Desktop:** pular a intro, abrir cada app pelo dock, trocar o idioma mantendo o app, deep link e 404, minimizar/maximizar/fechar com Esc, validação do formulário, assistente com a API simulada (responde e abre o app pedido) e Terminal. **Celular (375px):** abrir um app em tela cheia e voltar, Voltar do navegador fecha o app e nada de rolagem horizontal.
+_Ferramenta: Playwright_ (contra o build de produção). **Desktop:** pular a intro, abrir cada app pelo dock, trocar o idioma mantendo o app, deep link e 404, minimizar/maximizar/fechar com Esc, validação do formulário, assistente com a API simulada (responde e abre o app pedido), app GitHub com a API simulada, abrir Projetos acorda a demo do WaveHub e Terminal. **Celular (375px):** abrir um app em tela cheia e voltar, Voltar do navegador fecha o app e nada de rolagem horizontal.
 
 ---
 
@@ -542,6 +602,7 @@ _Ferramenta: Playwright_ (contra o build de produção). **Desktop:** pular a in
 - 📖 [**React Three Fiber**](https://r3f.docs.pmnd.rs/) · [**drei**](https://drei.docs.pmnd.rs/) · [**GSAP**](https://gsap.com/docs/v3/)
 - 📖 [**AI SDK**](https://ai-sdk.dev/) — chatbot com ferramentas no cliente
 - 📖 [**Spotify Web API**](https://developer.spotify.com/documentation/web-api) — [mudanças de fev/2026](https://developer.spotify.com/documentation/web-api/references/changes/february-2026) e [expiração de refresh tokens](https://developer.spotify.com/blog/2026-06-18-refresh-token-expiration)
+- 📖 [**GitHub REST API**](https://docs.github.com/rest) e [**GraphQL**](https://docs.github.com/graphql) — [mudanças no payload dos eventos](https://github.blog/changelog/2025-08-08-upcoming-changes-to-github-events-api-payloads/)
 - 📖 [**WakaTime**](https://wakatime.com/developers) · [**EmailJS**](https://www.emailjs.com/docs/) · [**Upstash Ratelimit**](https://upstash.com/docs/redis/sdks/ratelimit-ts/overview)
 - 📖 [**i18next**](https://www.i18next.com/) · [**Zustand**](https://zustand.docs.pmnd.rs/) · [**Motion**](https://motion.dev/) · [**Tailwind CSS**](https://tailwindcss.com/docs)
 - 📖 [**Vitest**](https://vitest.dev/guide/) · [**Testing Library**](https://testing-library.com/docs/react-testing-library/intro/) · [**Playwright**](https://playwright.dev/)
@@ -572,6 +633,8 @@ _Ferramenta: Playwright_ (contra o build de produção). **Desktop:** pular a in
 
 - [**Engenharia de Software PUC Minas**](https://www.instagram.com/engsoftwarepucminas/) — pela estrutura acadêmica e pelo incentivo às boas práticas de engenharia.
 - [**Prof. Dr. João Paulo Aramuni**](https://github.com/joaopauloaramuni) — pela disciplina, pelo template deste README e pelo portfólio em estilo terminal ([aramuni.dev](https://aramuni.dev/)), homenageado no app **Terminal** deste sistema.
+- [**Poly Haven**](https://polyhaven.com/) — mesa, luminária e planta da intro 3D e as HDRIs `wooden_lounge` e `lebombo` usadas na iluminação ([CC0](https://polyhaven.com/license)).
+- Escudo do **Clube Atlético Mineiro** ([Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Clube_Atl%C3%A9tico_Mineiro_logo.svg)) e personagem **Luffy** (_One Piece_, de Eiichiro Oda; o boneco é feito em código, inspirado no estilo dos bonecos da Funko) aparecem só como decoração pessoal da mesa 3D; pertencem aos seus donos.
 
 ---
 

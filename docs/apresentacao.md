@@ -4,21 +4,23 @@
 
 ## 1. A ideia (20s)
 
-"Em vez de uma página com seções, meu portfólio é um **notebook**. Cada seção é um app de um sistema operacional que eu mesmo construí."
+"Em vez de uma página com seções, meu portfólio é a **minha mesa de trabalho**. O notebook abre um sistema operacional que eu mesmo construí, e cada seção é um app."
 
-→ Mostre o notebook fechado. Passe o mouse (a tampa levanta) e **clique**.
+→ Mostre a mesa: passe o mouse nos livros ("as tecnologias que eu uso"), no currículo, no boneco do Luffy, na raquete e no quadro do Galo ("coisas de que eu gosto — clicar neles leva ao Sobre"). Clique na luminária (liga/desliga). Depois passe o mouse no notebook (a tampa levanta) e **clique**.
 
 ## 2. A intro 3D (20s)
 
 Enquanto a tampa abre, a tela liga e a câmera entra:
 
-- "O notebook é feito em código — React Three Fiber, sem Blender. A sequência é uma timeline do GSAP."
-- "A câmera para exatamente quando a tela cobre a janela, em qualquer proporção. O papel de parede da tela é o mesmo do sistema, então a troca para o HTML é contínua."
+- "A cena é híbrida: mesa, luminária e planta são modelos gratuitos do Poly Haven, comprimidos; o notebook, os livros, o celular, o boneco do Luffy e a raquete eu fiz em código, com React Three Fiber. A luz vem de uma foto 360° de uma sala de verdade, e a sequência é uma timeline do GSAP."
+- "Repare na luz da tela se espalhando pelo teclado. A câmera para exatamente quando a tela cobre a janela, em qualquer proporção, e a tela já mostra a **tela de bloqueio** — por isso a troca para o HTML não tem corte."
+- Na tela de bloqueio: "sem senha, é só entrar". Aperte qualquer tecla.
 
 ## 3. O sistema (40s)
 
 - **Cabeçalho, rodapé e conteúdo:** barra de menu em cima, dock embaixo, janelas no meio.
-- Abra **Projetos** pelo dock: "timeline do mais antigo ao mais recente, com tecnologias, GitHub e mídia". Filtre por uma tecnologia.
+- Abra **Projetos** pelo dock: "timeline com tecnologias, GitHub e mídia; abre pelos mais recentes, e em **Mais antigos** fica do mais antigo ao mais recente, como pede o enunciado". Clique em Mais antigos e filtre por uma tecnologia. "O WaveHub está no Render, no plano gratuito, que dorme sem uso: no momento em que o app abriu, o site já mandou uma chamada para acordar o servidor, então a demo carrega rápido no clique."
+- Abra **Certificados**: "cada curso que eu concluo entra aqui, com o PDF e o link de verificação do QR code".
 - Abra **Experiências** e arraste a janela; maximize com clique duplo no título; minimize para o dock.
 - Troque **PT → EN** na barra de menu: "o app continua aberto e a URL muda de `/pt/projects` para `/en/projects`".
 
@@ -33,7 +35,7 @@ Pressione **⌘K / Ctrl K** e pergunte: _"Quais são os principais projetos dele
 
 - **Contato:** envie o formulário vazio para mostrar a validação traduzida. "Envia dois e-mails pelo EmailJS: um para mim e uma confirmação para quem escreveu."
 - **Terminal:** digite `neofetch` e `open projetos`. "É uma homenagem ao seu portfólio-terminal, professor."
-- **Música / Atividade:** "o que estou ouvindo no Spotify e minhas horas programando no WakaTime, ao vivo."
+- **Música / Atividade / GitHub:** "o que estou ouvindo no Spotify, minhas horas programando no WakaTime e, no app GitHub, o gráfico de contribuições e os últimos commits — tudo ao vivo."
 
 ## 6. Celular e qualidade (20s)
 
@@ -42,8 +44,8 @@ Pressione **⌘K / Ctrl K** e pergunte: _"Quais são os principais projetos dele
 
 ## Encerramento (10s)
 
-"Logo → **Desligar**": a câmera recua e o notebook fecha. "Obrigado!"
+"Logo → **Desligar**": a câmera recua, o notebook fecha e a mesa volta. "Obrigado!"
 
 ---
 
-**Plano B:** se a internet ou a GPU falharem, use "Pular intro" (o sistema abre direto) e os prints do README.
+**Plano B:** se a internet ou a GPU falharem, use "Pular intro" (vai direto à tela de bloqueio) e os prints do README.

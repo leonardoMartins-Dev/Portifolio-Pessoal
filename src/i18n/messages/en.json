@@ -2,7 +2,7 @@
   "meta": {
     "title": "{{system}} — {{name}}",
     "appTitle": "{{app}} — {{name}}",
-    "description": "{{name}}'s interactive portfolio: a 3D laptop with its own operating system inside."
+    "description": "{{name}}'s interactive portfolio: his 3D desk, with a laptop that opens its own operating system."
   },
   "common": {
     "close": "Close",
@@ -41,22 +41,40 @@
     "system": "System"
   },
   "intro": {
-    "hint": "Click to open",
+    "hint": "Click the laptop to open",
+    "hintTouch": "Tap the laptop to open",
     "skip": "Skip intro",
-    "loading": "Loading the laptop…",
+    "loading": "Loading the scene…",
     "powerOn": "Power on",
     "off": "Powered off",
-    "hintTarget": "the laptop"
+    "loadingProgress": "Loading the scene… {{progress}}%",
+    "shortcuts": "Desk shortcuts",
+    "openLaptop": "Open the laptop",
+    "openApp": "Open {{app}}",
+    "lamp": "Turn the lamp on or off"
   },
   "boot": {
     "label": "Starting {{system}}",
     "skip": "Click or press any key to skip"
+  },
+  "lock": {
+    "label": "{{system}} lock screen",
+    "enter": "Enter",
+    "enterAndOpen": "Enter and open {{app}}",
+    "hint": "Click or press any key to enter",
+    "hintTouch": "Tap to enter",
+    "notification": {
+      "app": "Assistant",
+      "time": "now",
+      "body": "Hi! Ask me anything about {{name}}."
+    }
   },
   "menu": {
     "logo": "System menu",
     "aboutSystem": "About this system",
     "settings": "Settings",
     "replayIntro": "Replay intro",
+    "lock": "Lock",
     "shutdown": "Shut down",
     "desktop": "Desktop",
     "assistant": "Assistant",
@@ -110,11 +128,19 @@
     "quickLinks": "Quick links",
     "resume": "View résumé",
     "contact": "Get in touch",
-    "github": "GitHub"
+    "github": "GitHub",
+    "openToWork": "Open to internships",
+    "focus": "Current focus",
+    "linkedin": "LinkedIn",
+    "hobbies": "Beyond code"
   },
   "projects": {
     "heading": "Timeline",
-    "subtitle": "From oldest to newest",
+    "subtitleNewest": "From newest to oldest",
+    "subtitleOldest": "From oldest to newest",
+    "orderLabel": "Timeline order",
+    "newest": "Newest",
+    "oldest": "Oldest",
     "filterLabel": "Filter by technology",
     "all": "All",
     "repo": "Repository",
@@ -143,7 +169,20 @@
   },
   "skills": {
     "heading": "Skills",
-    "level": "Level {{level}} of 5"
+    "learning": "Learning"
+  },
+  "certificates": {
+    "heading": "Courses and certificates",
+    "count_one": "{{count}} certificate",
+    "count_other": "{{count}} certificates",
+    "totalHours": "{{hours}} h of training",
+    "hours": "{{hours}} h",
+    "topics": "Topics",
+    "open": "View certificate",
+    "download": "Download PDF",
+    "verify": "Verify authenticity",
+    "previewAlt": "{{name}} certificate, issued by {{issuer}}",
+    "empty": "No certificates published yet."
   },
   "resume": {
     "downloadPt": "Download PT",
@@ -226,6 +265,29 @@
     "unconfigured": "WakaTime stats aren't configured yet.",
     "error": "Couldn't load the stats right now."
   },
+  "github": {
+    "heading": "Coding in public",
+    "profile": "View GitHub profile",
+    "contributionsYear": "Contributions in the last year",
+    "activeDays": "Active days (last 30)",
+    "repos": "Own repositories",
+    "contributions": "Contributions",
+    "calendarLabel": "Contribution graph: {{count}} in the last year",
+    "dayContributions_zero": "No contributions on {{date}}",
+    "dayContributions_one": "{{count}} contribution on {{date}}",
+    "dayContributions_other": "{{count}} contributions on {{date}}",
+    "less": "Less",
+    "more": "More",
+    "recentRepos": "Recent repositories",
+    "recentCommits": "Latest commits",
+    "stars_one": "{{count}} star",
+    "stars_other": "{{count}} stars",
+    "updated": "updated {{when}}",
+    "dataVia": "data via GitHub, refreshed every 30 minutes",
+    "loading": "Loading GitHub…",
+    "unconfigured": "The GitHub profile isn't set up yet.",
+    "error": "Couldn't load GitHub data right now."
+  },
   "assistant": {
     "intro": "Ask about {{name}}, the projects or how to use the system.",
     "placeholder": "Ask something…",
@@ -236,11 +298,11 @@
     "suggestionsLabel": "Suggestions",
     "suggestions": {
       "projects": "What are his main projects?",
-      "react": "Does he have experience with React?",
+      "springBoot": "Does he have experience with Spring Boot?",
       "contact": "How do I get in touch?",
       "howTo": "How do I use this system?"
     },
-    "disclaimer": "AI-generated answers may contain mistakes.",
+    "disclaimer": "AI-generated answers (Google Gemini) may contain mistakes. Don't share personal data.",
     "thinking": "Thinking…",
     "you": "You",
     "bot": "Assistant",
@@ -280,6 +342,7 @@
       "projects": "Lists the projects",
       "experience": "Lists the experience",
       "skills": "Lists the skills",
+      "certificates": "Lists the certificates",
       "contact": "Shows the contacts",
       "resume": "Opens the Résumé",
       "open": "Opens an app",
@@ -307,7 +370,8 @@
       "whatsapp": "whatsapp",
       "linkedin": "linkedin",
       "github": "github"
-    }
+    },
+    "hobbies": "Beyond code: {{list}}"
   },
   "settings": {
     "language": "Language",
@@ -326,7 +390,7 @@
     "soundHint": "Subtle sounds when opening and closing windows.",
     "intro": "Intro",
     "replayIntro": "Replay intro",
-    "replayIntroHint": "Shows the 3D laptop again."
+    "replayIntroHint": "Shows the 3D desk again."
   },
   "system": {
     "version": "Version {{version}}",
@@ -340,7 +404,7 @@
     "stack": {
       "react": "Interface",
       "vite": "Build and dev server",
-      "three": "3D laptop",
+      "three": "3D desk",
       "gsap": "Intro sequence",
       "motion": "UI animations",
       "zustand": "System and window state",

@@ -116,6 +116,33 @@ describe('gerenciador de janelas', () => {
   });
 });
 
+describe('tela de bloqueio', () => {
+  it('bloquear pelo menu mantém as janelas e marca a origem', () => {
+    state().openApp('projects');
+    state().openApp('skills');
+    state().lock();
+    expect(state().phase).toBe('lock');
+    expect(state().lockedFromDesktop).toBe(true);
+    expect(state().windows.map((w) => w.id)).toEqual(['projects', 'skills']);
+  });
+
+  it('desbloquear volta ao desktop e devolve o app pendente uma única vez', () => {
+    state().setPhase('lock');
+    state().setPendingApp('contact');
+    expect(state().unlock()).toBe('contact');
+    expect(state().phase).toBe('desktop');
+    expect(state().pendingApp).toBeNull();
+    state().setPhase('lock');
+    expect(state().unlock()).toBeNull();
+  });
+
+  it('vindo da intro, a tela de bloqueio não é marcada como "do desktop"', () => {
+    state().lock();
+    state().setPhase('lock');
+    expect(state().lockedFromDesktop).toBe(false);
+  });
+});
+
 describe('fitRect', () => {
   it('encolhe janelas maiores que a área', () => {
     const rect = fitRect({ x: 0, y: 0, w: 2000, h: 2000 }, { w: 800, h: 600 }, { w: 300, h: 200 });

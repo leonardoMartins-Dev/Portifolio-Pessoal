@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { certificates } from '../../content/certificates.js';
 import { experiences } from '../../content/experiences.js';
 import { profile } from '../../content/profile.js';
 import { projects } from '../../content/projects.js';
@@ -14,7 +15,7 @@ import { useResolvedTheme } from '../../lib/theme.js';
 import { siteConfig } from '../../site.config.js';
 
 const STARTED_AT = Date.now();
-const CONTENT = { profile, projects, experiences, skills };
+const CONTENT = { profile, projects, experiences, skills, certificates };
 const KIND_CLASSES = {
   text: 'text-[#d7dae3]',
   muted: 'text-[#8b90a0]',

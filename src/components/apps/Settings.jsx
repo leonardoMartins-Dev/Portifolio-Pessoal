@@ -9,6 +9,7 @@ import { useOS } from '../../lib/os-store.js';
 import { WALLPAPERS } from '../../lib/wallpapers.js';
 import { AppScroll, SectionTitle } from '../ui/AppSection.jsx';
 import { Button } from '../ui/Button.jsx';
+import { Segmented } from '../ui/Segmented.jsx';
 
 /** Ajustes: idioma, tema, papel de parede, movimento, sons e rever intro (§10.11). */
 export default function Settings() {
@@ -129,39 +130,6 @@ function Group({ id, title, children }) {
       <SectionTitle id={id}>{title}</SectionTitle>
       {children}
     </section>
-  );
-}
-
-function Segmented({ labelledBy, value, onChange, options }) {
-  return (
-    <div
-      role="radiogroup"
-      aria-labelledby={labelledBy}
-      className="inline-flex w-fit gap-1 rounded-sm border border-border bg-surface-2 p-1"
-    >
-      {options.map((option) => {
-        const Icon = option.icon;
-        const selected = option.value === value;
-        return (
-          <button
-            key={option.value}
-            type="button"
-            role="radio"
-            aria-checked={selected}
-            lang={option.lang}
-            onClick={() => onChange(option.value)}
-            className={`flex min-h-9 items-center gap-1.5 rounded-[7px] px-3 text-sm transition-colors ${
-              selected
-                ? 'bg-surface font-medium text-text shadow-[0_1px_2px_rgb(0_0_0/0.12)]'
-                : 'text-muted hover:text-text'
-            }`}
-          >
-            {Icon && <Icon aria-hidden className="size-4" />}
-            {option.label}
-          </button>
-        );
-      })}
-    </div>
   );
 }
 

@@ -1,5 +1,6 @@
+import { skillName } from '../content/skills.js';
 import { formatMonth, formatPeriod } from './format.js';
-import { sortExperiencesDescending, sortProjectsAscending } from './timeline.js';
+import { sortCertificatesDescending, sortExperiencesDescending, sortProjects } from './timeline.js';
 
 /** Comandos do Terminal, com aliases em português (§10.10). */
 export const COMMANDS = [
@@ -8,6 +9,7 @@ export const COMMANDS = [
   { name: 'projects', aliases: ['projetos'] },
   { name: 'experience', aliases: ['experiencias', 'experiências'] },
   { name: 'skills', aliases: ['habilidades'] },
+  { name: 'certificates', aliases: ['certificados'] },
   { name: 'contact', aliases: ['contato'] },
   { name: 'resume', aliases: ['curriculo', 'currículo'] },
   { name: 'open', aliases: ['abrir'], usage: 'open <app>' },
@@ -127,6 +129,17 @@ export function runCommand(input, ctx) {
           line(`${l(profile.role)} · ${l(profile.location)}`, 'muted'),
           line(''),
           line(l(profile.bio)),
+          ...(profile.hobbies?.length
+            ? [
+                line(''),
+                line(
+                  t('terminal.hobbies', {
+                    list: profile.hobbies.map((hobby) => l(hobby.name)).join(' · '),
+                  }),
+                  'muted',
+                ),
+              ]
+            : []),
         ],
         effects: [],
       };
@@ -134,7 +147,7 @@ export function runCommand(input, ctx) {
 
     case 'projects':
       return {
-        lines: sortProjectsAscending(content.projects).map((project) =>
+        lines: sortProjects(content.projects).map((project) =>
           line(
             `${formatMonth(project.date, locale).padEnd(10)} ${project.name} — ${project.technologies.join(', ')}`,
           ),
@@ -155,7 +168,25 @@ export function runCommand(input, ctx) {
     case 'skills':
       return {
         lines: content.skills.map((group) =>
-          line(`${l(group.title)}: ${group.items.map((item) => item.name).join(', ')}`),
+          line(
+            `${l(group.title)}: ${group.items.map((item) => skillName(item, locale)).join(', ')}`,
+          ),
+        ),
+        effects: [],
+      };
+
+    case 'certificates':
+      return {
+        lines: sortCertificatesDescending(content.certificates ?? []).map((certificate) =>
+          line(
+            [
+              formatMonth(certificate.date.slice(0, 7), locale).padEnd(10),
+              `${certificate.name} — ${certificate.issuer}`,
+              certificate.hours ? `(${t('certificates.hours', { hours: certificate.hours })})` : '',
+            ]
+              .filter(Boolean)
+              .join(' '),
+          ),
         ),
         effects: [],
       };

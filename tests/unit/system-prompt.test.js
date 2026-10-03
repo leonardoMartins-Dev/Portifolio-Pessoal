@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { certificates } from '../../src/content/certificates.js';
 import { experiences } from '../../src/content/experiences.js';
 import { profile } from '../../src/content/profile.js';
 import { projects } from '../../src/content/projects.js';
@@ -22,6 +23,14 @@ describe('prompt de sistema do assistente', () => {
     expect(prompt).toContain(profile.email);
   });
 
+  it('contém os certificados', () => {
+    for (const certificate of certificates) expect(prompt).toContain(certificate.name);
+  });
+
+  it('contém os hobbies do autor', () => {
+    for (const hobby of profile.hobbies) expect(prompt).toContain(hobby.name.pt);
+  });
+
   it('contém todos os apps', () => {
     for (const id of APP_IDS) expect(prompt).toContain(`- ${id} —`);
   });
@@ -34,7 +43,16 @@ describe('prompt de sistema do assistente', () => {
   });
 
   it('não contém variáveis de ambiente nem segredos', () => {
-    for (const name of ['OPENAI', 'UPSTASH', 'SPOTIFY_', 'WAKATIME_', 'process.env', 'sk-']) {
+    for (const name of [
+      'GOOGLE_GENERATIVE',
+      'GEMINI_',
+      'UPSTASH',
+      'SPOTIFY_',
+      'WAKATIME_',
+      'GITHUB_TOKEN',
+      'process.env',
+      'AIza',
+    ]) {
       expect(prompt).not.toContain(name);
     }
   });

@@ -49,15 +49,15 @@ describe('validação do pedido ao assistente', () => {
   });
 });
 
-describe('/api/chat sem OPENAI_API_KEY', () => {
+describe('/api/chat sem GOOGLE_GENERATIVE_AI_API_KEY', () => {
   it('GET informa indisponível sem quebrar', async () => {
-    vi.stubEnv('OPENAI_API_KEY', '');
+    vi.stubEnv('GOOGLE_GENERATIVE_AI_API_KEY', '');
     const response = GET();
     expect(await response.json()).toEqual({ available: false });
   });
 
   it('POST responde 503 "unavailable"', async () => {
-    vi.stubEnv('OPENAI_API_KEY', '');
+    vi.stubEnv('GOOGLE_GENERATIVE_AI_API_KEY', '');
     const response = await POST(
       new Request('http://localhost/api/chat', {
         method: 'POST',

@@ -9,7 +9,11 @@
 > - **Variáveis públicas:** prefixo `VITE_` (não `NEXT_PUBLIC_`).
 > - **Nome do sistema (decisão do autor):** Portifólio. **Provisórios até o autor decidir:** cor de destaque `#5a67f2` e logo (monograma "LM"), ambos em `src/site.config.js`.
 > - **Área de trabalho (decisão do autor):** ícones de todos os apps do dock na coluna da esquerda; GitHub e LinkedIn à direita (substitui os atalhos da §9.1).
-> - **Modelo de IA padrão:** `gpt-6-luna` (o mais barato da OpenAI em out/2026; ver §11.5).
+> - **IA (revisão de 02/10/2026, decisão do autor):** Google Gemini no **plano gratuito** (`@ai-sdk/google`, modelo padrão `gemini-3.5-flash-lite`) no lugar da OpenAI — o autor não quer pagar pela API. Variáveis: `GOOGLE_GENERATIVE_AI_API_KEY` e `GEMINI_MODEL` (ver §11.5).
+> - **Intro e tela de bloqueio (revisão de 02/10/2026, decisão do autor):** o notebook solto virou uma **mesa de trabalho** (híbrida: modelos CC0 do Poly Haven + objetos em código) com objetos pessoais que são atalhos para apps, e o sistema ganhou uma **tela de bloqueio** sem senha entre a intro e o desktop. A §8 já está atualizada; o desenho completo está em `docs/superpowers/specs/2026-10-02-intro-mesa-design.md`.
+> - **App GitHub, demo acordada e "Fora do código" (revisão de 03/10/2026, pedido do autor):** novo app **GitHub** (`github`) com gráfico de contribuições, repositórios recentes e últimos commits, ao vivo e sem chave obrigatória (§12.3); o app Projetos **acorda a demo do WaveHub** (Render, plano gratuito) assim que abre (§10.2); o Sobre ganhou a seção **"Fora do código"** com os hobbies que o autor contou: One Piece, tênis e Atlético Mineiro (§10.1).
+> - **App Certificados (revisão de 03/10/2026, pedido do autor):** novo app **Certificados** (`certificates`) para o autor ir completando com o tempo; o primeiro é o Gemini Academy para Universitários 2026 (Google for Education). Ver §10.4.1.
+> - **Ordem dos projetos (revisão de 03/10/2026, decisão do autor):** a timeline **abre do mais recente ao mais antigo** e um controle "Mais recentes / Mais antigos" inverte para a ordem do enunciado (do mais antigo ao mais recente). O Terminal (`projects`) segue a ordem padrão do app. Ver §10.2.
 > - Onde o texto abaixo cita Next.js, Route Handlers, next-intl, `next/font` ou `next/image`, vale o equivalente desta revisão.
 
 
@@ -24,11 +28,11 @@
 5. Decisões técnicas (stack)
 6. Arquitetura
 7. Identidade visual
-8. Intro 3D: o notebook
+8. Intro 3D: a mesa de trabalho
 9. Sistema operacional (shell)
 10. Apps
 11. Assistente de IA (chatbot)
-12. Integrações: Spotify, WakaTime, EmailJS
+12. Integrações: Spotify, WakaTime, GitHub, EmailJS
 13. Internacionalização (PT/EN)
 14. Acessibilidade, desempenho e SEO
 15. Qualidade: testes, CI e convenções
@@ -61,7 +65,7 @@ Um portfólio que é um **notebook 3D**. O visitante clica, o notebook abre, o s
 - [david-hckh.com](https://david-hckh.com/) e [unseen.co](https://unseen.co/): acabamento, luz e transições.
 
 **O que diferencia este projeto:**
-1. A entrada 3D com o notebook abrindo (Three.js via React Three Fiber).
+1. A entrada 3D: a mesa de trabalho do autor, com o notebook abrindo (Three.js via React Three Fiber).
 2. O sistema com identidade própria. É inspirado em um laptop moderno, mas **não é uma cópia do macOS**.
 3. O **assistente de IA**. Ele responde sobre o autor e sobre o sistema, e consegue **abrir apps e trocar o idioma sozinho**.
 4. Dados ao vivo: música tocando agora (Spotify) e horas programando (WakaTime).
@@ -69,11 +73,11 @@ Um portfólio que é um **notebook 3D**. O visitante clica, o notebook abre, o s
 
 **Fluxo do visitante:**
 1. O visitante chega em `/` e é redirecionado para `/pt` ou `/en` conforme o idioma do navegador.
-2. Aparece o notebook fechado numa cena limpa, com a dica "Clique para abrir" e o botão "Pular intro".
+2. Aparece a mesa de trabalho do autor (notebook fechado, luminária, livros, currículo, celular, objetos pessoais), com a dica "Clique no notebook para abrir" e o botão "Pular intro".
 3. No clique, a tampa abre, a tela acende e roda o boot: logo e barra de progresso.
-4. A câmera avança até a tela preencher a janela. A interface troca para o sistema real (HTML).
-5. No desktop, o app **Sobre** abre automaticamente na primeira visita.
-6. "Desligar" (no menu do logo) faz a câmera recuar e mostra o notebook de novo.
+4. A câmera avança até a tela preencher a janela, já mostrando a **tela de bloqueio**: relógio, foto, nome e "Entrar" (sem senha).
+5. Clique ou qualquer tecla entra. No desktop, o app **Sobre** abre automaticamente na primeira visita.
+6. "Desligar" (no menu do logo) faz a câmera recuar e mostra a mesa de novo. "Bloquear" volta para a tela de bloqueio.
 
 Quem chega por um link direto, como `/en/projects`, **pula a intro** e cai no sistema com o app aberto.
 
@@ -87,7 +91,7 @@ Esta tabela também vai para o README.
 | Cabeçalho / rodapé / área de conteúdo | Barra de menu (topo) / dock com créditos (base) / janelas |
 | Estrutura de páginas e links entre seções | Cada app tem rota própria (`/{locale}/{appId}`); deep links funcionam |
 | Sobre Mim em PT e EN | App **Sobre** + troca PT/EN na barra de menu e em Ajustes |
-| Projetos em linha do tempo, do mais antigo ao mais recente | App **Projetos**: timeline ordenada por data crescente |
+| Projetos em linha do tempo, do mais antigo ao mais recente | App **Projetos**: timeline por data; abre do mais recente e o controle "Mais antigos" mostra a ordem pedida |
 | Projeto: nome, descrição, tecnologias, link GitHub, imagem/GIF | Card de projeto (ver §10.2) |
 | Experiências: empresa, cargo, período, descrição | App **Experiências** |
 | Contato: ícones clicáveis (e-mail, WhatsApp, LinkedIn…) | App **Contato** + atalhos no desktop |
@@ -135,14 +139,14 @@ Esta tabela também vai para o README.
 | i18n | **i18next + react-i18next** | Rotas `/pt` e `/en`, mensagens de UI; datas com `Intl` |
 | Formulário | **React Hook Form + Zod** | Validação tipada com mensagens traduzidas |
 | E-mail | **EmailJS** (`@emailjs/browser`, não o legado `emailjs-com`) | Mesmo fluxo do guia do professor: e-mail de notificação + confirmação |
-| IA | **AI SDK** (`ai` + `@ai-sdk/openai` + `@ai-sdk/react`) + **OpenAI** | Streaming, `useChat` e ferramentas (tools). Trocar de provedor é trocar uma linha |
+| IA | **AI SDK** (`ai` + `@ai-sdk/google` + `@ai-sdk/react`) + **Google Gemini** (plano gratuito) | Streaming, `useChat` e ferramentas (tools). Trocar de provedor é trocar uma linha |
 | Limite de uso da IA | **Upstash Redis + @upstash/ratelimit** (plano gratuito) | Evita abuso e gasto descontrolado |
 | Markdown nas respostas | `react-markdown` | Links clicáveis nas respostas do bot |
 | Ícones | `lucide-react` + ícones de marca (ex.: `react-icons/si`) | Consistência |
 | Testes | **Vitest + Testing Library**, **Playwright** | Unidade e e2e de fumaça |
 | Qualidade | ESLint + Prettier + GitHub Actions | CI em push e PR |
 
-**Uma lição do repositório do professor:** ele usa `VITE_GITHUB_TOKEN`, e tudo com prefixo `VITE_` (ou `NEXT_PUBLIC_` no Next) vai para o JavaScript público. Pro token dele, que é só de leitura, tudo bem. **Chaves da OpenAI, do Spotify e do Upstash nunca podem ter esse prefixo.** Ficam só no servidor.
+**Uma lição do repositório do professor:** ele usa `VITE_GITHUB_TOKEN`, e tudo com prefixo `VITE_` (ou `NEXT_PUBLIC_` no Next) vai para o JavaScript público. Pro token dele, que é só de leitura, tudo bem. **Chaves do Gemini, do Spotify e do Upstash nunca podem ter esse prefixo.** Ficam só no servidor.
 
 ## 6. Arquitetura
 
@@ -153,9 +157,11 @@ flowchart LR
   C --> CHAT
   FE -->|/api/chat| CHAT[Vercel Function IA]
   CHAT --> RL[("Upstash Redis<br/>rate limit")]
-  CHAT --> OAI[OpenAI API]
+  CHAT --> GEM[Google Gemini API]
   FE -->|/api/spotify| SP[Vercel Function Spotify] --> SAPI[Spotify Web API]
   FE -->|/api/wakatime| WK[Vercel Function WakaTime] --> WAPI[WakaTime JSON embutível]
+  FE -->|/api/github| GH[Vercel Function GitHub] --> GAPI[GitHub REST + contribuições]
+  FE -.->|ao abrir Projetos| RENDER[Demo no Render]
   FE -->|formulário| EJS[EmailJS] --> MAIL[E-mails]
 ```
 
@@ -164,14 +170,15 @@ flowchart LR
 | Rota | Comportamento |
 |---|---|
 | `/` | Redireciona para `/pt` ou `/en` (idioma do navegador; padrão `pt`) |
-| `/{locale}` | Intro 3D, se não foi vista nesta sessão, e depois o desktop |
+| `/{locale}` | Intro 3D (mesa) e tela de bloqueio, se não foram vistas nesta sessão, e depois o desktop |
 | `/{locale}/{appId}` | Deep link: pula a intro e abre o sistema com esse app em foco |
 | `/{locale}/{appId}` inválido | Janela "App não encontrado" no estilo do sistema (404) |
 | `/api/chat` | POST, streaming. Assistente de IA |
 | `/api/spotify` | GET. Agora tocando, recentes e top (cache curto) |
 | `/api/wakatime` | GET. Estatísticas da semana (cache de 1h) |
+| `/api/github` | GET. Contribuições, repositórios e commits (cache de 30 min) |
 
-**`appId`** é igual nos dois idiomas: `about`, `projects`, `experience`, `skills`, `resume`, `contact`, `music`, `activity`, `assistant`, `terminal`, `settings`, `system`.
+**`appId`** é igual nos dois idiomas: `about`, `projects`, `experience`, `skills`, `certificates`, `resume`, `contact`, `music`, `activity`, `github`, `assistant`, `terminal`, `settings`, `system`.
 
 **Implementação sugerida:**
 - O sistema (shell) é um componente cliente renderizado no `app/[locale]/layout.tsx`. Assim ele **não remonta** ao trocar de app.
@@ -181,13 +188,14 @@ flowchart LR
 ### 6.2 Estado (Zustand)
 
 `useOS` guarda:
-- `phase`: `'intro' | 'boot' | 'desktop'`.
+- `phase`: `'intro' | 'boot' | 'lock' | 'desktop' | 'off'`.
+- `pendingApp`: app a abrir ao sair da tela de bloqueio (atalho da mesa 3D ou notificação do assistente).
 - `windows`: lista de `{ id, appId, x, y, w, h, z, state: 'normal' | 'minimized' | 'maximized' }`.
 - `focusedId`.
 - `theme`: `'light' | 'dark' | 'system'`.
 - `wallpaper`, `sound`, `reducedMotion`.
 
-Ações: `openApp`, `closeWindow`, `focusWindow`, `minimizeWindow`, `toggleMaximize`, `moveWindow`, `resizeWindow`, `setPhase`.
+Ações: `openApp`, `closeWindow`, `focusWindow`, `minimizeWindow`, `toggleMaximize`, `moveWindow`, `resizeWindow`, `setPhase`, `lock`, `unlock`.
 
 Persistência: preferências (tema, papel de parede) em `localStorage`; "intro vista" em `sessionStorage`, como no portfólio do professor. Todo acesso dentro de `try/catch`.
 
@@ -216,7 +224,7 @@ interface Profile {
 interface Project {
   id: string;
   name: string;
-  date: string;               // 'YYYY-MM': define a ordem da timeline (crescente)
+  date: string;               // 'YYYY-MM': define a ordem da timeline (no mesmo mês, vale a ordem da lista)
   description: Localized;
   details?: Localized;
   technologies: string[];
@@ -273,11 +281,12 @@ interface AppDefinition {
 
 | Variável | Onde | Uso |
 |---|---|---|
-| `OPENAI_API_KEY` | servidor | Assistente |
-| `OPENAI_MODEL` | servidor | ID do modelo (padrão: o modelo barato atual da OpenAI; confirmar o ID na documentação) |
+| `GOOGLE_GENERATIVE_AI_API_KEY` | servidor | Assistente (Google AI Studio, plano gratuito) |
+| `GEMINI_MODEL` | servidor | ID do modelo (padrão: `gemini-3.5-flash-lite`) |
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | servidor | Rate limit |
 | `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN` | servidor | Música |
 | `WAKATIME_LANGUAGES_URL`, `WAKATIME_ACTIVITY_URL` | servidor | Atividade (URLs dos JSONs embutíveis) |
+| `GITHUB_TOKEN` (opcional) | servidor | GitHub: limite de 5.000 req/h e gráfico pela GraphQL |
 | `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID_FOR_ME`, `VITE_EMAILJS_TEMPLATE_ID_FOR_SENDER`, `VITE_EMAILJS_PUBLIC_KEY` | cliente | Contato (públicas por design do EmailJS; restringir domínios no painel) |
 | `VITE_SITE_URL` | cliente | URLs absolutas (OG, sitemap) |
 
@@ -298,54 +307,85 @@ interface AppDefinition {
 - **Movimento:** molas curtas (150–300ms) e nada exagerado. Respeitar `prefers-reduced-motion`.
 - **Marca:** logo/monograma próprio do autor (`[LOGO]`). Aparece no boot, na barra de menu e gravado na tampa do notebook.
 - **Proibido:** logo da Apple, nome "macOS", ícones, sons ou papéis de parede da Apple ou de qualquer marca.
+- **Exceção (decisão do autor, 02/10/2026):** a decoração pessoal da mesa 3D (escudo do Atlético Mineiro, boneco do Luffy) não faz parte da identidade do sistema e pode existir lá, num portfólio pessoal sem fins comerciais.
 
-## 8. Intro 3D: o notebook
+## 8. Intro 3D: a mesa de trabalho
 
-### 8.1 Modelo, feito em código (sem Blender)
+> Revisão de 02/10/2026. Desenho completo em `docs/superpowers/specs/2026-10-02-intro-mesa-design.md`.
 
-- **Base:** `RoundedBox` fina, proporção de laptop moderno (≈ 30 × 21 × 1,4 em unidades relativas).
-  - Teclado com teclas em `instancedMesh`, levemente rebaixadas.
-  - Trackpad como retângulo arredondado rebaixado.
-- **Tampa:** um `group` com pivô na dobradiça (borda traseira da base), contendo:
-  - Corpo fino em `RoundedBox`.
-  - Moldura.
-  - Plano da tela em 16:10.
-  - Logo do autor discreto na parte de trás.
-- **Materiais:** metal (`meshStandardMaterial` / `meshPhysicalMaterial`) prata no tema claro e grafite no escuro. A tela é escura quando desligada; quando ligada, é emissiva com a textura do papel de parede.
-- **Cena:**
-  - Fundo neutro que segue o tema e `ContactShadows` macias.
-  - Iluminação com `Environment` + `Lightformer`, sem baixar HDR externo.
-  - Leve parallax da câmera com o mouse.
+### 8.1 A cena
+
+Um canto de quarto: parede de reboco, janela com persiana, mesa de madeira e os objetos do autor. No tema escuro é noite (luminária acesa, luzes da rua desfocadas entre as lâminas); no tema claro é dia (o sol entra pela persiana e projeta listras na mesa).
+
+**Direção visual: realista** (revisão do autor, 02/10/2026 — a primeira versão misturava estilos e "as coisas não conversavam"). Tudo com materiais e luz de verdade, numa paleta quente (madeira, creme, preto) com o boneco como ponto de cor:
+- **Modelos do Poly Haven** (CC0): mesa (`wooden_table_02`, com a madeira levemente dessaturada), luminária articulada (`desk_lamp_arm_01`, recolorida para preto fosco) e planta (`potted_plant_02`). Em `public/models/`, comprimidos com meshopt + texturas WebP.
+- **Iluminação HDRI** do Poly Haven (CC0): `wooden_lounge` à noite e `lebombo` de dia, reduzidas para 512×256 (~0,5 MB cada; só a do tema baixa). Em `public/hdri/`. `npm run models` baixa e prepara modelos e HDRIs.
+- **Em código, com materiais realistas** (`src/components/intro/desk/`): notebook de alumínio, livros com capa de tecido e título dourado, currículo impresso (a mesma imagem do app) com uma caneta, celular de vidro preto, caneca de cerâmica num porta-copo de cortiça, raquete laqueada com bolinha de feltro, quadro do Atlético com passe-partout e vidro, persiana e parede de reboco.
+- **Boneco do Luffy** clássico em estilo vinil cabeção (inspirado nos bonecos da Funko, sem a marca), modelado em código e comparado lado a lado com a foto de referência que o autor mandou: chapéu de palha trançado com fita vermelha, cabelo preto em mechas, olhos pretos brilhantes, cicatriz, colete vermelho aberto com o X no peito, faixa amarela, bermuda azul com punho de pelo e sandálias (`desk/Luffy.jsx`). A geração por IA a partir da foto foi tentada, mas o CLI do Higgsfield recusou o modelo de 3D.
+- **Acabamento** (`@react-three/postprocessing`): bloom só no que passa de 1 (lâmpada, rua), vinheta que some quando a câmera entra na tela e tone mapping neutro (mantém as cores da tela de bloqueio iguais às do HTML). Oclusão de ambiente (N8AO) foi descartada: custava ~80 KB por um ganho sutil.
+- **Orçamento:** modelos + uma HDRI até **3 MB** (há teste).
+
+**Objetos clicáveis (atalhos)** — `src/components/intro/desk-objects.js`:
+
+| Objeto | Ação |
+|---|---|
+| Notebook | abre o sistema |
+| Luminária | liga/desliga a luz |
+| Livros | abre Skills |
+| Currículo | abre Currículo |
+| Celular | abre Contato |
+| Luffy, raquete, quadro | abrem Sobre (com uma animação: a cabeça balança, a bolinha quica) |
+
+No hover, o objeto mostra um rótulo ("Abrir Skills"). Os mesmos atalhos existem como botões focáveis pelo teclado.
+
+**Luz e desempenho:**
+- Uma única luz faz sombra (a luminária à noite, o sol de dia — a parede tem um vão na janela, então o sol só entra pela persiana), e o mapa de sombra só é recalculado quando algo se mexe.
+- A luz da tela acesa é um spot largo saindo do centro da tela.
+- No celular (tela em pé): câmera mais alta, com o notebook, o Luffy e os vizinhos; `dpr` até 1,5, sombras menores, sem a planta, sem multisampling e com menos vapor.
+- 60 fps medidos com GPU num notebook comum, nos dois temas.
 
 ### 8.2 Interação e sequência
 
-1. **Estado inicial:** notebook fechado em vista 3/4, texto "Clique para abrir" e botão "Pular intro" sempre visível. No hover, a tampa levanta 3–5° como dica.
-2. **Abrir:** clique, toque, `Enter` ou `Espaço` disparam a timeline GSAP (~2,5s):
-   - A tampa abre até ~110°.
-   - A tela acende.
-   - O boot aparece na tela: logo e barra de progresso (~1s).
-   - A câmera se move para uma posição frontal centrada na tela.
-3. **Enquadramento final:** calcule a distância da câmera para a tela **cobrir** o viewport em qualquer proporção (lógica de *cover*, considerando FOV e aspect).
-4. **Troca:** ao fim, o shell HTML aparece por cima com fade de ~300ms, mostrando o mesmo papel de parede. O Canvas é pausado (`frameloop="never"`) ou desmontado para liberar a GPU.
-5. **Desligar:** pelo menu do logo. O Canvas volta e a sequência toca ao contrário.
+1. **Carregando:** tela escura com o progresso ("Carregando a cena… 42%") e "Pular intro" desde o primeiro segundo.
+2. **Entrada:** a cena surge do escuro e a câmera se aproxima devagar da mesa (~2,4s).
+3. **Esperando:** aviso "Clique no notebook para abrir" ("Toque…" no celular), LED do notebook pulsando, paralaxe do mouse. No hover do notebook, a tampa levanta ~4°.
+4. **Abrir** (clique no notebook ou num atalho, `Enter`, `Espaço`), timeline GSAP de ~2,8s:
+   - A tampa abre até ~110° e a luz da tela se espalha pelo teclado e pela mesa.
+   - O boot aparece na tela: logo e barra de progresso.
+   - A tela passa a mostrar a **tela de bloqueio**, desenhada no canvas com as mesmas proporções da versão HTML.
+   - A câmera vai até a tela **cobrir** o viewport (lógica de *cover*, considerando FOV e aspect).
+5. **Troca:** a tela de bloqueio HTML aparece por baixo e a intro some com fade de ~350ms. O Canvas para de renderizar (`frameloop="never"`) e é desmontado.
+6. **Desligar:** pelo menu do logo. A mesa volta e a sequência toca ao contrário.
 
-### 8.3 Quando pular a intro e ir direto ao sistema
+### 8.3 Quando pular a mesa 3D
 
-- Deep link (`/{locale}/{appId}`).
-- Intro já vista nesta sessão. Ajustes oferece "Rever intro".
-- `prefers-reduced-motion: reduce`.
-- Sem WebGL, ou desempenho baixo detectado (`PerformanceMonitor` do drei e/ou heurística de hardware).
-- Clique em "Pular intro".
+| Situação | Caminho |
+|---|---|
+| Primeira visita | mesa 3D → tela de bloqueio → desktop |
+| Clicou num objeto (ex.: celular) | mesa 3D → tela de bloqueio ("Entrar e abrir Contato") → desktop com o app |
+| "Pular intro" | tela de bloqueio → desktop |
+| `prefers-reduced-motion`, sem WebGL ou desempenho baixo (`PerformanceMonitor` / heurística de hardware) | tela de bloqueio → desktop |
+| Recarregou na mesma sessão | boot curto em HTML (≤ 1,2s, pulável) → desktop |
+| Deep link (`/{locale}/{appId}`) | direto no app, sem intro nem bloqueio |
+| "Ligar" depois de "Desligar" sem 3D | tela de bloqueio → desktop |
 
-Ao pular a partir de `/{locale}`, mostrar um boot curto em HTML (≤ 1,2s, pulável). No deep link, não há boot.
+Ajustes oferece "Rever intro".
 
-### 8.4 Critérios de aceite
+### 8.4 Tela de bloqueio
 
-- [ ] O chunk 3D é carregado sob demanda (`dynamic(..., { ssr: false })`) e não bloqueia o sistema.
-- [ ] Roda fluido num notebook comum e num celular intermediário (`dpr` limitado a `[1, 2]`).
-- [ ] O enquadramento final cobre a tela em 375×812, 768×1024, 1440×900 e 2560×1440.
-- [ ] É acessível por teclado: o botão "Abrir" tem foco e rótulo traduzido.
-- [ ] Redimensionar a janela durante a intro não quebra o enquadramento.
+- Papel de parede atual desfocado e escurecido (mais escuro nos papéis claros); relógio e data grandes no idioma atual; foto, nome e cargo; botão "Entrar" (ou "Entrar e abrir {app}") com foco; dica "Clique ou aperte qualquer tecla para entrar" ("Toque para entrar" no celular). Não há senha.
+- Notificação do assistente ("Oi! Pergunte qualquer coisa sobre o Leonardo"): clicou, entra com o Assistente aberto. Só aparece se a IA estiver configurada (`GET /api/chat`).
+- Seletor de idioma no canto.
+- O sistema fica montado **por baixo** (com `inert`): ao entrar, relógio e foto sobem, o véu some e o desktop aparece sem recarregar nada.
+- "Bloquear", no menu do logo, mostra a tela de bloqueio por cima do desktop; as janelas continuam abertas.
+
+### 8.5 Critérios de aceite
+
+- [x] O chunk 3D é carregado sob demanda (`lazy`) e não bloqueia o sistema; os modelos começam a baixar assim que ele carrega.
+- [x] Roda fluido num notebook comum (60 fps medidos com GPU) e tem versão mais leve no celular.
+- [x] O enquadramento final cobre a tela em 375×812, 768×1024, 1440×900 e 2560×1440; o inicial mostra a mesa toda em paisagem e o notebook em retrato.
+- [x] É acessível por teclado: o aviso de abrir tem foco, os atalhos da mesa existem como botões e a tela de bloqueio entra com qualquer tecla.
+- [x] Redimensionar a janela durante a intro não quebra o enquadramento.
 
 ## 9. Sistema operacional (shell)
 
@@ -414,11 +454,12 @@ Cada app é um componente em `src/components/apps/`, carregado sob demanda. Todo
 - **Conteúdo:**
   - Foto, nome e cargo.
   - Apresentação, formação, área de atuação, interesses e objetivos, nos dois idiomas.
+  - **Fora do código:** os hobbies que o autor contou (`profile.hobbies`): One Piece, tênis e Atlético Mineiro. São os mesmos objetos pessoais da mesa 3D, e o assistente e o Terminal (`about`) também os conhecem.
   - Links rápidos para Currículo, Contato e GitHub.
 - **Aceite:** o texto muda por completo ao trocar o idioma.
 
 ### 10.2 Projetos (`projects`)
-- **Timeline vertical do mais antigo ao mais recente**, ordenada por `date` crescente. A ordenação tem teste.
+- **Timeline vertical ordenada por `date`**: abre do mais recente ao mais antigo, e o controle "Mais recentes / Mais antigos" inverte para a ordem do enunciado (do mais antigo ao mais recente). No mesmo mês vale a ordem da lista em `src/content/projects.js`, que fica em ordem cronológica. A ordenação tem teste.
 - **Cada item mostra:**
   - Nome, data formatada e descrição.
   - Tecnologias (chips).
@@ -426,6 +467,7 @@ Cada app é um componente em `src/components/apps/`, carregado sob demanda. Todo
   - Mídia: GIF, imagem ou vídeo curto em loop (`muted autoplay loop playsinline`, com `poster`). Vídeo é preferível ao GIF por ser mais leve.
 - Filtro por tecnologia (opcional) e item expandível com `details`.
 - Aceita `?project={id}` para abrir rolado e destacado num projeto. O assistente usa isso.
+- **Demo em plano gratuito:** projetos com `wakeUrl` (o WaveHub, no Render, que dorme após 15 min sem uso e leva cerca de um minuto para voltar) recebem uma requisição `no-cors` em segundo plano quando o app abre, no máximo uma a cada 10 min (`src/lib/wake.js`). Quando o visitante clica em Demo, o servidor já está ligando ou ligado.
 - Mídias com lazy-load e texto alternativo traduzido.
 
 ### 10.3 Experiências (`experience`)
@@ -436,6 +478,12 @@ Cada app é um componente em `src/components/apps/`, carregado sob demanda. Todo
 ### 10.4 Skills (`skills`)
 - Grupos (Front-end, Back-end, Ferramentas, Idiomas…) com ícones.
 - Nível opcional, mostrado com discrição (sem barras de "90%").
+
+### 10.4.1 Certificados (`certificates`)
+- **Conteúdo:** `src/content/certificates.js` (nome como está no certificado, emissor, data `YYYY-MM-DD`, carga horária, descrição e temas PT/EN, PDF, prévia e `credentialUrl`); arquivos em `public/certificates/`.
+- **Cada card:** prévia (clique abre o PDF; sem imagem, um selo na cor do app), nome, emissor · data · carga horária, descrição, temas, "Ver certificado", "Baixar PDF" e "Verificar autenticidade" (o link do QR code do certificado).
+- Ordem do mais recente ao mais antigo; o cabeçalho soma certificados e horas. Lado a lado ou empilhado pela largura da janela (container query).
+- O Terminal (`certificates` / `certificados`) e o prompt do assistente leem a mesma lista. O README explica como adicionar um certificado.
 
 ### 10.5 Currículo (`resume`)
 - **Desktop:** visualizador do PDF do idioma atual (`<iframe>`/`<object>` nativo), com botões "Baixar PT" e "Baixar EN".
@@ -457,6 +505,7 @@ Cada app é um componente em `src/components/apps/`, carregado sob demanda. Todo
 
 ### 10.7 Música (`music`): ver §12.1
 ### 10.8 Atividade (`activity`): ver §12.2
+### 10.8.1 GitHub (`github`): ver §12.3
 ### 10.9 Assistente (`assistant`): ver §11
 
 ### 10.10 Terminal (`terminal`)
@@ -500,7 +549,7 @@ Cada app é um componente em `src/components/apps/`, carregado sob demanda. Todo
 - Renderiza markdown simples, com links clicáveis.
 - Sugestões iniciais traduzidas:
   - "Quais são seus principais projetos?"
-  - "Ele tem experiência com React?"
+  - "Ele tem experiência com Spring Boot?"
   - "Como entro em contato?"
   - "Como uso este sistema?"
 - Aviso discreto sob o campo: "Respostas geradas por IA podem conter erros."
@@ -518,7 +567,7 @@ As ferramentas são declaradas no servidor sem `execute` e executadas no cliente
 | `setTheme` | `{ theme: 'light' \| 'dark' }` | Troca o tema |
 
 ### 11.3 Servidor (`/api/chat`)
-- `streamText` do AI SDK com o provedor OpenAI e o modelo de `OPENAI_MODEL`.
+- `streamText` do AI SDK com o provedor Google (Gemini) e o modelo de `GEMINI_MODEL`.
 - **Validação com Zod:**
   - No máximo 500 caracteres por mensagem do visitante.
   - Apenas as **últimas 10 mensagens** vão para o modelo.
@@ -530,7 +579,7 @@ As ferramentas são declaradas no servidor sem `execute` e executadas no cliente
 - **Erros:**
   - 429: mensagem traduzida ("muitas perguntas, tente em alguns minutos").
   - Falha geral: mensagem com link para o app Contato.
-  - Sem `OPENAI_API_KEY`: o app mostra "assistente indisponível" sem quebrar.
+  - Sem `GOOGLE_GENERATIVE_AI_API_KEY`: o app mostra "assistente indisponível" sem quebrar.
 - **Privacidade:** não armazenar nem logar o conteúdo das conversas.
 
 ### 11.4 Prompt de sistema
@@ -566,10 +615,10 @@ Regras:
 - Tem teste de unidade: o prompt contém todos os projetos e apps e não contém variáveis de ambiente.
 
 ### 11.5 Custo (para o README)
-- Referência de out/2026: o GPT-5.6 Luna custa US$ 0,20 por milhão de tokens de entrada e US$ 1,20 de saída.
-- Com ~5 mil tokens de entrada por pergunta, dá cerca de **US$ 1–1,50 a cada mil perguntas**.
-- O autor deve colocar crédito na OpenAI e **definir um limite de gastos** no painel.
-- **Alternativa gratuita:** trocar o provedor no AI SDK (ex.: Gemini ou Groq, que têm planos gratuitos).
+- **Custo zero:** o Gemini tem plano gratuito no Google AI Studio (out/2026), sem cartão. Sem faturamento ativo, nada é cobrado: passou da cota, a API só responde 429 (o app mostra "indisponível").
+- Contrapartida do plano gratuito: o Google pode usar o conteúdo enviado para melhorar os produtos dele. O chat avisa o visitante para não enviar dados pessoais.
+- As cotas gratuitas (pedidos por minuto e por dia) não são publicadas em tabela fixa: aparecem no painel do AI Studio e mudam com o tempo. O Flash-Lite costuma ter as maiores.
+- Outras opções avaliadas em out/2026: Groq (8 mil tokens/minuto — pouco para um prompt de ~4,5 mil tokens), OpenRouter (50 pedidos/dia sem compra de crédito) e AI Gateway da Vercel (US$ 5/mês de crédito).
 
 ## 12. Integrações
 
@@ -608,7 +657,24 @@ Regras:
    O cache é de 1h. **Faça uma chamada real primeiro e adapte ao formato retornado.**
 4. **UI:** total da semana, média diária, barras por dia, barras horizontais por linguagem e rodapé "dados via WakaTime". Gráficos simples em CSS/SVG, sem biblioteca pesada.
 
-### 12.3 EmailJS (Contato)
+### 12.3 GitHub (app GitHub)
+
+1. Funciona **sem variável**: o usuário vem de `site.config.social.github`.
+2. `GET /api/github` (servidor, `server/github.js`) junta:
+   - **Repositórios:** REST `/users/{login}/repos?sort=pushed`, sem forks nem o repositório do README do perfil.
+   - **Commits:** REST `/repos/{login}/{repo}/commits?author={login}` nos 4 repositórios com push mais recente, sem merges. (Desde ago/2025 o `PushEvent` da API de eventos não traz mais a lista de commits.)
+   - **Gráfico de contribuições:** página pública `github.com/users/{login}/contributions`; com `GITHUB_TOKEN`, a GraphQL oficial (`contributionsCollection.contributionCalendar`), com a página pública de reserva.
+   ```
+   { login, profileUrl, repoCount,
+     repos: [{ name, description, language: { name, color }, stars, url, pushedAt }],
+     commits: [{ sha, message, repo, url, date }],
+     calendar: { total, days: [{ date, count, level }] } | null }
+   ```
+   Cache de 30 min; se o GitHub falhar, devolve o último resumo bom. Sem o gráfico, o app mostra o resto.
+3. **UI:** contribuições no último ano, dias ativos nos últimos 30 e repositórios próprios; gráfico na cor de destaque com as semanas mais recentes que cabem na largura da janela; repositórios recentes (linguagem, estrelas, "atualizado há…") e últimos commits; rodapé "dados via GitHub".
+4. **Token (opcional):** sem token, 60 req/h por IP (compartilhado na Vercel). Um fine-grained token só com acesso público sobe para 5.000/h.
+
+### 12.4 EmailJS (Contato)
 - Pacote `@emailjs/browser`.
 - **Dois templates**, como no README do professor: *FOR ME* (para o autor, com nome, e-mail, mensagem e horário) e *FOR SENDER* (confirmação para `{{email}}`).
 - As variáveis `VITE_EMAILJS_*` são públicas por design. No painel do EmailJS, restringir os domínios permitidos ao domínio da Vercel e a `localhost`.
@@ -753,7 +819,7 @@ Cada fase termina com: lint, typecheck, testes e build passando; commit; resumo 
 ### Sprint 2: Funcionalidades principais (4 pts)
 
 **Fase 2: Apps de conteúdo**
-- Sobre, Projetos (timeline crescente, mídia, `?project=`), Experiências, Skills, Currículo e Sobre este sistema, lendo de `src/content`.
+- Sobre, Projetos (timeline por data com ordem invertível, mídia, `?project=`), Experiências, Skills, Currículo e Sobre este sistema, lendo de `src/content`.
 - **Aceite:** §10.1–10.5 e §10.12; testes de ordenação.
 
 **Fase 3: Contato**
@@ -810,7 +876,7 @@ Seguir o [template do professor](https://github.com/joaopauloaramuni/desenvolvim
 17. Licença (MIT)
 
 Também, **no estilo do README do professor**:
-- Guias passo a passo para OpenAI + Upstash, Spotify (script do token e aviso dos 6 meses), WakaTime e EmailJS (com os templates HTML).
+- Guias passo a passo para Gemini + Upstash, Spotify (script do token e aviso dos 6 meses), WakaTime e EmailJS (com os templates HTML).
 - Tabela de dependências com uma linha explicando cada uma.
 - Seção "Wireframes" com as imagens do Figma.
 - Seção "Decisões de design" (por que notebook 3D, por que o sistema, por que IA com tools).
@@ -847,7 +913,7 @@ Também, **no estilo do README do professor**:
   - GitHub (repositório público).
   - Vercel.
   - EmailJS (serviço + 2 templates).
-  - OpenAI (crédito + **limite de gastos**).
+  - Google AI Studio (chave do Gemini, plano gratuito).
   - Upstash Redis.
   - Spotify Developer (precisa de Premium; senão, só o embed).
   - Embeds JSON do WakaTime.
@@ -863,7 +929,7 @@ Também, **no estilo do README do professor**:
   - [Expiração de refresh tokens](https://developer.spotify.com/blog/2026-06-18-refresh-token-expiration)
   - [Requisitos de redirect URI](https://developer.spotify.com/blog/2025-02-12-increasing-the-security-requirements-for-integrating-with-spotify)
 - [WakaTime: API e embeds](https://wakatime.com/developers)
-- [OpenAI: preços da API](https://openai.com/api/pricing/)
+- [Gemini API: preços e plano gratuito](https://ai.google.dev/gemini-api/docs/pricing)
 - [AI SDK](https://ai-sdk.dev/)
 - [React Three Fiber](https://r3f.docs.pmnd.rs/) · [drei](https://drei.docs.pmnd.rs/)
 - [next-intl](https://next-intl.dev/)

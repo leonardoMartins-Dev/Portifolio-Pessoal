@@ -6,25 +6,33 @@ import { useSearchParams } from 'react-router';
 import { projects } from '../../content/projects.js';
 import { formatMonth } from '../../lib/format.js';
 import { useLocale, useLocalized, useReducedMotion } from '../../lib/hooks.js';
-import { collectTechnologies, sortProjectsAscending } from '../../lib/timeline.js';
+import { collectTechnologies, sortProjects } from '../../lib/timeline.js';
+import { wakeServer } from '../../lib/wake.js';
 import { AppScroll } from '../ui/AppSection.jsx';
 import { Button } from '../ui/Button.jsx';
 import { Chip } from '../ui/Chip.jsx';
+import { Segmented } from '../ui/Segmented.jsx';
 
-/** Projetos em linha do tempo, do mais antigo ao mais recente (§10.2). */
+/** Projetos em linha do tempo: abre do mais recente e inverte para a ordem do enunciado (§10.2). */
 export default function Projects() {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const highlightId = searchParams.get('project');
   const reduced = useReducedMotion();
+  const [order, setOrder] = useState('newest');
   const [technology, setTechnology] = useState(null);
   const itemRefs = useRef({});
 
-  const sorted = useMemo(() => sortProjectsAscending(projects), []);
+  const sorted = useMemo(() => sortProjects(projects, order), [order]);
   const technologies = useMemo(() => collectTechnologies(projects), []);
   const visible = technology
     ? sorted.filter((project) => project.technologies.includes(technology))
     : sorted;
+
+  // Demos em plano gratuito dormem sem uso: acorda o servidor antes do clique em Demo.
+  useEffect(() => {
+    for (const project of projects) wakeServer(project.wakeUrl);
+  }, []);
 
   // ?project={id}: rola até o projeto e o destaca (usado pelo assistente).
   useEffect(() => {
@@ -40,9 +48,22 @@ export default function Projects() {
 
   return (
     <AppScroll>
-      <header>
-        <h3 className="text-xl font-semibold tracking-tight">{t('projects.heading')}</h3>
-        <p className="text-sm text-muted">{t('projects.subtitle')}</p>
+      <header className="flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
+        <div>
+          <h3 className="text-xl font-semibold tracking-tight">{t('projects.heading')}</h3>
+          <p className="text-sm text-muted">
+            {t(order === 'newest' ? 'projects.subtitleNewest' : 'projects.subtitleOldest')}
+          </p>
+        </div>
+        <Segmented
+          label={t('projects.orderLabel')}
+          value={order}
+          onChange={setOrder}
+          options={[
+            { value: 'newest', label: t('projects.newest') },
+            { value: 'oldest', label: t('projects.oldest') },
+          ]}
+        />
       </header>
 
       {technologies.length > 1 && (
@@ -171,6 +192,9 @@ function ProjectCard({ project, highlighted }) {
             </Button>
           )}
         </div>
+        {project.demoUrl && project.demoNote && (
+          <p className="text-xs text-muted">{l(project.demoNote)}</p>
+        )}
       </div>
     </article>
   );

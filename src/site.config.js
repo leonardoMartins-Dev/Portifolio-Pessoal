@@ -26,9 +26,8 @@ export const siteConfig = {
     whatsapp: '5531987451563',
   },
   // TODO(conteúdo): ID de uma playlist pública do autor (fallback do app Música).
-  spotifyPlaylistId: '',
-  // TODO(conteúdo): URL do repositório no GitHub, quando ele for criado.
-  repoUrl: '',
+  spotifyPlaylistId: '6uOP0nqi3DyMWpidS4ygF0',
+  repoUrl: 'https://github.com/leonardoMartins-Dev/Portifolio-Pessoal',
   professor: {
     name: 'Prof. Dr. João Paulo Aramuni',
     portfolio: 'https://aramuni.dev/',

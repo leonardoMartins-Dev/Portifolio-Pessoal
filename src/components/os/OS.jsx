@@ -5,13 +5,14 @@ import { useLocation, useNavigate } from 'react-router';
 import { getAppMeta, isAppId } from '../../lib/apps-meta.js';
 import { canRunIntro, markIntroSeen } from '../../lib/boot.js';
 import { useIsMobile, useReducedMotion } from '../../lib/hooks.js';
-import { registerRouter } from '../../lib/os-bridge.js';
+import { navigateToApp, registerRouter } from '../../lib/os-bridge.js';
 import { useOS } from '../../lib/os-store.js';
 import { siteConfig } from '../../site.config.js';
 import { IntroFallback } from '../intro/IntroFallback.jsx';
 import { BootScreen } from './BootScreen.jsx';
 import { DesktopShell } from './DesktopShell.jsx';
 import { ErrorBoundary } from './ErrorBoundary.jsx';
+import { LockScreen } from './LockScreen.jsx';
 import { MobileShell } from './MobileShell.jsx';
 import { PowerOffScreen } from './PowerOffScreen.jsx';
 
@@ -37,36 +38,67 @@ export function OS({ locale, appId }) {
 
   useDocumentMeta(locale, appId, isMobile);
 
-  const finishIntro = useCallback(() => {
-    markIntroSeen();
-    setPhase('desktop');
-  }, [setPhase]);
+  // A intro termina na tela de bloqueio; `targetApp` vem dos atalhos da mesa 3D.
+  const finishIntro = useCallback(
+    (targetApp = null) => {
+      markIntroSeen();
+      useOS.getState().setPendingApp(targetApp);
+      setPhase('lock');
+    },
+    [setPhase],
+  );
 
   const skipIntro = useCallback(() => {
     markIntroSeen();
-    setPhase('boot');
+    setPhase('lock');
   }, [setPhase]);
 
   const finishBoot = useCallback(() => setPhase('desktop'), [setPhase]);
 
-  // Movimento reduzido ligado no meio da intro: pula para o boot.
+  const powerOn = useCallback(() => setPhase('lock'), [setPhase]);
+
+  const unlock = useCallback(() => {
+    if (useOS.getState().phase !== 'lock') return;
+    markIntroSeen();
+    const pending = useOS.getState().unlock();
+    if (pending) {
+      navigateToApp(pending);
+      return;
+    }
+    // Sem app pendente, o foco volta para a janela em foco (o `inert` sai neste mesmo render).
+    requestAnimationFrame(() => {
+      const { focusedId } = useOS.getState();
+      if (focusedId) document.querySelector(`[data-window="${focusedId}"]`)?.focus();
+    });
+  }, []);
+
+  // Movimento reduzido ligado no meio da intro: pula para a tela de bloqueio.
   useEffect(() => {
     if (phase === 'intro' && (reducedMotion || !canRunIntro())) {
-      setPhase(introMode === 'shutdown' ? 'off' : 'boot');
+      setPhase(introMode === 'shutdown' ? 'off' : 'lock');
     }
   }, [phase, introMode, reducedMotion, setPhase]);
 
+  const locked = phase === 'lock';
+  const showShell = phase === 'desktop' || locked;
+
   return (
     <div className="fixed inset-0" data-reduced-motion={reducedMotion}>
-      {phase === 'desktop' &&
-        (isMobile ? (
-          <MobileShell locale={locale} appId={appId} />
-        ) : (
-          <DesktopShell locale={locale} appId={appId} />
-        ))}
+      {/* Bloqueado: o sistema continua montado por baixo, mas fora do alcance do teclado e dos leitores de tela. */}
+      {showShell && (
+        <div inert={locked}>
+          {isMobile ? (
+            <MobileShell locale={locale} appId={appId} />
+          ) : (
+            <DesktopShell locale={locale} appId={appId} />
+          )}
+        </div>
+      )}
+
+      <AnimatePresence>{locked && <LockScreen key="lock" onUnlock={unlock} />}</AnimatePresence>
 
       {phase === 'boot' && <BootScreen onDone={finishBoot} />}
-      {phase === 'off' && <PowerOffScreen onPowerOn={finishBoot} />}
+      {phase === 'off' && <PowerOffScreen onPowerOn={powerOn} />}
 
       <AnimatePresence>
         {phase === 'intro' && (
@@ -74,7 +106,7 @@ export function OS({ locale, appId }) {
             key="intro"
             className="fixed inset-0 z-[100]"
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.35 }}
           >
             <ErrorBoundary fallback={null} onError={skipIntro}>
               <Suspense fallback={<IntroFallback onSkip={skipIntro} />}>

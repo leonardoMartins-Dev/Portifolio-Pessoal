@@ -3,6 +3,8 @@ import { DefaultChatTransport, lastAssistantMessageIsCompleteWithToolCalls } fro
 import { currentLocale } from '../os-bridge.js';
 import { runClientTool } from './client-tools.js';
 
+export { fetchAssistantAvailability } from './availability.js';
+
 const MAX_TOOL_ROUNDS = 2;
 
 /**
@@ -39,17 +41,6 @@ export const assistantChat = new Chat({
     });
   },
 });
-
-let availability = null;
-
-/** O servidor tem a chave da OpenAI? (GET /api/chat; resultado em cache) */
-export function fetchAssistantAvailability() {
-  availability ??= fetch('/api/chat', { headers: { accept: 'application/json' } })
-    .then((response) => (response.ok ? response.json() : { available: false }))
-    .then((data) => Boolean(data.available))
-    .catch(() => false);
-  return availability;
-}
 
 /** Traduz um erro do transporte num código: rate_limited, unavailable, too_long ou error. */
 export function chatErrorCode(error) {
