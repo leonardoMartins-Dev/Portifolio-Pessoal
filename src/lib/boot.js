@@ -1,7 +1,7 @@
 import { isLocale } from '../i18n/locales.js';
 import { KEYS, session } from './storage.js';
 
-/** O navegador consegue rodar a intro 3D? (WebGL + heurística de hardware) */
+/** O navegador consegue rodar o 3D da página inicial? (WebGL + heurística de hardware) */
 export function canRunIntro() {
   try {
     const canvas = document.createElement('canvas');
@@ -15,35 +15,27 @@ export function canRunIntro() {
   return cores > 2 && memory > 2;
 }
 
-export function prefersReducedMotion() {
-  return globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-}
-
 /**
- * Fase inicial do sistema (§8.3):
+ * Fase inicial do sistema (§8.3). Recarregar (F5) continua onde o visitante estava:
  * - deep link (/{locale}/{appId}) → direto ao desktop, sem boot;
- * - intro já vista na sessão (recarregou) → boot curto em HTML;
- * - movimento reduzido ou sem WebGL → tela de bloqueio, sem a mesa 3D;
- * - senão → intro 3D (mesa), que termina na tela de bloqueio.
+ * - estava no sistema nesta sessão (recarregou) → boot curto em HTML;
+ * - senão (primeira visita ou recarregou na página inicial) → página inicial (o
+ *   quarto 3D; sem WebGL ou com movimento reduzido ela aparece sem o 3D ou sem o
+ *   zoom), que termina na tela de bloqueio.
  */
 export function decideInitialPhase({
   pathname,
   introSeen = session.getItem(KEYS.introSeen) === '1',
-  reducedMotion = prefersReducedMotion(),
-  supportsIntro = canRunIntro,
 }) {
   const segments = pathname.split('/').filter(Boolean);
   const deepLink = segments.length >= 2 || (segments.length === 1 && !isLocale(segments[0]));
   if (deepLink) return 'desktop';
   if (introSeen) return 'boot';
-  if (reducedMotion || !supportsIntro()) return 'lock';
   return 'intro';
 }
 
-export function markIntroSeen() {
-  session.setItem(KEYS.introSeen, '1');
-}
-
-export function clearIntroSeen() {
-  session.removeItem(KEYS.introSeen);
+/** Guarda na sessão se o visitante está na página inicial ou no sistema (lido no F5). */
+export function rememberPhase(phase) {
+  if (phase === 'intro') session.removeItem(KEYS.introSeen);
+  else session.setItem(KEYS.introSeen, '1');
 }

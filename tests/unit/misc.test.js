@@ -6,7 +6,7 @@ import { profile } from '../../src/content/profile.js';
 import { projects } from '../../src/content/projects.js';
 import { detectLocale } from '../../src/i18n/locales.js';
 import { APP_IDS, APP_META, MAX_MOBILE_DOCK_APPS, isAppId } from '../../src/lib/apps-meta.js';
-import { decideInitialPhase } from '../../src/lib/boot.js';
+import { decideInitialPhase, rememberPhase } from '../../src/lib/boot.js';
 import { formatPhone } from '../../src/lib/email.js';
 import { formatMonth, formatPeriod, splitDuration } from '../../src/lib/format.js';
 import { localizedPath } from '../../src/lib/os-bridge.js';
@@ -114,20 +114,22 @@ describe('rotas e idioma', () => {
     expect(detectLocale(['fr-FR'])).toBe('pt');
   });
 
-  it('decide quando pular a intro (§8.3)', () => {
-    const base = { introSeen: false, reducedMotion: false, supportsIntro: () => true };
+  it('decide quando mostrar a página inicial (§8.3)', () => {
+    const base = { introSeen: false };
     expect(decideInitialPhase({ ...base, pathname: '/pt' })).toBe('intro');
     expect(decideInitialPhase({ ...base, pathname: '/en/projects' })).toBe('desktop');
     expect(decideInitialPhase({ ...base, pathname: '/projects' })).toBe('desktop');
-    // Recarregou na mesma sessão: boot curto, sem tela de bloqueio.
+    // Recarregou na mesma sessão depois de entrar: boot curto, sem a página inicial.
     expect(decideInitialPhase({ ...base, pathname: '/pt', introSeen: true })).toBe('boot');
-    expect(
-      decideInitialPhase({ ...base, pathname: '/pt', introSeen: true, reducedMotion: true }),
-    ).toBe('boot');
-    // Primeira visita sem a mesa 3D: direto na tela de bloqueio.
-    expect(decideInitialPhase({ ...base, pathname: '/pt', reducedMotion: true })).toBe('lock');
-    expect(decideInitialPhase({ ...base, pathname: '/pt', supportsIntro: () => false })).toBe(
-      'lock',
-    );
+  });
+
+  it('F5 continua onde o visitante estava (página inicial ou sistema)', () => {
+    rememberPhase('desktop');
+    expect(decideInitialPhase({ pathname: '/pt' })).toBe('boot');
+    rememberPhase('intro');
+    expect(decideInitialPhase({ pathname: '/pt' })).toBe('intro');
+    rememberPhase('lock');
+    expect(decideInitialPhase({ pathname: '/pt' })).toBe('boot');
+    rememberPhase('intro');
   });
 });

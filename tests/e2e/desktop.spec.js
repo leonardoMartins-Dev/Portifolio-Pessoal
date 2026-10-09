@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import {
+  enterButton,
   enterSystem,
   markVisited,
   mockAssistant,
@@ -24,8 +25,10 @@ const DOCK_APPS = [
   'settings',
 ];
 
-test('pula a intro e mostra o sistema com o app Sobre na primeira visita', async ({ page }) => {
-  // A mesa 3D roda no WebGL por software nos testes: bem mais lenta que numa GPU.
+test('entra pela página inicial e mostra o sistema com o app Sobre na primeira visita', async ({
+  page,
+}) => {
+  // O quarto 3D roda no WebGL por software nos testes: bem mais lento que numa GPU.
   test.slow();
   await skipIntro(page);
   await expect(page.getByRole('banner', { name: 'Barra de menu' })).toBeVisible();
@@ -35,11 +38,39 @@ test('pula a intro e mostra o sistema com o app Sobre na primeira visita', async
   await expect(page.getByText('Bem-vindo ao Portifólio')).toBeVisible();
 });
 
+test('página inicial: seções para recrutadores e "Ver projetos" entra direto no app', async ({
+  page,
+}) => {
+  test.slow();
+  await page.goto('/pt');
+  await expect(page.getByRole('heading', { level: 1, name: /Leonardo Martins/ })).toBeVisible();
+  await expect(page.getByText('Disponível para estágio').first()).toBeVisible();
+
+  await page
+    .getByRole('navigation', { name: 'Seções da página' })
+    .getByRole('link', { name: 'Contato' })
+    .click();
+  await expect(page.getByRole('heading', { name: 'Vamos trabalhar juntos!' })).toBeInViewport();
+  await expect(page.getByRole('link', { name: 'Currículo', exact: true })).toHaveAttribute(
+    'href',
+    '/cv/cv-pt.pdf',
+  );
+  await expect(page.getByRole('heading', { name: 'Skills', exact: true })).toBeAttached();
+
+  await page.getByRole('button', { name: 'Ver projetos' }).click();
+  const lock = page.getByRole('dialog', { name: 'Tela de bloqueio do Portifólio' });
+  const enter = lock.getByRole('button', { name: 'Entrar e abrir Projetos' });
+  await expect(enter).toBeVisible();
+  await enter.click();
+  await expect(page.locator('[data-window="projects"]')).toBeVisible();
+  await expect(page).toHaveURL(/\/pt\/projects$/);
+});
+
 test('tela de bloqueio: qualquer tecla entra; "Bloquear" no menu mantém as janelas', async ({
   page,
 }) => {
   await markVisited(page);
-  // Primeira visita sem a mesa 3D (movimento reduzido): abre direto na tela de bloqueio.
+  // Com movimento reduzido, o botão da página inicial entra sem o zoom.
   await page.emulateMedia({ reducedMotion: 'reduce' });
   const lock = await skipToLockScreen(page);
   await expect(lock.getByText('Leonardo Martins Macedo')).toBeVisible();
@@ -58,6 +89,36 @@ test('tela de bloqueio: qualquer tecla entra; "Bloquear" no menu mantém as jane
   await unlock(page);
   await expect(window).toBeVisible();
   await expect(window).toBeFocused();
+});
+
+test('F5 continua onde o visitante está: no sistema ou na página inicial', async ({ page }) => {
+  test.slow();
+  await markVisited(page);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const menuBar = page.getByRole('banner', { name: 'Barra de menu' });
+  const title = page.getByRole('heading', { level: 1, name: /Leonardo Martins/ });
+
+  // No sistema, mesmo sem app aberto (URL /pt), recarregar continua no sistema.
+  await page.goto('/pt/skills');
+  const window = page.locator('[data-window="skills"]');
+  await expect(window).toBeVisible();
+  await window.focus();
+  await page.keyboard.press('Escape');
+  await expect(page).toHaveURL(/\/pt$/);
+  await page.reload();
+  await expect(menuBar).toBeVisible();
+  await expect(title).toBeHidden();
+
+  // "Página inicial" com um app aberto: a URL volta a /pt e recarregar continua no quarto.
+  await page.locator('[data-dock-app="projects"]').click();
+  await expect(page).toHaveURL(/\/pt\/projects$/);
+  await page.getByRole('button', { name: 'Menu do sistema' }).click();
+  await page.getByRole('menuitem', { name: 'Página inicial' }).click();
+  await expect(title).toBeVisible();
+  await expect(page).toHaveURL(/\/pt$/);
+  await page.reload();
+  await expect(title).toBeVisible();
+  await expect(enterButton(page)).toBeVisible();
 });
 
 test('abre cada app pelo dock e a URL acompanha', async ({ page }) => {
@@ -81,7 +142,9 @@ test('troca o idioma mantendo o app aberto', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('lang', 'en-US');
 });
 
-test('deep link pula a intro e abre o app em foco; 404 no estilo do sistema', async ({ page }) => {
+test('deep link pula a página inicial e abre o app em foco; 404 no estilo do sistema', async ({
+  page,
+}) => {
   await page.goto('/en/experience');
   await expect(page.locator('[data-window="experience"]')).toBeVisible();
   await expect(page).toHaveTitle(/Experience/);

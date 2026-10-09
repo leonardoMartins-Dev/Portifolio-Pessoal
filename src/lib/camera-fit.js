@@ -1,5 +1,5 @@
 /**
- * Distância da câmera para que um plano (a tela do notebook) COBRIR o
+ * Distância da câmera para que um plano (a tela do monitor) COBRIR o
  * viewport inteiro, sem bordas, em qualquer proporção — como `object-fit: cover`.
  *
  * Com FOV vertical `fov` (graus), a altura visível a uma distância d é

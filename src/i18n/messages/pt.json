@@ -2,7 +2,7 @@
   "meta": {
     "title": "{{system}} — {{name}}",
     "appTitle": "{{app}} — {{name}}",
-    "description": "Portfólio interativo de {{name}}: a mesa de trabalho dele em 3D, com um notebook que abre um sistema operacional próprio."
+    "description": "Portfólio interativo de {{name}}: um quarto 3D em que clicar no PC abre um sistema operacional próprio."
   },
   "common": {
     "close": "Fechar",
@@ -40,18 +40,66 @@
     "dark": "Escuro",
     "system": "Sistema"
   },
-  "intro": {
-    "hint": "Clique no notebook para abrir",
-    "hintTouch": "Toque no notebook para abrir",
-    "skip": "Pular intro",
-    "loading": "Carregando a cena…",
-    "powerOn": "Ligar",
-    "off": "Desligado",
-    "loadingProgress": "Carregando a cena… {{progress}}%",
-    "shortcuts": "Atalhos da mesa",
-    "openLaptop": "Abrir o notebook",
-    "openApp": "Abrir {{app}}",
-    "lamp": "Acender ou apagar a luminária"
+  "landing": {
+    "loading": "Carregando a página…",
+    "enterDirect": "Entrar no sistema",
+    "nav": {
+      "label": "Seções da página",
+      "about": "Sobre",
+      "skills": "Skills",
+      "contact": "Contato",
+      "top": "Voltar ao topo"
+    },
+    "cta": "Fale comigo",
+    "hero": {
+      "available": "Disponível para estágio",
+      "scroll": "Role para conhecer"
+    },
+    "enter": {
+      "label": "Clique no PC",
+      "labelTouch": "Toque no PC",
+      "hint": "para entrar no sistema"
+    },
+    "room": {
+      "hint": "Clique no PC",
+      "loading": "Montando o quarto…",
+      "note1": "Meta 2026:\nestágio\nfull stack",
+      "note2": "Java + Spring\nReact + Vite"
+    },
+    "about": {
+      "eyebrow": "Sobre",
+      "title": "Quem é o {{name}}",
+      "focus": "Foco atual",
+      "status": "Status",
+      "available": "Disponível para estágio",
+      "resume": "Baixar currículo",
+      "more": "Ver mais no sistema"
+    },
+    "skills": {
+      "tag": "Stack",
+      "title": "Skills",
+      "lead": "Arraste o globo para girar: linguagens, frameworks, bancos de dados e ferramentas com que trabalho.",
+      "more": "Quer ver o que eu construí com isso?",
+      "projects": "Ver projetos",
+      "experience": "Ver experiência"
+    },
+    "contact": {
+      "tag": "Contato",
+      "title": "Vamos trabalhar juntos!",
+      "lead": "Procuro um estágio em desenvolvimento. Me chame por e-mail, LinkedIn ou WhatsApp.",
+      "email": "Enviar e-mail",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "whatsapp": "WhatsApp",
+      "resume": "Currículo",
+      "resumeOther": "Versão em inglês",
+      "form": "Ou use o formulário do sistema"
+    },
+    "footer": {
+      "source": "Código-fonte",
+      "made": "Feito com React e Three.js",
+      "rights": "© {{year}} {{name}}"
+    }
   },
   "boot": {
     "label": "Iniciando o {{system}}",
@@ -73,7 +121,7 @@
     "logo": "Menu do sistema",
     "aboutSystem": "Sobre este sistema",
     "settings": "Ajustes",
-    "replayIntro": "Rever intro",
+    "replayIntro": "Página inicial",
     "lock": "Bloquear",
     "shutdown": "Desligar",
     "desktop": "Área de trabalho",
@@ -117,7 +165,8 @@
     "nowPlaying": "Tocando agora",
     "lastPlayed": "Tocou por último",
     "codingTime": "Tempo programando",
-    "hoursShort": "{{hours}} h {{minutes}} min"
+    "hoursShort": "{{hours}} h {{minutes}} min",
+    "landing": "Página inicial"
   },
   "about": {
     "photoAlt": "Foto de {{name}}",
@@ -446,12 +495,12 @@
     },
     "motion": "Movimento",
     "reduceMotion": "Reduzir movimento",
-    "reduceMotionHint": "Desliga animações e a intro 3D.",
+    "reduceMotionHint": "Desliga animações e o zoom 3D da página inicial.",
     "sound": "Sons",
     "soundHint": "Sons discretos ao abrir e fechar janelas.",
-    "intro": "Intro",
-    "replayIntro": "Rever intro",
-    "replayIntroHint": "Mostra a mesa 3D de novo."
+    "intro": "Página inicial",
+    "replayIntro": "Voltar à página inicial",
+    "replayIntroHint": "Mostra de novo o quarto 3D com o PC."
   },
   "system": {
     "version": "Versão {{version}}",
@@ -465,8 +514,8 @@
     "stack": {
       "react": "Interface",
       "vite": "Build e servidor de desenvolvimento",
-      "three": "Mesa 3D",
-      "gsap": "Sequência da intro",
+      "three": "Quarto 3D da página inicial",
+      "gsap": "Zoom até a tela do PC",
       "motion": "Animações da interface",
       "zustand": "Estado do sistema e janelas",
       "i18next": "Português e inglês",

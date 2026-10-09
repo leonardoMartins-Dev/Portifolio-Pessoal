@@ -11,8 +11,7 @@ npm run format        # Prettier (escreve); format:check só confere
 npm test              # Vitest (tests/unit)
 npm run test:e2e      # Playwright (tests/e2e; faz o build antes)
 npm run build         # build de produção (dist/)
-npm run screenshots   # prints do README + imagem OG (com o dev rodando; GPU=1 usa a placa de vídeo)
-npm run models        # baixa e prepara os modelos 3D e as HDRIs da intro (Poly Haven → public/models/, public/hdri/)
+npm run screenshots   # prints do README, imagem OG e o quarto estático (public/images/room.webp); com o dev rodando, GPU=1 usa a placa de vídeo
 npm run figma         # protótipo no Figma: captura as telas (com o dev rodando) e gera o plugin em scripts/figma/plugin/
 ```
 
@@ -22,10 +21,10 @@ Antes de dar algo por pronto: `lint`, `format:check`, `test`, `build` e `test:e2
 
 - `src/content/` — dados do autor (PT/EN): perfil, projetos, experiências, skills e certificados (arquivos em `public/certificates/`). Única fonte para apps, Terminal e prompt do assistente.
 - `src/lib/apps-meta.js` — registro dos apps (dados puros, lido também no servidor); `apps.jsx` adiciona ícones e componentes lazy.
-- `src/lib/os-store.js` — Zustand: fase (intro/boot/lock/desktop/off), janelas, foco, app pendente do desbloqueio, preferências (persistidas).
-- `src/lib/os-bridge.js` — navegação fora do React (assistente, Terminal). **A URL é o comando**: `/{locale}/{appId}` abre o app.
+- `src/lib/os-store.js` — Zustand: fase (intro = página inicial/boot/lock/desktop), janelas, foco, app pendente do desbloqueio, preferências (persistidas). A fase atual vai para a sessão (`rememberPhase` em `lib/boot.js`, chamado no `OS.jsx`): o F5 volta à página inicial ou ao sistema, onde o visitante estava.
+- `src/lib/os-bridge.js` — navegação fora do React (assistente, Terminal) e `returnToLanding()` (volta à página inicial saindo da tela do PC: menu do logo, Ajustes e a barra de cima do celular). **A URL é o comando**: `/{locale}/{appId}` abre o app.
 - `src/components/os/` — shell desktop (`DesktopShell`, `useUrlSync`), mobile (`MobileShell`) e `LockScreen` (o shell fica montado por baixo, com `inert`).
-- `src/components/intro/` — mesa 3D (R3F + GSAP), carregada sob demanda: `desk/` tem um arquivo por objeto, `desk/layout.js` as posições e `desk-objects.js` os atalhos objeto → app. Modelos e HDRIs do Poly Haven em `public/models/` e `public/hdri/` (orçamento de 3 MB para modelos + uma HDRI, com teste). Direção visual **realista**: material e luz de verdade em tudo, paleta quente; o Luffy fica em `desk/Luffy.jsx` (medidas em larguras de cabeça).
+- `src/components/landing/` — página inicial (referência: david-hckh.com), carregada sob demanda: topo com o quarto 3D, Sobre (holograma), Skills (o `SkillsGlobe` do app) e Contato. Clicar no PC → zoom até a tela (que já mostra a tela de bloqueio) → `onDone(appId?)`. O 3D fica em `three/`: `Character.jsx` (o boneco do autor, feito a partir da foto: cabelo cacheado, óculos; poses `sit`/`sitWave`/`stand`/`wave`) com aparência e medidas em `character-look.js`; `room/` com um arquivo por objeto e `room/layout.js` (posições, enquadramento e a pose da tela); `RoomCanvas.jsx` (GSAP: chegada, zoom, saída do "Desligar"); `FigureCanvas.jsx` (holograma e aceno). Direção visual **"massinha"**: tudo em código, materiais foscos (`clay()` em `three/materials.js`), paleta quente, sem modelos nem HDRIs. Sem WebGL, o quarto vira `public/images/room.webp` (gerado pelo `npm run screenshots`).
 - `scripts/figma/` — protótipo no Figma tirado do site: `capture.mjs` serializa cada tela e `plugin-main.js` (sem `?.`/`??`, para o ambiente de plugins) recria as camadas e os links. Tela nova: adicione em `screenList()`; link novo: em `markLinks()`.
 - `api/*.js` — Vercel Functions (handlers Web `GET`/`POST`): `chat`, `spotify`, `wakatime`, `github`. `server/` — código só do servidor.
 
@@ -35,6 +34,7 @@ Antes de dar algo por pronto: `lint`, `format:check`, `test`, `build` e `test:e2
 - Nenhum texto de UI fixo: mensagens em `src/i18n/messages/{pt,en}.json` (teste de paridade exige as mesmas chaves e variáveis). Conteúdo usa objetos `{ pt, en }`.
 - Dados do autor só em `src/site.config.js` e `src/content/`. Nunca invente dados pessoais: placeholders com `TODO(conteúdo)`.
 - Texto na cor de destaque usa `text-accent-ink` (contraste AA); `bg-accent` para fundos.
+- Página inicial: cores pelos tokens `land-*` (`bg-land-bg`, `text-land-ink`, `text-land-muted`…, com versão escura) dentro de `.landing`, e títulos com `font-display` (Outfit). Cena 3D nova ou pesada dentro dela vai em `LazyScene` (monta perto da tela, pausa fora dela, tem substituto sem WebGL).
 - Projetos: a lista em `src/content/projects.js` fica em ordem cronológica (desempata projetos do mesmo mês). O app abre do mais recente e inverte com "Mais antigos" (a ordem do enunciado); `sortProjects` em `src/lib/timeline.js`.
 - Demo em hospedagem que dorme (plano gratuito): `wakeUrl` no projeto (`src/content/projects.js`); o app Projetos acorda o servidor ao abrir (`src/lib/wake.js`).
 - Dentro de janela, layout que depende da largura usa container query (`@container` + `@md:`), não breakpoint da tela: a janela é redimensionável.
@@ -45,7 +45,7 @@ Antes de dar algo por pronto: `lint`, `format:check`, `test`, `build` e `test:e2
 
 - Segredos só no servidor (`api/`, `server/`). Nunca `VITE_` em chave secreta. Nunca commitar `.env*` (exceto `.env.example`).
 - Toda integração sem variável configurada degrada com elegância (estado vazio), sem quebrar o build.
-- Sem marcas de terceiros (Apple, macOS etc.) na identidade do sistema. Exceção decidida pelo autor: a decoração pessoal da mesa 3D (escudo do Atlético, boneco do Luffy).
+- Sem marcas de terceiros (Apple, macOS etc.) na identidade do sistema. Exceção decidida pelo autor: a decoração pessoal do quarto 3D (escudo do Atlético, boneco do Luffy).
 - Dependências enxutas: justifique cada nova e atualize a tabela de dependências do README.
 - Acessibilidade e `prefers-reduced-motion` sempre.
 - Mantenha este arquivo atualizado quando surgir uma convenção nova.
@@ -57,8 +57,8 @@ Antes de dar algo por pronto: `lint`, `format:check`, `test`, `build` e `test:e2
 - **React Router 8** em modo declarativo (`BrowserRouter`, `Routes`). Docs no pacote: `node_modules/react-router/docs/`.
 - **Vite 8 (Rolldown)**: opção de chunks é `codeSplitting` (não `manualChunks`). Variáveis do servidor em dev vêm do `loadEnv` no `vite.config.js`.
 - **Tailwind 4**: configuração no CSS (`src/styles/globals.css`, `@theme`), tema por `data-theme` no `<html>`.
-- **Testes**: o jsdom não tem `matchMedia` nem `scrollIntoView` (stubs em `tests/setup.js`). O e2e usa WebGL por software (SwiftShader) e 2 workers; a mesa 3D é lenta assim, então só os testes da intro passam por ela (`skipIntro` + `test.slow()`) e os demais entram com `enterSystem` (sessão já vista) ou deep link.
-- **three r186 / R3F 9**: `PCFSoftShadowMap` foi removido — use `shadows="percentage"` no `Canvas`. Evite `RectAreaLight` (a tabela dela soma ~315 KB ao chunk). O mapa de sombra não atualiza sozinho: quem anima chama `useInvalidateShadows()` (`desk/shadows.js`). `useGLTF` sem Draco (o decodificador viria de CDN); meshopt já vem no pacote.
-- **`PerformanceMonitor` (drei)**: `flipflops`/`onFallback` contam toda avaliação, inclusive as subidas — numa máquina rápida pulava a intro sozinho em ~10s. Use só `onDecline` com `bounds`, e meça só com a mesa parada (`stage === 'closed'`).
-- **Pós-processamento**: o `EffectComposer` desliga o tone mapping do renderer, então o `ToneMapping` (modo `NEUTRAL`, que mantém as cores da tela de bloqueio) fica por último. Bloom com `luminanceThreshold={1}` (só o que passa de 1). Não use `N8AO` (~80 KB gzip).
-- **React Compiler × three**: preparar modelos (`useModel(url, prepare)`) com funções declaradas fora do componente; mudar material/objeto retornado de hook só dentro de `useFrame` via `ref.current`, nunca por atribuição direta ao valor do hook.
+- **Testes**: o jsdom não tem `matchMedia`, `scrollIntoView` (stubs em `tests/setup.js`), `IntersectionObserver` nem WebGL — sem eles, a página inicial conta tudo como visível e usa os substitutos do 3D. O e2e usa WebGL por software (SwiftShader) e 2 workers; o quarto 3D é lento assim, então só os testes da página inicial passam por ela (`skipIntro`, que clica em "Clique no PC", + `test.slow()`) e os demais entram com `enterSystem` (sessão já vista) ou deep link.
+- **three r186 / R3F 9**: `PCFSoftShadowMap` foi removido — use `shadows="percentage"` no `Canvas` e `shadow-radius` na luz para a sombra suave. Evite `RectAreaLight` (a tabela dela soma ~315 KB ao chunk). Tone mapping pelo `gl={{ toneMapping: NeutralToneMapping }}` (o R3F respeita): mantém o pastel da cena, e a tela do monitor usa `MeshBasicMaterial` com `toneMapped: false` para bater com a tela de bloqueio em HTML. Canvas com `alpha`: o fundo é o da página, e chão/parede são `shadowMaterial` (só a sombra aparece). Sem pós-processamento.
+- **`PerformanceMonitor` (drei)**: `flipflops`/`onFallback` contam toda avaliação, inclusive as subidas. Use só `onDecline` com `bounds` (baixa a resolução), e meça só com a cena parada (`stage === 'idle'`).
+- **Zoom até a tela**: a vista geral desloca o quarto com `camera.setViewOffset` (à direita do nome no computador, embaixo no celular); no zoom o deslocamento vai a zero e a distância final vem de `coverDistance` (a tela cobre o viewport). A tela do monitor é 16:10 como a textura (`screen-texture.js`, há teste).
+- **React Compiler × three**: criar materiais/objetos com funções declaradas fora do componente; o que muda a cada quadro (planos de corte, uniforms) é alterado só dentro de `useFrame` via `ref.current` (ex.: `kitRef` em `FigureCanvas.jsx`), nunca por atribuição direta ao valor de um hook. Arquivo `.jsx` só exporta componentes (constantes e funções compartilhadas vão num `.js` ao lado, como `character-look.js`).

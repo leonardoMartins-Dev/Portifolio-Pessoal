@@ -11,14 +11,8 @@ import './styles/globals.css';
 // A cor de destaque vem do site.config.js — um único lugar para trocar.
 document.documentElement.style.setProperty('--accent', siteConfig.accentColor);
 
-// Decide antes do primeiro render se a intro 3D roda (evita piscar o desktop).
-useOS.getState().setPhase(
-  decideInitialPhase({
-    pathname: location.pathname,
-    reducedMotion:
-      matchMedia('(prefers-reduced-motion: reduce)').matches || useOS.getState().reducedMotion,
-  }),
-);
+// Decide antes do primeiro render se a página inicial aparece (evita piscar o desktop).
+useOS.getState().setPhase(decideInitialPhase({ pathname: location.pathname }));
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

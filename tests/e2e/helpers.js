@@ -6,14 +6,22 @@ function lockScreen(page, locale) {
   });
 }
 
-/** Chega à tela de bloqueio pulando a intro (botão "Pular intro"), como um visitante. */
+/** O botão flutuante da página inicial ("Clique no PC"; no celular, "Toque no PC"). */
+export function enterButton(page, locale = 'pt') {
+  return page.getByRole('button', {
+    name: locale === 'pt' ? /(Clique|Toque) no PC/ : /(Click|Tap) the PC/,
+  });
+}
+
+/**
+ * Chega à tela de bloqueio pela página inicial, como um visitante: o botão
+ * "Clique no PC" leva a câmera até a tela (ou entra direto, se o 3D ainda não
+ * carregou, se não houver WebGL ou com movimento reduzido).
+ */
 export async function skipToLockScreen(page, locale = 'pt') {
   await page.goto(`/${locale}`);
-  const skip = page.getByRole('button', { name: locale === 'pt' ? 'Pular intro' : 'Skip intro' });
+  await enterButton(page, locale).click();
   const lock = lockScreen(page, locale);
-  // Com WebGL a intro roda e é pulada; sem WebGL o sistema já abre na tela de bloqueio.
-  await expect(skip.or(lock).first()).toBeVisible();
-  if (await skip.isVisible()) await skip.click();
   await expect(lock).toBeVisible();
   return lock;
 }
@@ -27,16 +35,16 @@ export async function unlock(page, locale = 'pt') {
   await expect(lock).toBeHidden();
 }
 
-/** Entra no sistema como um visitante novo: pula a intro e passa pela tela de bloqueio. */
+/** Entra no sistema como um visitante novo: passa pela página inicial e pela tela de bloqueio. */
 export async function skipIntro(page, locale = 'pt') {
   await skipToLockScreen(page, locale);
   await unlock(page, locale);
 }
 
 /**
- * Entra como quem já passou pela intro nesta sessão (recarregou a página):
- * boot curto, sem a mesa 3D nem a tela de bloqueio. A mesa 3D é pesada no
- * WebGL por software dos testes, então só os testes da intro passam por ela.
+ * Entra como quem já passou pela página inicial nesta sessão (recarregou):
+ * boot curto, sem o quarto 3D nem a tela de bloqueio. O 3D é pesado no
+ * WebGL por software dos testes, então só os testes da página inicial passam por ela.
  */
 export async function enterSystem(page, locale = 'pt') {
   await page.addInitScript(() => sessionStorage.setItem('portifolio:intro-seen', '1'));

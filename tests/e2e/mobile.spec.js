@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
-import { enterSystem, expectNoHorizontalScroll, skipIntro } from './helpers.js';
+import { enterButton, enterSystem, expectNoHorizontalScroll, skipIntro } from './helpers.js';
 
 test('celular (375px): abre um app em tela cheia e volta', async ({ page }) => {
-  // Passa pela mesa 3D, que roda no WebGL por software nos testes.
+  // Passa pela página inicial, cujo quarto 3D roda no WebGL por software nos testes.
   test.slow();
   await skipIntro(page);
   await expect(page.getByRole('heading', { name: 'Leonardo Martins Macedo' })).toBeVisible();
@@ -25,4 +25,12 @@ test('celular: o Voltar do navegador fecha o app', async ({ page }) => {
   await expect(page.getByRole('dialog', { name: 'Skills' })).toBeVisible();
   await page.goBack();
   await expect(page.getByRole('dialog', { name: 'Skills' })).toBeHidden();
+});
+
+test('celular: "Página inicial" na barra de cima volta ao quarto 3D', async ({ page }) => {
+  test.slow();
+  await enterSystem(page);
+  await page.getByRole('button', { name: 'Página inicial' }).click();
+  await expect(page.getByRole('heading', { level: 1, name: /Leonardo Martins/ })).toBeVisible();
+  await expect(enterButton(page)).toBeVisible();
 });

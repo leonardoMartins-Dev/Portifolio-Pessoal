@@ -1,13 +1,13 @@
 /**
- * Protótipo no Figma, tirado do próprio site: abre cada tela (intro,
+ * Protótipo no Figma, tirado do próprio site: abre cada tela (página inicial,
  * bloqueio, área de trabalho, cada app e o celular), registra a página como
  * uma árvore de caixas, textos, ícones e imagens e gera o plugin
  * `scripts/figma/plugin/code.js`, que recria tudo como camadas editáveis no
- * Figma, com o protótipo clicável (dock → apps, notebook → bloqueio → desktop).
+ * Figma, com o protótipo clicável (dock → apps, PC → bloqueio → desktop).
  *
  * Uso: com `npm run dev` rodando, `npm run figma`. Depois, no Figma desktop:
  * Plugins → Development → Import plugin from manifest → scripts/figma/plugin/manifest.json.
- * BASE troca o endereço do site; GPU=0 usa WebGL por software (a mesa 3D fica bem mais lenta).
+ * BASE troca o endereço do site; GPU=0 usa WebGL por software (o quarto 3D fica bem mais lento).
  */
 import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
@@ -21,7 +21,7 @@ const OUTPUT = new URL('./plugin/code.js', import.meta.url);
 const DESKTOP = { width: 1440, height: 900 };
 const MOBILE = { width: 390, height: 844 };
 const MOBILE_APPS = ['about', 'projects', 'contact'];
-// Imagens grandes (papel de parede, mesa 3D) vão em JPEG: o PNG delas pesaria megabytes.
+// Imagens grandes (papel de parede, quarto 3D) vão em JPEG: o PNG delas pesaria megabytes.
 const JPEG_MIN_AREA = 0.4;
 const useGpu = process.env.GPU !== '0';
 
@@ -53,13 +53,20 @@ function screenList() {
     {
       id: 'intro',
       page: 'Desktop',
-      name: 'Intro (mesa 3D)',
+      name: 'Página inicial (quarto 3D)',
       path: '',
       introSeen: false,
-      ready: (page) =>
-        page
-          .getByRole('button', { name: 'Clique no notebook para abrir' })
-          .waitFor({ timeout: 120_000 }),
+      // O quarto terminou de carregar quando o aviso "Montando o quarto…" some.
+      ready: async (page) => {
+        await page.locator('.landing canvas').first().waitFor({ timeout: 120_000 });
+        await page.waitForFunction(
+          () => !document.querySelector('.landing [role="status"]'),
+          null,
+          {
+            timeout: 120_000,
+          },
+        );
+      },
       settle: 2500,
     },
     {
@@ -68,9 +75,12 @@ function screenList() {
       name: 'Tela de bloqueio',
       path: '',
       introSeen: false,
-      // Com movimento reduzido o sistema abre direto na tela de bloqueio.
+      // Com movimento reduzido, o botão "Clique no PC" entra sem o zoom.
       reducedMotion: true,
-      ready: (page) => page.getByRole('dialog', { name: /Tela de bloqueio/ }).waitFor(),
+      ready: async (page) => {
+        await page.getByRole('button', { name: /Clique no PC/ }).click();
+        await page.getByRole('dialog', { name: /Tela de bloqueio/ }).waitFor();
+      },
     },
     {
       id: 'desktop',
@@ -131,7 +141,7 @@ function markLinks(titles) {
   document.querySelectorAll('button').forEach((el) => {
     const text = el.textContent.trim();
     const radio = el.getAttribute('role') === 'radio';
-    if (text === 'Clique no notebook para abrir' || text === 'Pular intro') set(el, 'lock');
+    if (text.startsWith('Clique no PC') || text === 'Entrar no sistema') set(el, 'lock');
     else if (text === 'Entrar') set(el, 'desktop');
     else if (text === 'Voltar' && el.closest('[role="dialog"]')) set(el, 'm:home');
     else if (radio && text === 'Globo') set(el, 'app:skills-globe');

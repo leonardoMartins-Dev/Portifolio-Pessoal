@@ -59,9 +59,10 @@ function osState(set, get) {
     }));
 
   return {
-    phase: 'desktop', // 'intro' | 'boot' | 'lock' | 'desktop' | 'off'
-    introMode: 'open', // 'open' | 'shutdown'
-    // App a abrir quando o visitante sair da tela de bloqueio (atalho da mesa 3D ou notificação).
+    phase: 'desktop', // 'intro' (página inicial) | 'boot' | 'lock' | 'desktop'
+    // Como a página inicial começa: 'open' (do quarto), 'return' (saindo da tela) ou 'shutdown' (saindo e apagando o monitor).
+    introMode: 'open',
+    // App a abrir quando o visitante sair da tela de bloqueio (atalho da página inicial ou notificação).
     pendingApp: null,
     // A tela de bloqueio veio do menu "Bloquear" (com o desktop já visível)?
     lockedFromDesktop: false,

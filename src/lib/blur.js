@@ -9,14 +9,19 @@ export function drawCover(ctx, image, width, height) {
 /**
  * Cópia bem desfocada de uma imagem (16:10): reduzir muito e ampliar de volta.
  * Barato e igual em todo navegador — bem mais leve que `filter: blur()` numa
- * imagem de tela cheia. Usada na tela de bloqueio HTML e na tela do notebook 3D,
+ * imagem de tela cheia. Usada na tela de bloqueio HTML e na tela do monitor 3D,
  * para as duas ficarem idênticas.
  */
 export function blurredCanvas(image) {
   let source = image;
   for (const [w, h] of [
-  [384, 240], [192, 120], [96, 60], [48, 30],
-  [96, 60], [192, 120], [384, 240],
+    [384, 240],
+    [192, 120],
+    [96, 60],
+    [48, 30],
+    [96, 60],
+    [192, 120],
+    [384, 240],
   ]) {
     const step = document.createElement('canvas');
     step.width = w;

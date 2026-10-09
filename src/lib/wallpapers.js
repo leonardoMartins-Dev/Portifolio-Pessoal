@@ -1,6 +1,6 @@
 /**
  * Papéis de parede originais (SVG em public/wallpapers). O mesmo arquivo
- * aparece na tela do notebook 3D, para a transição ficar contínua.
+ * aparece na tela do monitor 3D, para a transição ficar contínua.
  */
 export const WALLPAPERS = [
   { id: 'aurora', src: '/wallpapers/aurora.svg', base: '#16224a' },

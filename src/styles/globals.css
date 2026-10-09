@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/geist';
 @import '@fontsource-variable/geist-mono';
+@import '@fontsource-variable/outfit';
 
 /* O tema vem de data-theme no <html> (claro/escuro/sistema resolvido no JS). */
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
@@ -47,7 +48,36 @@
   --success: #45d39a;
 }
 
+/* Página inicial (o quarto 3D): creme quente de dia, noite quente no escuro. */
+.landing {
+  --land-bg: #f4ede2;
+  --land-bg-2: #ebe1d2;
+  --land-surface: #fbf7f1;
+  --land-ink: #2a2520;
+  --land-muted: #6b6155;
+  --land-line: rgb(42 37 32 / 0.12);
+  --land-tag: #26326e;
+}
+
+[data-theme='dark'] .landing {
+  --land-bg: #16151c;
+  --land-bg-2: #1d1b24;
+  --land-surface: #24222d;
+  --land-ink: #f3ede4;
+  --land-muted: #aaa196;
+  --land-line: rgb(255 255 255 / 0.1);
+  --land-tag: #4a56d8;
+}
+
 @theme inline {
+  --color-land-bg: var(--land-bg);
+  --color-land-bg-2: var(--land-bg-2);
+  --color-land-surface: var(--land-surface);
+  --color-land-ink: var(--land-ink);
+  --color-land-muted: var(--land-muted);
+  --color-land-line: var(--land-line);
+  --color-land-tag: var(--land-tag);
+  --font-display: 'Outfit Variable', 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);

@@ -166,8 +166,8 @@ export const APP_META = [
     id: 'settings',
     title: { pt: 'Ajustes', en: 'Settings' },
     description: {
-      pt: 'Idioma, tema, papel de parede, reduzir movimento, sons e rever a intro.',
-      en: 'Language, theme, wallpaper, reduce motion, sounds and replay the intro.',
+      pt: 'Idioma, tema, papel de parede, reduzir movimento, sons e voltar à página inicial.',
+      en: 'Language, theme, wallpaper, reduce motion, sounds and go back to the home page.',
     },
     tint: ['#9aa3b5', '#5d6577'],
     defaultSize: { w: 620, h: 560 },

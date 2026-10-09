@@ -1,7 +1,7 @@
 # 💻 Portifólio — Leonardo Martins Macedo 👨‍💻
 
 > [!NOTE]
-> Um portfólio que é um **notebook 3D**: o visitante clica, a tampa abre, o sistema liga e a câmera entra na tela. Lá dentro há um **sistema operacional próprio** — barra de menu, dock e janelas —, em que cada seção do portfólio é um app, com um **assistente de IA** que responde sobre o autor e abre apps sozinho.
+> Um portfólio que começa num **quarto 3D**: um boneco parecido com o autor trabalha no PC e, quando o visitante clica no computador, a câmera entra na tela. Lá dentro há um **sistema operacional próprio** — barra de menu, dock e janelas —, em que cada seção do portfólio é um app, com um **assistente de IA** que responde sobre o autor e abre apps sozinho.
 
 <table>
   <tr>
@@ -86,7 +86,7 @@
 
 **O que o diferencia.** Em vez de uma página com seções, o portfólio é uma experiência:
 
-1. **Entrada 3D** — a mesa de trabalho do autor: notebook, luminária, livros, currículo, celular e objetos pessoais (boneco do Luffy, raquete de tênis, quadro do Galo). Cada objeto é um atalho para um app; no clique, o notebook abre, a tela acende e a câmera entra até a tela cobrir a janela, já na **tela de bloqueio**.
+1. **Página inicial em 3D** — o quarto do autor em estilo "massinha" (inspirado em [david-hckh.com](https://david-hckh.com/)): um boneco parecido com ele trabalha no PC, com o boneco do Luffy na mesa, a raquete e as bolinhas de tênis no chão e o escudo do Galo num quadro azul. Rolando, vêm Sobre (o boneco num holograma), Skills (o globo 3D) e Contato. **Clicar no PC** (ou no botão flutuante "Clique no PC") aproxima a câmera até a tela do monitor cobrir a janela, já na **tela de bloqueio** do sistema.
 2. **Sistema operacional próprio** — barra de menu, dock e janelas que se arrastam, redimensionam, minimizam e maximizam. Identidade própria: inspirado em laptops modernos, sem copiar nenhum sistema existente.
 3. **Assistente de IA com ferramentas** — responde sobre o autor e sobre o sistema e **executa ações**: abre apps, mostra um projeto específico, troca idioma e tema.
 4. **Dados ao vivo** — música tocando agora (Spotify), tempo total programando (WakaTime) e estatísticas do GitHub (contribuições, sequências, commits, PRs, linguagens e horários dos commits).
@@ -98,14 +98,14 @@
 
 ## ✨ Funcionalidades Principais
 
-- 💻 **Intro 3D:** a mesa de trabalho do autor (noite no tema escuro, dia no claro), com objetos clicáveis que abrem apps e um notebook que abre, liga e leva a câmera para dentro da tela. Pulável, acessível por teclado e desativada com movimento reduzido ou sem WebGL.
+- 💻 **Página inicial (quarto 3D):** nome, "Disponível para estágio" e o quarto do autor (dia no tema claro, noite no escuro). Passar o mouse no PC ou no boneco faz ele girar a cadeira e acenar; clicar nele (ou no botão flutuante) leva a câmera até a tela e entra no sistema. Abaixo: Sobre com o boneco num pedestal holográfico que se "materializa" com a rolagem, Skills no globo 3D, Contato com currículo PT/EN e o boneco acenando. Os atalhos "Ver projetos" e "Ver experiência" entram no sistema já no app. Para voltar, "Página inicial" (menu do logo, Ajustes ou a barra de cima do celular) tira a câmera da tela de volta ao quarto; "Desligar" faz o mesmo e apaga o monitor. Recarregar (F5) continua onde você está: na página inicial ou no sistema. Sem WebGL, o quarto vira uma imagem; com movimento reduzido, entra sem o zoom.
 - 🔒 **Tela de bloqueio:** relógio, foto, nome e "Entrar" (sem senha; clique ou qualquer tecla), notificação do assistente e "Bloquear" no menu do logo.
 - 🪟 **Gerenciador de janelas:** abrir saindo do dock, focar, arrastar, redimensionar, minimizar para o dock, maximizar (ou clique duplo no título) e fechar. Cada app é único e tem rota própria.
 - 🖥️ **Área de trabalho:** ícones de todos os apps à esquerda (clique duplo ou Enter abre) e GitHub/LinkedIn à direita.
-- 📱 **Versão mobile:** tela inicial com perfil, widgets, grade de apps e dock; apps em tela cheia; o Voltar do navegador fecha o app.
+- 📱 **Versão mobile:** tela inicial com perfil, widgets, grade de apps e dock; apps em tela cheia; o Voltar do navegador fecha o app; o botão **"Página inicial"** na barra de cima volta ao quarto 3D (a câmera sai da tela do PC).
 - 🌐 **PT/EN:** rotas `/pt` e `/en`; a troca mantém o app aberto (`/pt/projects` ↔ `/en/projects`).
 - 🌗 **Tema claro, escuro ou do sistema**, 4 papéis de parede originais.
-- 🙋 **Sobre:** apresentação, formação, foco atual, objetivos e "Fora do código" (One Piece, tênis e Galo, os mesmos objetos da mesa 3D).
+- 🙋 **Sobre:** apresentação, formação, foco atual, objetivos e "Fora do código" (One Piece, tênis e Galo, os mesmos objetos do quarto 3D).
 - 🗂️ **Projetos em linha do tempo**, do mais recente ao mais antigo, com um botão que inverte para a ordem do mais antigo ao mais recente, com tecnologias, GitHub, demo, imagem/GIF/vídeo, filtro por tecnologia e `?project=` para destacar um projeto. Demos em plano gratuito (o WaveHub, no Render) são **acordadas assim que o app abre**, para o servidor já estar ligado no clique em Demo.
 - 💼 **Experiências** com tipo, período ("mar 2024 – atual") e filtro.
 - ✨ **Skills** em grade de ícones ou num **globo 3D** que gira e pode ser arrastado (inspirado em [abdulmomin.dev](https://www.abdulmomin.dev/); o three.js só é baixado quando o globo é escolhido, e a escolha fica salva).
@@ -146,7 +146,7 @@
 - **Build Tool:** Vite 8
 - **Linguagem:** JavaScript (ES2024, módulos ES)
 - **Estilização:** Tailwind CSS 4 + variáveis CSS (tokens de tema)
-- **3D:** Three.js + React Three Fiber + drei; sequência da intro com GSAP
+- **3D:** Three.js + React Three Fiber + drei (tudo modelado em código); zoom até a tela com GSAP
 - **Animações de UI:** Motion (Framer Motion)
 - **Estado:** Zustand
 - **i18n:** i18next + react-i18next
@@ -167,31 +167,31 @@
 
 ### 📦 Dependências
 
-| Pacote                                                                                                                  | Para que serve                                                                         |
-| ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `react`, `react-dom`                                                                                                    | Biblioteca de interface                                                                |
-| `react-router`                                                                                                          | Rotas `/{locale}/{appId}`, deep links e botão Voltar                                   |
-| `i18next`, `react-i18next`                                                                                              | Textos de interface em português e inglês                                              |
-| `zustand`                                                                                                               | Estado do sistema: janelas, foco, fase (intro/boot/bloqueio/desktop) e preferências    |
-| `motion`                                                                                                                | Animações das janelas, do dock (magnificação) e transições                             |
-| `three`, `@react-three/fiber`, `@react-three/drei`                                                                      | Mesa 3D: objetos em código, modelos glTF (meshopt), luz HDRI, sombras e rótulos        |
-| `@react-three/postprocessing`, `postprocessing`                                                                         | Acabamento da mesa 3D: bloom, vinheta e tone mapping neutro (~26 KB gzip, só na intro) |
-| `gsap`                                                                                                                  | Linha do tempo da intro (tampa → tela → boot → câmera)                                 |
-| `lucide-react`                                                                                                          | Ícones dos apps e da interface                                                         |
-| `react-icons`                                                                                                           | Ícones de marca (GitHub, LinkedIn, WhatsApp, Spotify)                                  |
-| `@fontsource-variable/geist`, `@fontsource-variable/geist-mono`                                                         | Fontes Geist hospedadas junto com o site (sem CSS externo bloqueando a renderização)   |
-| `react-hook-form`, `@hookform/resolvers`, `zod`                                                                         | Formulário de contato e validação (também valida o pedido ao assistente no servidor)   |
-| `@emailjs/browser`                                                                                                      | Envio dos dois e-mails do formulário (carregado só na hora do envio)                   |
-| `ai`, `@ai-sdk/react`, `@ai-sdk/google`                                                                                 | Assistente: streaming, `useChat`, ferramentas no cliente e o Gemini (plano gratuito)   |
-| `react-markdown`                                                                                                        | Markdown simples (com links clicáveis) nas respostas do assistente                     |
-| `@upstash/ratelimit`, `@upstash/redis`                                                                                  | Limite de uso do assistente (por IP e teto diário)                                     |
-| `vite`, `@vitejs/plugin-react`, `tailwindcss`, `@tailwindcss/vite`                                                      | Build, servidor de desenvolvimento e estilos (dev)                                     |
-| `eslint`, `@eslint/js`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, `eslint-config-prettier`, `globals` | Lint, incluindo as regras do React Compiler (dev)                                      |
-| `prettier`, `prettier-plugin-tailwindcss`                                                                               | Formatação e ordem das classes do Tailwind (dev)                                       |
-| `vitest`, `jsdom`, `@testing-library/react`, `@testing-library/user-event`                                              | Testes de unidade e de componentes (dev)                                               |
-| `@playwright/test`                                                                                                      | Testes e2e no navegador e geração dos prints do README (dev)                           |
+| Pacote                                                                                                                  | Para que serve                                                                                  |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `react`, `react-dom`                                                                                                    | Biblioteca de interface                                                                         |
+| `react-router`                                                                                                          | Rotas `/{locale}/{appId}`, deep links e botão Voltar                                            |
+| `i18next`, `react-i18next`                                                                                              | Textos de interface em português e inglês                                                       |
+| `zustand`                                                                                                               | Estado do sistema: janelas, foco, fase (página inicial/boot/bloqueio/desktop) e preferências    |
+| `motion`                                                                                                                | Animações das janelas, do dock (magnificação) e transições                                      |
+| `three`, `@react-three/fiber`, `@react-three/drei`                                                                      | Quarto, holograma e boneco da página inicial (tudo em código, sem modelos) e o globo das Skills |
+| `gsap`                                                                                                                  | Linhas do tempo da câmera: chegada, zoom até a tela e a saída no "Desligar"                     |
+| `lucide-react`                                                                                                          | Ícones dos apps e da interface                                                                  |
+| `react-icons`                                                                                                           | Ícones de marca (GitHub, LinkedIn, WhatsApp, Spotify)                                           |
+| `@fontsource-variable/geist`, `@fontsource-variable/geist-mono`                                                         | Fontes Geist hospedadas junto com o site (sem CSS externo bloqueando a renderização)            |
+| `@fontsource-variable/outfit`                                                                                           | Fonte dos títulos da página inicial (geométrica e arredondada, como a referência; ~32 KB)       |
+| `react-hook-form`, `@hookform/resolvers`, `zod`                                                                         | Formulário de contato e validação (também valida o pedido ao assistente no servidor)            |
+| `@emailjs/browser`                                                                                                      | Envio dos dois e-mails do formulário (carregado só na hora do envio)                            |
+| `ai`, `@ai-sdk/react`, `@ai-sdk/google`                                                                                 | Assistente: streaming, `useChat`, ferramentas no cliente e o Gemini (plano gratuito)            |
+| `react-markdown`                                                                                                        | Markdown simples (com links clicáveis) nas respostas do assistente                              |
+| `@upstash/ratelimit`, `@upstash/redis`                                                                                  | Limite de uso do assistente (por IP e teto diário)                                              |
+| `vite`, `@vitejs/plugin-react`, `tailwindcss`, `@tailwindcss/vite`                                                      | Build, servidor de desenvolvimento e estilos (dev)                                              |
+| `eslint`, `@eslint/js`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, `eslint-config-prettier`, `globals` | Lint, incluindo as regras do React Compiler (dev)                                               |
+| `prettier`, `prettier-plugin-tailwindcss`                                                                               | Formatação e ordem das classes do Tailwind (dev)                                                |
+| `vitest`, `jsdom`, `@testing-library/react`, `@testing-library/user-event`                                              | Testes de unidade e de componentes (dev)                                                        |
+| `@playwright/test`                                                                                                      | Testes e2e no navegador e geração dos prints do README (dev)                                    |
 
-Para os modelos e as HDRIs não há dependência nova: o `npm run models` usa o [glTF Transform](https://gltf-transform.dev/) via `npx` só para comprimir os modelos uma vez, reduz as HDRIs com um script próprio, e o decodificador meshopt já vem no three/drei.
+O quarto 3D não baixa modelos nem HDRIs: cada objeto (mesa, cadeira, monitores, boneco, planta, raquete…) é montado em código com geometrias simples e materiais foscos, e a luz vem de luzes da própria cena. A imagem estática usada sem WebGL (`public/images/room.webp`, ~50 KB) sai do `npm run screenshots`.
 
 ---
 
@@ -199,7 +199,7 @@ Para os modelos e as HDRIs não há dependência nova: o `npm run models` usa o 
 
 O projeto é um **SPA em React + Vite** com **funções serverless** na mesma hospedagem:
 
-- **Front-end:** o sistema (shell) fica montado na rota `/:locale/:appId?` e **não remonta** ao trocar de app ou idioma. Cada app e a intro 3D são carregados sob demanda (`React.lazy`), então o three.js só é baixado se a intro rodar.
+- **Front-end:** o sistema (shell) fica montado na rota `/:locale/:appId?` e **não remonta** ao trocar de app ou idioma. Cada app e a página inicial são carregados sob demanda (`React.lazy`); na página, o texto aparece antes e o 3D (three.js, cena e GSAP) baixa à parte, com as cenas de baixo montadas só quando chegam perto da tela.
 - **Back-end:** Vercel Functions em `api/` (`chat`, `spotify`, `wakatime`, `github`) guardam as chaves secretas no servidor. Em desenvolvimento, um plugin do Vite (`server/vite-api-plugin.js`) serve as mesmas funções, então `npm run dev` tem front e back juntos.
 - **Conteúdo como fonte única:** perfil, projetos, experiências e skills ficam em `src/content/*.js`, nos dois idiomas. Alimentam os apps, o Terminal e o **prompt do assistente**: mudou aqui, muda em tudo.
 - **Registro de apps:** `src/lib/apps-meta.js` (dados puros, lidos também no servidor) + `src/lib/apps.jsx` (ícones e componentes). Dock, desktop, grade mobile, Terminal e as ferramentas do assistente leem daqui.
@@ -208,7 +208,7 @@ O projeto é um **SPA em React + Vite** com **funções serverless** na mesma ho
 
 ```mermaid
 flowchart LR
-  V[Visitante] --> FE["React + Vite na Vercel<br/>Intro 3D + Sistema"]
+  V[Visitante] --> FE["React + Vite na Vercel<br/>Página inicial 3D + Sistema"]
   C[("src/content<br/>dados PT/EN")] --> FE
   C --> CHAT
   FE -->|/api/chat| CHAT[Vercel Function IA]
@@ -223,24 +223,24 @@ flowchart LR
 
 ### Rotas
 
-| Rota                         | Comportamento                                                                        |
-| ---------------------------- | ------------------------------------------------------------------------------------ |
-| `/`                          | Redireciona para `/pt` ou `/en` (idioma do navegador; padrão `pt`)                   |
-| `/{locale}`                  | Intro 3D e tela de bloqueio (uma vez por sessão), depois o desktop                   |
-| `/{locale}/{appId}`          | Deep link: pula a intro e abre o sistema com o app em foco                           |
-| `/{locale}/{appId}` inválido | Janela "App não encontrado" no estilo do sistema                                     |
-| `/api/chat`                  | `GET`: o assistente está disponível? `POST`: resposta em streaming                   |
-| `/api/spotify`               | `GET`: tocando agora, recentes e top (cache de 30s)                                  |
-| `/api/wakatime`              | `GET`: tempo total programando e linguagens (cache de 1h)                            |
-| `/api/github`                | `GET`: perfil, estatísticas, contribuições, repositórios e commits (cache de 30 min) |
+| Rota                         | Comportamento                                                                                      |
+| ---------------------------- | -------------------------------------------------------------------------------------------------- |
+| `/`                          | Redireciona para `/pt` ou `/en` (idioma do navegador; padrão `pt`)                                 |
+| `/{locale}`                  | Página inicial (quarto 3D) e tela de bloqueio; F5 continua onde estava (página inicial ou sistema) |
+| `/{locale}/{appId}`          | Deep link: pula a página inicial e abre o sistema com o app em foco                                |
+| `/{locale}/{appId}` inválido | Janela "App não encontrado" no estilo do sistema                                                   |
+| `/api/chat`                  | `GET`: o assistente está disponível? `POST`: resposta em streaming                                 |
+| `/api/spotify`               | `GET`: tocando agora, recentes e top (cache de 30s)                                                |
+| `/api/wakatime`              | `GET`: tempo total programando e linguagens (cache de 1h)                                          |
+| `/api/github`                | `GET`: perfil, estatísticas, contribuições, repositórios e commits (cache de 30 min)               |
 
 Apps (`appId`, iguais nos dois idiomas): `about`, `projects`, `experience`, `skills`, `certificates`, `resume`, `contact`, `music`, `activity`, `github`, `assistant`, `terminal`, `settings`, `system`.
 
 ### 🎯 Decisões de design
 
-- **Por que uma mesa 3D?** A primeira impressão de um portfólio dura segundos. A mesa conta quem é o autor antes de qualquer texto (as tecnologias nos livros, o currículo impresso, o time, o anime e o esporte de que ele gosta), e abrir um notebook é um gesto que todo mundo entende. Mostra domínio de 3D e animação sem atrapalhar quem só quer o conteúdo: a intro é pulável, só roda uma vez por sessão e é desligada com movimento reduzido ou sem WebGL.
-- **Por que realista?** A primeira versão misturava modelos realistas com objetos de cor chapada e não tinha unidade. Agora tudo segue a mesma regra: materiais de verdade (tecido, cerâmica, vidro, alumínio, palha), luz de uma sala real (HDRI) e uma paleta quente única. Madeira, planta e luminária vêm do Poly Haven (CC0); o resto é código, sem peso extra. Modelos + HDRI somam ~2 MB.
-- **Por que uma tela de bloqueio?** Ela faz a ponte entre o 3D e o sistema (a tela do notebook já a mostra antes da câmera chegar, então a troca não tem corte) e é o "olá" do portfólio: foto, nome e cargo antes do desktop.
+- **Por que uma página inicial com um quarto 3D?** A primeira impressão de um portfólio dura segundos. O quarto conta quem é o autor antes de qualquer texto (o boneco parecido com ele, o anime, o esporte e o time de que gosta), e clicar no computador para "entrar" é um gesto que todo mundo entende. Logo abaixo, quem só quer o conteúdo — como um recrutador — encontra o essencial sem abrir nada: status de estágio, formação, foco, skills, currículo e contato.
+- **Por que o estilo "massinha"?** É a direção da referência ([david-hckh.com](https://david-hckh.com/)): formas arredondadas, materiais foscos e paleta quente. Tudo é feito em código, então a cena não baixa modelos nem HDRIs, e o boneco pode mudar de pose (digitando, acenando, de pé).
+- **Por que uma tela de bloqueio?** Ela faz a ponte entre o 3D e o sistema (o monitor já a mostra antes da câmera chegar, então a troca não tem corte) e é o "olá" do portfólio: foto, nome e cargo antes do desktop.
 - **Por que um sistema operacional?** Ele resolve o requisito de navegação de forma natural: a barra de menu é o cabeçalho, o dock é o rodapé, as janelas são o conteúdo e cada seção é um app com endereço próprio. E permite ver várias seções lado a lado, como um recrutador compararia projetos.
 - **Por que IA com ferramentas?** Um chatbot que só conversa é mais uma caixa de texto. Com ferramentas, o assistente **age no sistema**: perguntar sobre projetos abre o app Projetos no projeto certo. O prompt é gerado do mesmo conteúdo do site, então ele não inventa dados — e as ferramentas rodam no navegador, sem nenhum poder no servidor.
 - **Segredos no servidor:** chaves do Gemini, do Spotify e do Upstash só existem nas funções em `api/` (nunca com prefixo `VITE_`). As do EmailJS são públicas por design e restritas por domínio no painel.
@@ -253,10 +253,10 @@ Apps (`appId`, iguais nos dois idiomas): `about`, `projects`, `experience`, `ski
 
 O protótipo no **Figma** é gerado a partir do próprio site, então fica sempre alinhado com ele. São 22 telas, montadas na página aberta (o plano gratuito do Figma limita o número de páginas), em dois grupos: **Desktop** (1440×900) e **Celular** (390×844).
 
-- **Desktop:** intro (mesa 3D), tela de bloqueio, área de trabalho e cada app com a janela aberta (Skills em lista e em globo).
+- **Desktop:** página inicial (quarto 3D), tela de bloqueio, área de trabalho e cada app com a janela aberta (Skills em lista e em globo).
 - **Celular:** tela inicial, Sobre, Projetos e Contato.
 
-O plugin tem dois estilos no menu: **Wireframe (preto e branco)**, com caixas e contornos, textos reais, ícones em traço e imagens como caixas com um X; e **Alta fidelidade**, com cores, sombras e imagens como no site. Nos dois, tudo é camada editável e o protótipo é clicável: notebook → bloqueio → "Entrar" → área de trabalho; dock e ícones → apps; "X" → área de trabalho; no celular, ícone → app e "Voltar" → início.
+O plugin tem dois estilos no menu: **Wireframe (preto e branco)**, com caixas e contornos, textos reais, ícones em traço e imagens como caixas com um X; e **Alta fidelidade**, com cores, sombras e imagens como no site. Nos dois, tudo é camada editável e o protótipo é clicável: "Clique no PC" → bloqueio → "Entrar" → área de trabalho; dock e ícones → apps; "X" → área de trabalho; no celular, ícone → app e "Voltar" → início.
 
 Como gerar:
 
@@ -268,6 +268,8 @@ Como gerar:
 Quando o site mudar, é só repetir os passos.
 
 ### Telas exportadas
+
+> A tela 01 ainda mostra a entrada da versão anterior (a mesa com o notebook); a página inicial atual entra no protótipo ao rodar `npm run figma` e exportar de novo.
 
 |                                                                                                                                         |                                                                                                                           |                                                                                                                                |
 | :-------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------: |
@@ -332,18 +334,17 @@ npm run dev
 
 Abra [http://localhost:5173](http://localhost:5173): você será redirecionado para `/pt` ou `/en` conforme o idioma do navegador. As funções de `api/` rodam junto, lendo o `.env.local`.
 
-| Script                                    | O que faz                                                                            |
-| :---------------------------------------- | :----------------------------------------------------------------------------------- |
-| `npm run dev`                             | Servidor de desenvolvimento (front + `api/`)                                         |
-| `npm run build` / `npm run preview`       | Build de produção e servidor para testá-lo                                           |
-| `npm run lint`                            | ESLint                                                                               |
-| `npm run format` / `npm run format:check` | Formata / confere a formatação (Prettier)                                            |
-| `npm test`                                | Testes de unidade (Vitest)                                                           |
-| `npm run test:e2e`                        | Testes e2e (Playwright; faz o build antes)                                           |
-| `npm run spotify:token`                   | Gera o refresh token do Spotify                                                      |
-| `npm run screenshots`                     | Gera os prints deste README e a imagem Open Graph (com `npm run dev` rodando)        |
-| `npm run models`                          | Baixa e prepara os modelos 3D e as HDRIs da intro (Poly Haven)                       |
-| `npm run figma`                           | Gera o plugin do Figma com o protótipo de todas as telas (com `npm run dev` rodando) |
+| Script                                    | O que faz                                                                                        |
+| :---------------------------------------- | :----------------------------------------------------------------------------------------------- |
+| `npm run dev`                             | Servidor de desenvolvimento (front + `api/`)                                                     |
+| `npm run build` / `npm run preview`       | Build de produção e servidor para testá-lo                                                       |
+| `npm run lint`                            | ESLint                                                                                           |
+| `npm run format` / `npm run format:check` | Formata / confere a formatação (Prettier)                                                        |
+| `npm test`                                | Testes de unidade (Vitest)                                                                       |
+| `npm run test:e2e`                        | Testes e2e (Playwright; faz o build antes)                                                       |
+| `npm run spotify:token`                   | Gera o refresh token do Spotify                                                                  |
+| `npm run screenshots`                     | Gera os prints deste README, a imagem Open Graph e o quarto estático (com `npm run dev` rodando) |
+| `npm run figma`                           | Gera o plugin do Figma com o protótipo de todas as telas (com `npm run dev` rodando)             |
 
 ---
 
@@ -551,11 +552,11 @@ Todo push na `main` gera um deploy de produção e todo Pull Request gera uma **
 │   ├── apresentacao.md        # 🎤 Roteiro da apresentação
 │   ├── wireframes/            # 🎨 Protótipos exportados do Figma
 │   └── screenshots/           # 🖼️ Prints deste README (npm run screenshots)
-├── public/                    # 📁 Estáticos: brand (logo, OG), certificates, cv, hdri, images, models (3D), projects, wallpapers
-├── scripts/                   # 🛠️ spotify-token.mjs, screenshots.mjs, fetch-models.mjs, figma/ (protótipo)
+├── public/                    # 📁 Estáticos: brand (logo, OG), certificates, cv, images (foto, Galo, quarto estático), projects, wallpapers
+├── scripts/                   # 🛠️ spotify-token.mjs, screenshots.mjs, figma/ (protótipo)
 ├── src/
 │   ├── components/
-│   │   ├── intro/             # 💻 Mesa 3D (desk/: um arquivo por objeto), notebook, textura da tela, sequência GSAP
+│   │   ├── landing/           # 💻 Página inicial: seções em HTML e three/ (boneco, quarto com um arquivo por objeto, holograma, zoom)
 │   │   ├── os/                # 🪟 Shell: barra de menu, dock, janelas, desktop, mobile, lançador, tela de bloqueio
 │   │   ├── apps/              # 🧩 Um componente por app (Sobre, Projetos, …)
 │   │   ├── chat/              # 🤖 Painel do assistente e markdown
@@ -585,23 +586,25 @@ Todo push na `main` gera um deploy de produção e todo Pull Request gera uma **
 
 ### 🌐 Aplicação Web
 
-|                                                                            Intro 3D: a mesa à noite (tema escuro)                                                                            |                                                      A mesma mesa de dia (tema claro)                                                      |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src="docs/screenshots/intro.png" alt="Mesa de trabalho à noite com notebook fechado, luminária, livros, currículo, celular, boneco do Luffy, raquete e quadro do Atlético" width="420"> |                 <img src="docs/screenshots/intro-light.png" alt="A mesma mesa de dia, com céu azul na janela" width="420">                 |
-|                                                                                     **Notebook abrindo**                                                                                     |                                                            **Tela de bloqueio**                                                            |
-|                            <img src="docs/screenshots/intro-boot.png" alt="Notebook aberto mostrando o boot, com a luz da tela iluminando o teclado" width="420">                            | <img src="docs/screenshots/lock.png" alt="Tela de bloqueio com relógio, notificação do assistente, foto, nome e botão Entrar" width="420"> |
-|                                                                            **Desktop com janelas (tema escuro)**                                                                             |                                                          **Ajustes (tema claro)**                                                          |
-|                                              <img src="docs/screenshots/desktop.png" alt="Desktop com as janelas Projetos e Sobre" width="420">                                              |                         <img src="docs/screenshots/desktop-light.png" alt="App Ajustes no tema claro" width="420">                         |
-|                                                                                         **Terminal**                                                                                         |                                                            **Contato (inglês)**                                                            |
-|                                           <img src="docs/screenshots/terminal.png" alt="Terminal com neofetch e a lista de projetos" width="420">                                            |                <img src="docs/screenshots/contact-en.png" alt="App Contato em inglês com canais e formulário" width="420">                 |
-|                                                                                      **GitHub ao vivo**                                                                                      |                                                         **Sobre: fora do código**                                                          |
-|                    <img src="docs/screenshots/github.png" alt="App GitHub com contribuições no último ano, gráfico de contribuições e repositórios recentes" width="420">                    | <img src="docs/screenshots/about-hobbies.png" alt="App Sobre com a seção Fora do código: One Piece, tênis e Atlético Mineiro" width="420"> |
+|                                                                                         Página inicial: o quarto 3D (tema claro)                                                                                          |                                                    O mesmo quarto à noite (tema escuro)                                                    |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="docs/screenshots/landing.png" alt="Página inicial: nome, Disponível para estágio e o quarto 3D com o boneco do autor no PC, o Luffy na mesa, a raquete no chão e o escudo do Galo num quadro azul" width="420"> |           <img src="docs/screenshots/landing-dark.png" alt="O mesmo quarto à noite, com as telas iluminando a mesa" width="420">           |
+|                                                                                             **Sobre: o boneco no holograma**                                                                                              |                                                           **Skills no globo 3D**                                                           |
+|                             <img src="docs/screenshots/landing-about.png" alt="Seção Sobre: o boneco num pedestal holográfico com cartões de nome, resumo, foco atual e status" width="420">                              | <img src="docs/screenshots/landing-skills.png" alt="Seção Skills com o globo 3D e os atalhos Ver projetos e Ver experiência" width="420">  |
+|                                                                                         **Clique no PC: a câmera vai até a tela**                                                                                         |                                                            **Tela de bloqueio**                                                            |
+|                                          <img src="docs/screenshots/landing-zoom.png" alt="A câmera aproximando da tela do monitor, que mostra a tela de bloqueio" width="420">                                           | <img src="docs/screenshots/lock.png" alt="Tela de bloqueio com relógio, notificação do assistente, foto, nome e botão Entrar" width="420"> |
+|                                                                                           **Desktop com janelas (tema escuro)**                                                                                           |                                                          **Ajustes (tema claro)**                                                          |
+|                                                            <img src="docs/screenshots/desktop.png" alt="Desktop com as janelas Projetos e Sobre" width="420">                                                             |                         <img src="docs/screenshots/desktop-light.png" alt="App Ajustes no tema claro" width="420">                         |
+|                                                                                                       **Terminal**                                                                                                        |                                                            **Contato (inglês)**                                                            |
+|                                                          <img src="docs/screenshots/terminal.png" alt="Terminal com neofetch e a lista de projetos" width="420">                                                          |                <img src="docs/screenshots/contact-en.png" alt="App Contato em inglês com canais e formulário" width="420">                 |
+|                                                                                                    **GitHub ao vivo**                                                                                                     |                                                         **Sobre: fora do código**                                                          |
+|                                  <img src="docs/screenshots/github.png" alt="App GitHub com contribuições no último ano, gráfico de contribuições e repositórios recentes" width="420">                                   | <img src="docs/screenshots/about-hobbies.png" alt="App Sobre com a seção Fora do código: One Piece, tênis e Atlético Mineiro" width="420"> |
 
 ### 📱 Celular
 
-|                                                       Tela inicial                                                       |                                             App em tela cheia                                             |
-| :----------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
-| <img src="docs/screenshots/mobile-home.png" alt="Tela inicial do celular com perfil, grade de apps e dock" height="480"> | <img src="docs/screenshots/mobile-projects.png" alt="App Projetos em tela cheia no celular" height="480"> |
+|                                                                      Página inicial                                                                       |                                                 Tela inicial do sistema                                                  |                                             App em tela cheia                                             |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
+| <img src="docs/screenshots/mobile-landing.png" alt="Página inicial no celular: nome em cima e o quarto 3D embaixo, com o botão Toque no PC" height="480"> | <img src="docs/screenshots/mobile-home.png" alt="Tela inicial do celular com perfil, grade de apps e dock" height="480"> | <img src="docs/screenshots/mobile-projects.png" alt="App Projetos em tela cheia no celular" height="480"> |
 
 ---
 
@@ -613,7 +616,7 @@ Todo push na `main` gera um deploy de produção e todo Pull Request gera uma **
 npm test
 ```
 
-_Ferramentas: Vitest + Testing Library._ Cobrem (§15): store de janelas (abrir, focar, minimizar, maximizar, fechar, limites), ordenação da timeline e dos certificados (com os arquivos de cada um existindo em `public/`), schema do formulário, gerador do prompt do assistente (contém todos os projetos e apps, nenhuma variável de ambiente, < 6 mil tokens), paridade de chaves do i18n, parser e comandos do Terminal, enquadramento _cover_ da intro nos 4 viewports do critério de aceite, normalização do Spotify e do WakaTime, resumo do GitHub (repositórios, commits, gráfico pela página pública e pela GraphQL, falhas parciais) e o gráfico em semanas, despertar da demo (sem CORS, uma vez a cada 10 min), validação do pedido ao `/api/chat`, rate limit e componentes (timeline, validação do Contato, carregamento de cada app).
+_Ferramentas: Vitest + Testing Library._ Cobrem (§15): store de janelas (abrir, focar, minimizar, maximizar, fechar, limites), ordenação da timeline e dos certificados (com os arquivos de cada um existindo em `public/`), schema do formulário, gerador do prompt do assistente (contém todos os projetos e apps, nenhuma variável de ambiente, < 6 mil tokens), paridade de chaves do i18n, parser e comandos do Terminal, página inicial (essencial para recrutadores, "Clique no PC" e os atalhos para os apps, sem WebGL), enquadramento _cover_ da tela do monitor e do quarto em computador e celular, normalização do Spotify e do WakaTime, resumo do GitHub (repositórios, commits, gráfico pela página pública e pela GraphQL, falhas parciais) e o gráfico em semanas, despertar da demo (sem CORS, uma vez a cada 10 min), validação do pedido ao `/api/chat`, rate limit e componentes (timeline, validação do Contato, carregamento de cada app).
 
 ### Testes End-to-End (E2E)
 
@@ -622,7 +625,7 @@ npx playwright install chromium   # uma vez
 npm run test:e2e
 ```
 
-_Ferramenta: Playwright_ (contra o build de produção). **Desktop:** pular a intro, abrir cada app pelo dock, trocar o idioma mantendo o app, deep link e 404, minimizar/maximizar/fechar com Esc, validação do formulário, assistente com a API simulada (responde e abre o app pedido), app GitHub com a API simulada, abrir Projetos acorda a demo do WaveHub e Terminal. **Celular (375px):** abrir um app em tela cheia e voltar, Voltar do navegador fecha o app e nada de rolagem horizontal.
+_Ferramenta: Playwright_ (contra o build de produção). **Desktop:** entrar pela página inicial ("Clique no PC"), seções da página e "Ver projetos" abrindo o app depois da tela de bloqueio, abrir cada app pelo dock, trocar o idioma mantendo o app, deep link e 404, minimizar/maximizar/fechar com Esc, validação do formulário, assistente com a API simulada (responde e abre o app pedido), app GitHub com a API simulada, abrir Projetos acorda a demo do WaveHub e Terminal. **Celular (375px):** abrir um app em tela cheia e voltar, Voltar do navegador fecha o app e nada de rolagem horizontal.
 
 ---
 
@@ -665,8 +668,8 @@ _Ferramenta: Playwright_ (contra o build de produção). **Desktop:** pular a in
 - [**Engenharia de Software PUC Minas**](https://www.instagram.com/engsoftwarepucminas/) — pela estrutura acadêmica e pelo incentivo às boas práticas de engenharia.
 - [**Prof. Dr. João Paulo Aramuni**](https://github.com/joaopauloaramuni) — pela disciplina, pelo template deste README e pelo portfólio em estilo terminal ([aramuni.dev](https://aramuni.dev/)), homenageado no app **Terminal** deste sistema. O globo das Skills e as estatísticas do app GitHub (Stats) foram adaptados do código dele (licença MIT).
 - [**Abdul Momin**](https://www.abdulmomin.dev/) — pelo globo de skills ("Skills.json") que inspirou a visualização em globo do app Skills.
-- [**Poly Haven**](https://polyhaven.com/) — mesa, luminária e planta da intro 3D e as HDRIs `wooden_lounge` e `lebombo` usadas na iluminação ([CC0](https://polyhaven.com/license)).
-- Escudo do **Clube Atlético Mineiro** ([Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Clube_Atl%C3%A9tico_Mineiro_logo.svg)) e personagem **Luffy** (_One Piece_, de Eiichiro Oda; o boneco é feito em código, inspirado no estilo dos bonecos da Funko) aparecem só como decoração pessoal da mesa 3D; pertencem aos seus donos.
+- [**David Heckhoff**](https://david-hckh.com/) — referência visual da página inicial (o quarto em estilo "massinha", o holograma do Sobre e o contato); a cena daqui é feita do zero, em código.
+- Escudo do **Clube Atlético Mineiro** ([Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Clube_Atl%C3%A9tico_Mineiro_logo.svg)) e personagem **Luffy** (_One Piece_, de Eiichiro Oda; o boneco é feito em código, inspirado no estilo dos bonecos da Funko) aparecem só como decoração pessoal do quarto 3D; pertencem aos seus donos.
 
 ---
 

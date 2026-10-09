@@ -11,7 +11,7 @@ export default defineConfig({
   timeout: 45_000,
   expect: { timeout: 15_000 },
   fullyParallel: true,
-  // A intro 3D usa WebGL por software nos testes: poucos workers evitam saturar a CPU.
+  // O 3D da página inicial usa WebGL por software nos testes: poucos workers evitam saturar a CPU.
   workers: 2,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? 'github' : 'list',
@@ -19,7 +19,7 @@ export default defineConfig({
     baseURL: `http://localhost:${PORT}`,
     trace: 'retain-on-failure',
     launchOptions: {
-      // WebGL por software, para a intro 3D rodar também em máquinas sem GPU (CI).
+      // WebGL por software, para o 3D rodar também em máquinas sem GPU (CI).
       args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
     },
   },

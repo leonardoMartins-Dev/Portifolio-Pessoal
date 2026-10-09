@@ -438,7 +438,7 @@ function buildPlaceholder(node, parent, origin, env, label) {
 
 function placeholderLabel(node, env) {
   if (env.screenId === 'intro' && /^canvas/.test(node.n)) {
-    return 'Cena 3D: mesa de trabalho (o notebook e os objetos abrem os apps)';
+    return 'Cena 3D: o quarto do autor (clicar no PC aproxima a câmera e abre o sistema)';
   }
   for (var i = 0; i < PLACEHOLDERS.length; i += 1) {
     if (PLACEHOLDERS[i].pattern.test(node.n)) return PLACEHOLDERS[i].label;

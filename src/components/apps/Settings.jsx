@@ -2,16 +2,15 @@ import { Check, Monitor, Moon, RotateCcw, Sun } from 'lucide-react';
 import { useId } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LOCALES } from '../../i18n/locales.js';
-import { clearIntroSeen } from '../../lib/boot.js';
 import { useLocale } from '../../lib/hooks.js';
-import { switchLocale } from '../../lib/os-bridge.js';
+import { returnToLanding, switchLocale } from '../../lib/os-bridge.js';
 import { useOS } from '../../lib/os-store.js';
 import { WALLPAPERS } from '../../lib/wallpapers.js';
 import { AppScroll, SectionTitle } from '../ui/AppSection.jsx';
 import { Button } from '../ui/Button.jsx';
 import { Segmented } from '../ui/Segmented.jsx';
 
-/** Ajustes: idioma, tema, papel de parede, movimento, sons e rever intro (§10.11). */
+/** Ajustes: idioma, tema, papel de parede, movimento, sons e voltar à página inicial (§10.11). */
 export default function Settings() {
   const { t } = useTranslation();
   const locale = useLocale();
@@ -19,7 +18,7 @@ export default function Settings() {
   const wallpaper = useOS((state) => state.wallpaper);
   const sound = useOS((state) => state.sound);
   const reducedMotion = useOS((state) => state.reducedMotion);
-  const { setTheme, setWallpaper, setSound, setReducedMotion, setPhase } = useOS.getState();
+  const { setTheme, setWallpaper, setSound, setReducedMotion } = useOS.getState();
 
   return (
     <AppScroll>
@@ -107,13 +106,7 @@ export default function Settings() {
         <Group id="settings-intro" title={t('settings.intro')}>
           <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-border bg-surface-2 p-3.5">
             <p className="text-sm text-muted">{t('settings.replayIntroHint')}</p>
-            <Button
-              size="sm"
-              onClick={() => {
-                clearIntroSeen();
-                setPhase('intro', 'open');
-              }}
-            >
+            <Button size="sm" onClick={returnToLanding}>
               <RotateCcw aria-hidden className="size-3.5" />
               {t('settings.replayIntro')}
             </Button>

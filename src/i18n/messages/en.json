@@ -2,7 +2,7 @@
   "meta": {
     "title": "{{system}} — {{name}}",
     "appTitle": "{{app}} — {{name}}",
-    "description": "{{name}}'s interactive portfolio: his 3D desk, with a laptop that opens its own operating system."
+    "description": "{{name}}'s interactive portfolio: a 3D room where clicking the PC opens a custom operating system."
   },
   "common": {
     "close": "Close",
@@ -40,18 +40,66 @@
     "dark": "Dark",
     "system": "System"
   },
-  "intro": {
-    "hint": "Click the laptop to open",
-    "hintTouch": "Tap the laptop to open",
-    "skip": "Skip intro",
-    "loading": "Loading the scene…",
-    "powerOn": "Power on",
-    "off": "Powered off",
-    "loadingProgress": "Loading the scene… {{progress}}%",
-    "shortcuts": "Desk shortcuts",
-    "openLaptop": "Open the laptop",
-    "openApp": "Open {{app}}",
-    "lamp": "Turn the lamp on or off"
+  "landing": {
+    "loading": "Loading the page…",
+    "enterDirect": "Enter the system",
+    "nav": {
+      "label": "Page sections",
+      "about": "About",
+      "skills": "Skills",
+      "contact": "Contact",
+      "top": "Back to top"
+    },
+    "cta": "Get in touch",
+    "hero": {
+      "available": "Open to internships",
+      "scroll": "Scroll to explore"
+    },
+    "enter": {
+      "label": "Click the PC",
+      "labelTouch": "Tap the PC",
+      "hint": "to enter the system"
+    },
+    "room": {
+      "hint": "Click the PC",
+      "loading": "Setting up the room…",
+      "note1": "2026 goal:\nfull stack\ninternship",
+      "note2": "Java + Spring\nReact + Vite"
+    },
+    "about": {
+      "eyebrow": "About",
+      "title": "Who {{name}} is",
+      "focus": "Current focus",
+      "status": "Status",
+      "available": "Open to internships",
+      "resume": "Download résumé",
+      "more": "See more in the system"
+    },
+    "skills": {
+      "tag": "Stack",
+      "title": "Skills",
+      "lead": "Drag the globe to spin it: the languages, frameworks, databases and tools I work with.",
+      "more": "Want to see what I've built with them?",
+      "projects": "See projects",
+      "experience": "See experience"
+    },
+    "contact": {
+      "tag": "Contact",
+      "title": "Let's work together!",
+      "lead": "I'm looking for a software development internship. Reach me by email, LinkedIn or WhatsApp.",
+      "email": "Send an email",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "whatsapp": "WhatsApp",
+      "resume": "Résumé",
+      "resumeOther": "Portuguese version",
+      "form": "Or use the system's contact form"
+    },
+    "footer": {
+      "source": "Source code",
+      "made": "Built with React and Three.js",
+      "rights": "© {{year}} {{name}}"
+    }
   },
   "boot": {
     "label": "Starting {{system}}",
@@ -73,7 +121,7 @@
     "logo": "System menu",
     "aboutSystem": "About this system",
     "settings": "Settings",
-    "replayIntro": "Replay intro",
+    "replayIntro": "Home page",
     "lock": "Lock",
     "shutdown": "Shut down",
     "desktop": "Desktop",
@@ -117,7 +165,8 @@
     "nowPlaying": "Now playing",
     "lastPlayed": "Last played",
     "codingTime": "Time coding",
-    "hoursShort": "{{hours}}h {{minutes}}m"
+    "hoursShort": "{{hours}}h {{minutes}}m",
+    "landing": "Home page"
   },
   "about": {
     "photoAlt": "Photo of {{name}}",
@@ -446,12 +495,12 @@
     },
     "motion": "Motion",
     "reduceMotion": "Reduce motion",
-    "reduceMotionHint": "Turns off animations and the 3D intro.",
+    "reduceMotionHint": "Turns off animations and the home page's 3D zoom.",
     "sound": "Sounds",
     "soundHint": "Subtle sounds when opening and closing windows.",
-    "intro": "Intro",
-    "replayIntro": "Replay intro",
-    "replayIntroHint": "Shows the 3D desk again."
+    "intro": "Home page",
+    "replayIntro": "Back to the home page",
+    "replayIntroHint": "Shows the 3D room with the PC again."
   },
   "system": {
     "version": "Version {{version}}",
@@ -465,8 +514,8 @@
     "stack": {
       "react": "Interface",
       "vite": "Build and dev server",
-      "three": "3D desk",
-      "gsap": "Intro sequence",
+      "three": "3D room on the home page",
+      "gsap": "Zoom into the PC screen",
       "motion": "UI animations",
       "zustand": "System and window state",
       "i18next": "Portuguese and English",

@@ -1,4 +1,5 @@
 import { LOCALES } from '../i18n/locales.js';
+import { useOS } from './os-store.js';
 
 /**
  * Ponte entre o roteador e o código que roda fora dos componentes
@@ -17,6 +18,14 @@ export function navigateToApp(appId, search = '') {
 
 export function navigateHome() {
   router.navigate?.(`/${router.locale}`);
+}
+
+/**
+ * Volta à página inicial: a câmera sai da tela do PC para o quarto (o monitor
+ * continua ligado). Recarregar depois disso mostra a página inicial de novo (OS.jsx).
+ */
+export function returnToLanding() {
+  useOS.getState().setPhase('intro', 'return');
 }
 
 /** Troca o idioma mantendo o app aberto: /pt/projects ↔ /en/projects. */

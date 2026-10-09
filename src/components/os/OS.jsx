@@ -3,21 +3,20 @@ import { lazy, Suspense, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router';
 import { getAppMeta, isAppId } from '../../lib/apps-meta.js';
-import { canRunIntro, markIntroSeen } from '../../lib/boot.js';
+import { rememberPhase } from '../../lib/boot.js';
 import { useIsMobile, useReducedMotion } from '../../lib/hooks.js';
 import { navigateToApp, registerRouter } from '../../lib/os-bridge.js';
 import { useOS } from '../../lib/os-store.js';
 import { siteConfig } from '../../site.config.js';
-import { IntroFallback } from '../intro/IntroFallback.jsx';
 import { BootScreen } from './BootScreen.jsx';
 import { DesktopShell } from './DesktopShell.jsx';
 import { ErrorBoundary } from './ErrorBoundary.jsx';
 import { LockScreen } from './LockScreen.jsx';
+import { LandingFallback } from '../landing/LandingFallback.jsx';
 import { MobileShell } from './MobileShell.jsx';
-import { PowerOffScreen } from './PowerOffScreen.jsx';
 
-// O 3D (three, R3F, drei, GSAP) só é baixado se a intro for rodar.
-const Intro = lazy(() => import('../intro/Intro.jsx'));
+// A página inicial (e o 3D dela) só é baixada se o visitante passar por ela.
+const Landing = lazy(() => import('../landing/Landing.jsx'));
 
 /**
  * Raiz do sistema. Fica montada no layout de /{locale}: trocar de app ou
@@ -38,28 +37,30 @@ export function OS({ locale, appId }) {
 
   useDocumentMeta(locale, appId, isMobile);
 
-  // A intro termina na tela de bloqueio; `targetApp` vem dos atalhos da mesa 3D.
+  // F5 continua onde o visitante está: a sessão guarda se é a página inicial ou o
+  // sistema, e a página inicial fica em /{locale} (um link de app abriria o sistema).
+  useEffect(() => {
+    rememberPhase(phase);
+  }, [phase]);
+  useEffect(() => {
+    if (phase === 'intro' && appId) navigate(`/${locale}`, { replace: true });
+  }, [phase, appId, locale, navigate]);
+
+  // A página inicial termina na tela de bloqueio; `targetApp` vem dos atalhos dela (Ver projetos…).
   const finishIntro = useCallback(
     (targetApp = null) => {
-      markIntroSeen();
       useOS.getState().setPendingApp(targetApp);
       setPhase('lock');
     },
     [setPhase],
   );
 
-  const skipIntro = useCallback(() => {
-    markIntroSeen();
-    setPhase('lock');
-  }, [setPhase]);
+  const skipIntro = useCallback(() => setPhase('lock'), [setPhase]);
 
   const finishBoot = useCallback(() => setPhase('desktop'), [setPhase]);
 
-  const powerOn = useCallback(() => setPhase('lock'), [setPhase]);
-
   const unlock = useCallback(() => {
     if (useOS.getState().phase !== 'lock') return;
-    markIntroSeen();
     const pending = useOS.getState().unlock();
     if (pending) {
       navigateToApp(pending);
@@ -71,13 +72,6 @@ export function OS({ locale, appId }) {
       if (focusedId) document.querySelector(`[data-window="${focusedId}"]`)?.focus();
     });
   }, []);
-
-  // Movimento reduzido ligado no meio da intro: pula para a tela de bloqueio.
-  useEffect(() => {
-    if (phase === 'intro' && (reducedMotion || !canRunIntro())) {
-      setPhase(introMode === 'shutdown' ? 'off' : 'lock');
-    }
-  }, [phase, introMode, reducedMotion, setPhase]);
 
   const locked = phase === 'lock';
   const showShell = phase === 'desktop' || locked;
@@ -98,7 +92,6 @@ export function OS({ locale, appId }) {
       <AnimatePresence>{locked && <LockScreen key="lock" onUnlock={unlock} />}</AnimatePresence>
 
       {phase === 'boot' && <BootScreen onDone={finishBoot} />}
-      {phase === 'off' && <PowerOffScreen onPowerOn={powerOn} />}
 
       <AnimatePresence>
         {phase === 'intro' && (
@@ -109,8 +102,8 @@ export function OS({ locale, appId }) {
             transition={{ duration: 0.35 }}
           >
             <ErrorBoundary fallback={null} onError={skipIntro}>
-              <Suspense fallback={<IntroFallback onSkip={skipIntro} />}>
-                <Intro mode={introMode} onDone={finishIntro} onSkip={skipIntro} />
+              <Suspense fallback={<LandingFallback onSkip={skipIntro} />}>
+                <Landing mode={introMode} onDone={finishIntro} />
               </Suspense>
             </ErrorBoundary>
           </motion.div>

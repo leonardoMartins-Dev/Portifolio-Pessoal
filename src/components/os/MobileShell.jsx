@@ -1,4 +1,4 @@
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, House } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Suspense, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,7 @@ import { apps, getApp } from '../../lib/apps.jsx';
 import { splitDuration } from '../../lib/format.js';
 import { useLocalized } from '../../lib/hooks.js';
 import { useSpotify, useWakatime } from '../../lib/live-data.js';
+import { returnToLanding } from '../../lib/os-bridge.js';
 import { AppIcon } from '../ui/AppIcon.jsx';
 import { Avatar } from '../ui/Avatar.jsx';
 import { AppSkeleton } from './AppSkeleton.jsx';
@@ -58,15 +59,24 @@ export function MobileShell({ locale, appId }) {
   );
 }
 
+/** Barra de status: relógio, a volta para a página inicial (o quarto 3D), idioma e tema. */
 function StatusBar() {
   const { t } = useTranslation();
   return (
     <header
       aria-label={t('mobile.statusBar')}
-      className="relative z-10 flex items-center justify-between px-4 safe-top text-white"
+      className="relative z-10 flex items-center justify-between gap-2 px-4 safe-top text-white"
     >
       <Clock compact className="py-3 text-sm font-semibold" />
       <div className="flex items-center gap-1">
+        <button
+          type="button"
+          onClick={returnToLanding}
+          className="mr-1 flex min-h-9 items-center gap-1.5 rounded-full bg-white/15 px-3 text-[13px] font-semibold backdrop-blur-md transition-colors hover:bg-white/25"
+        >
+          <House aria-hidden className="size-4" />
+          {t('mobile.landing')}
+        </button>
         <LocaleToggle inverse />
         <ThemeToggle inverse />
       </div>

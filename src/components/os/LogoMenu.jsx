@@ -1,11 +1,10 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { clearIntroSeen } from '../../lib/boot.js';
-import { navigateToApp } from '../../lib/os-bridge.js';
+import { navigateToApp, returnToLanding } from '../../lib/os-bridge.js';
 import { useOS } from '../../lib/os-store.js';
 import { Logo } from '../ui/Logo.jsx';
 
-/** Menu do logo: Sobre este sistema, Ajustes, Rever intro, Bloquear e Desligar. */
+/** Menu do logo: Sobre este sistema, Ajustes, Página inicial, Bloquear e Desligar (volta ao quarto 3D). */
 export function LogoMenu() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -17,13 +16,7 @@ export function LogoMenu() {
     { label: t('menu.aboutSystem'), action: () => navigateToApp('system') },
     { label: t('menu.settings'), action: () => navigateToApp('settings') },
     { separator: true },
-    {
-      label: t('menu.replayIntro'),
-      action: () => {
-        clearIntroSeen();
-        useOS.getState().setPhase('intro', 'open');
-      },
-    },
+    { label: t('menu.replayIntro'), action: returnToLanding },
     { label: t('menu.lock'), action: () => useOS.getState().lock() },
     { label: t('menu.shutdown'), action: () => useOS.getState().setPhase('intro', 'shutdown') },
   ];

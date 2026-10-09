@@ -125,7 +125,7 @@ export function LockScreen({ onUnlock }) {
       aria-modal="true"
       aria-label={t('lock.label', { system: siteConfig.system.name })}
       variants={motionVariants.screen}
-      // Vindo da intro, a tela já está desenhada no notebook 3D: aparece sem fade.
+      // Vindo da página inicial, a tela já está desenhada no monitor 3D: aparece sem fade.
       initial={fromDesktop ? 'hidden' : 'visible'}
       animate="visible"
       exit="exit"

@@ -4,16 +4,16 @@
 
 ## 1. A ideia (20s)
 
-"Em vez de uma página com seções, meu portfólio é a **minha mesa de trabalho**. O notebook abre um sistema operacional que eu mesmo construí, e cada seção é um app."
+"Meu portfólio começa no **meu quarto**, em 3D: esse boneco sou eu, de óculos e cabelo cacheado, trabalhando no PC. Na mesa tem o Luffy, no chão a raquete e as bolinhas de tênis, e na parede o escudo do Galo. Dentro do computador tem um sistema operacional que eu mesmo construí, e cada seção é um app."
 
-→ Mostre a mesa: passe o mouse nos livros ("as tecnologias que eu uso"), no currículo, no boneco do Luffy, na raquete e no quadro do Galo ("coisas de que eu gosto — clicar neles leva ao Sobre"). Clique na luminária (liga/desliga). Depois passe o mouse no notebook (a tampa levanta) e **clique**.
+→ Passe o mouse no PC (ou no boneco): ele gira a cadeira e acena. Clique no Luffy (a cabeça balança) e numa bolinha (ela quica). Role a página rapidinho: "Para quem só quer o essencial, como um recrutador, aqui embaixo já tem o status de estágio, formação, foco, as skills no globo e o contato com o currículo". Volte ao topo e **clique no PC**.
 
-## 2. A intro 3D (20s)
+## 2. O zoom até a tela (20s)
 
-Enquanto a tampa abre, a tela liga e a câmera entra:
+Enquanto a câmera passa por cima do boneco e entra na tela:
 
-- "A cena é híbrida: mesa, luminária e planta são modelos gratuitos do Poly Haven, comprimidos; o notebook, os livros, o celular, o boneco do Luffy e a raquete eu fiz em código, com React Three Fiber. A luz vem de uma foto 360° de uma sala de verdade, e a sequência é uma timeline do GSAP."
-- "Repare na luz da tela se espalhando pelo teclado. A câmera para exatamente quando a tela cobre a janela, em qualquer proporção, e a tela já mostra a **tela de bloqueio** — por isso a troca para o HTML não tem corte."
+- "Tudo na cena é feito em código com React Three Fiber, no estilo massinha da referência que eu usei (o portfólio do David Heckhoff): nenhum modelo baixado. O zoom é uma timeline do GSAP."
+- "A câmera para exatamente quando a tela do monitor cobre a janela, em qualquer proporção, e o monitor já mostra a **tela de bloqueio** — por isso a troca para o HTML não tem corte."
 - Na tela de bloqueio: "sem senha, é só entrar". Aperte qualquer tecla.
 
 ## 3. O sistema (40s)
@@ -44,8 +44,8 @@ Pressione **⌘K / Ctrl K** e pergunte: _"Quais são os principais projetos dele
 
 ## Encerramento (10s)
 
-"Logo → **Desligar**": a câmera recua, o notebook fecha e a mesa volta. "Obrigado!"
+"Logo → **Desligar**": a câmera sai da tela, o monitor apaga e o quarto volta. "Obrigado!"
 
 ---
 
-**Plano B:** se a internet ou a GPU falharem, use "Pular intro" (vai direto à tela de bloqueio) e os prints do README.
+**Plano B:** se a GPU falhar, o botão "Clique no PC" entra direto (sem o zoom) e, sem WebGL, o quarto aparece como imagem; se a internet falhar, use os prints do README.
