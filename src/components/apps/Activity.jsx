@@ -1,6 +1,6 @@
-import { ChartColumn, Clock, Timer } from 'lucide-react';
+import { CalendarCheck, ChartColumn, Clock, Timer, Trophy } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { formatWeekday, splitDuration } from '../../lib/format.js';
+import { formatDate, splitDuration } from '../../lib/format.js';
 import { useLocale } from '../../lib/hooks.js';
 import { useWakatime } from '../../lib/live-data.js';
 import { AppScroll, SectionTitle } from '../ui/AppSection.jsx';
@@ -9,7 +9,7 @@ import { Spinner } from '../ui/Spinner.jsx';
 
 const MAX_LANGUAGES = 6;
 
-/** Atividade: horas programando na semana e linguagens (WakaTime) (§12.2). */
+/** Atividade: tempo total programando e linguagens (WakaTime) (§12.2). */
 export default function Activity() {
   const { t } = useTranslation();
   const { status, data } = useWakatime();
@@ -38,11 +38,7 @@ export default function Activity() {
   return (
     <AppScroll>
       <h3 className="text-xl font-semibold tracking-tight">{t('activity.heading')}</h3>
-      <div className="mt-4 grid grid-cols-2 gap-3">
-        <Stat icon={Clock} label={t('activity.total')} seconds={data.totalSeconds} />
-        <Stat icon={Timer} label={t('activity.average')} seconds={data.dailyAverageSeconds} />
-      </div>
-      <DayBars days={data.days} />
+      <Stats data={data} />
       <LanguageBars languages={data.languages} />
       <p className="mt-6 text-xs text-muted">{t('activity.dataVia')}</p>
     </AppScroll>
@@ -54,51 +50,50 @@ function useDuration() {
   return (seconds) => t('activity.duration', splitDuration(seconds));
 }
 
-function Stat({ icon: Icon, label, seconds }) {
-  const duration = useDuration();
-  return (
-    <div className="rounded-md border border-border bg-surface-2 p-4">
-      <p className="flex items-center gap-1.5 text-xs text-muted">
-        <Icon aria-hidden className="size-3.5" />
-        {label}
-      </p>
-      <p className="mt-1 text-2xl font-semibold tracking-tight tabular-nums">{duration(seconds)}</p>
-    </div>
-  );
-}
-
-function DayBars({ days }) {
+function Stats({ data }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const max = Math.max(1, ...days.map((day) => day.seconds));
+  const duration = useDuration();
+  const stats = [
+    {
+      id: 'total',
+      icon: Clock,
+      label: t('activity.total'),
+      value: duration(data.totalSeconds),
+      note: data.since && t('activity.since', { date: formatDate(data.since, locale) }),
+    },
+    {
+      id: 'average',
+      icon: Timer,
+      label: t('activity.average'),
+      value: duration(data.dailyAverageSeconds),
+    },
+    { id: 'days', icon: CalendarCheck, label: t('activity.activeDays'), value: data.activeDays },
+    data.bestDay && {
+      id: 'best',
+      icon: Trophy,
+      label: t('activity.bestDay'),
+      value: duration(data.bestDay.seconds),
+      note: formatDate(data.bestDay.date, locale),
+    },
+  ].filter(Boolean);
 
+  // Pela largura da janela (container query), não da tela.
   return (
-    <section aria-labelledby="activity-days" className="mt-6">
-      <SectionTitle id="activity-days">{t('activity.byDay')}</SectionTitle>
-      <ul className="mt-3 flex h-36 items-end gap-2">
-        {days.map((day) => {
-          const weekday = formatWeekday(day.date, locale);
-          return (
-            <li
-              key={day.date}
-              className="flex h-full flex-1 flex-col items-center justify-end gap-1.5"
-            >
-              <span className="sr-only">
-                {t('activity.dayBar', { day: weekday, ...splitDuration(day.seconds) })}
-              </span>
-              <span
-                aria-hidden
-                className="w-full max-w-10 rounded-t-[6px] bg-accent/85"
-                style={{ height: `${Math.max(2, (day.seconds / max) * 100)}%` }}
-              />
-              <span aria-hidden className="text-[11px] text-muted capitalize">
-                {weekday}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
-    </section>
+    <div className="@container mt-4">
+      <dl className="grid grid-cols-2 gap-3 @2xl:grid-cols-4">
+        {stats.map(({ id, icon: Icon, label, value, note }) => (
+          <div key={id} className="rounded-md border border-border bg-surface-2 p-4">
+            <dt className="flex items-center gap-1.5 text-xs text-muted">
+              <Icon aria-hidden className="size-3.5 shrink-0" />
+              {label}
+            </dt>
+            <dd className="mt-1 text-2xl font-semibold tracking-tight tabular-nums">{value}</dd>
+            {note && <dd className="mt-0.5 text-xs text-muted">{note}</dd>}
+          </div>
+        ))}
+      </dl>
+    </div>
   );
 }
 

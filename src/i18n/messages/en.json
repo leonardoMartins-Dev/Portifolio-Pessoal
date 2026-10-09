@@ -116,7 +116,7 @@
     "statusBar": "Status bar",
     "nowPlaying": "Now playing",
     "lastPlayed": "Last played",
-    "weekHours": "Coding this week",
+    "codingTime": "Time coding",
     "hoursShort": "{{hours}}h {{minutes}}m"
   },
   "about": {
@@ -169,7 +169,14 @@
   },
   "skills": {
     "heading": "Skills",
-    "learning": "Learning"
+    "learning": "Learning",
+    "view": "View",
+    "viewList": "List",
+    "viewGlobe": "Globe",
+    "globeLoading": "Loading the globe…",
+    "globeHint": "Drag to spin the globe",
+    "globeError": "The globe couldn't be shown in this browser.",
+    "backToList": "See as a list"
   },
   "certificates": {
     "heading": "Courses and certificates",
@@ -252,14 +259,15 @@
     "empty": "Nothing here yet."
   },
   "activity": {
-    "heading": "Coding in the last 7 days",
-    "total": "Weekly total",
-    "average": "Daily average",
-    "byDay": "By day",
+    "heading": "Total time coding",
+    "total": "Total",
+    "since": "since {{date}}",
+    "average": "Average per active day",
+    "activeDays": "Days with code",
+    "bestDay": "Best day",
     "languages": "Languages",
     "other": "Other",
     "duration": "{{hours}}h {{minutes}}m",
-    "dayBar": "{{day}}: {{hours}}h {{minutes}}m",
     "dataVia": "data via WakaTime",
     "loading": "Loading stats…",
     "unconfigured": "WakaTime stats aren't configured yet.",
@@ -268,7 +276,6 @@
   "github": {
     "heading": "Coding in public",
     "profile": "View GitHub profile",
-    "contributionsYear": "Contributions in the last year",
     "activeDays": "Active days (last 30)",
     "repos": "Own repositories",
     "contributions": "Contributions",
@@ -286,7 +293,61 @@
     "dataVia": "data via GitHub, refreshed every 30 minutes",
     "loading": "Loading GitHub…",
     "unconfigured": "The GitHub profile isn't set up yet.",
-    "error": "Couldn't load GitHub data right now."
+    "error": "Couldn't load GitHub data right now.",
+    "sections": "GitHub sections",
+    "tabs": {
+      "overview": "Overview",
+      "activity": "Activity",
+      "languages": "Languages",
+      "repos": "Repositories"
+    },
+    "memberSince": "On GitHub since {{date}}",
+    "stats": {
+      "contributions": "Contributions",
+      "commits": "Commits",
+      "pullRequests": "Pull requests",
+      "issues": "Issues",
+      "stars": "Stars",
+      "forks": "Forks",
+      "followers": "Followers",
+      "currentStreak": "Current streak",
+      "longestStreak": "Longest streak",
+      "bestDay": "Best day"
+    },
+    "notes": {
+      "since": "since {{date}}",
+      "lastYear": "in the last year",
+      "last12Months": "in the last 12 months",
+      "inRepos_one": "across {{count}} repository",
+      "inRepos_other": "across {{count}} repositories",
+      "following": "following {{count}}",
+      "noStreak": "none right now"
+    },
+    "days_one": "{{value}} day",
+    "days_other": "{{value}} days",
+    "byYear": "Contributions per year",
+    "yearContributions_one": "{{year}}: {{value}} contribution",
+    "yearContributions_other": "{{year}}: {{value}} contributions",
+    "byWeekday": "Contributions by weekday",
+    "commitHours": "Commit hours",
+    "hourRange": "{{from}}h–{{to}}h",
+    "hourShare": "{{range}}: {{percent}} of commits",
+    "periods": {
+      "night": "Night (0h–6h)",
+      "morning": "Morning (6h–12h)",
+      "afternoon": "Afternoon (12h–18h)",
+      "evening": "Evening (18h–24h)"
+    },
+    "hoursNote": "Estimated from {{sampled}} of {{total}} commits in the last 12 months, in the committer's local time.",
+    "noActivity": "No activity data right now.",
+    "noLanguages": "No language data right now.",
+    "languagesByBytes": "Summed by bytes of code: {{size}} across {{count}} public repositories.",
+    "languagesByRepo_one": "By the main language of {{count}} repository.",
+    "languagesByRepo_other": "By the main language of {{count}} repositories.",
+    "reposCount_one": "{{count}} repository",
+    "reposCount_other": "{{count}} repositories",
+    "otherLanguages_one": "Other ({{count}})",
+    "otherLanguages_other": "Others ({{count}})"
   },
   "assistant": {
     "intro": "Ask about {{name}}, the projects or how to use the system.",

@@ -36,7 +36,7 @@ Antes de dar algo por pronto: `lint`, `format:check`, `test`, `build` e `test:e2
 - Projetos: a lista em `src/content/projects.js` fica em ordem cronológica (desempata projetos do mesmo mês). O app abre do mais recente e inverte com "Mais antigos" (a ordem do enunciado); `sortProjects` em `src/lib/timeline.js`.
 - Demo em hospedagem que dorme (plano gratuito): `wakeUrl` no projeto (`src/content/projects.js`); o app Projetos acorda o servidor ao abrir (`src/lib/wake.js`).
 - Dentro de janela, layout que depende da largura usa container query (`@container` + `@md:`), não breakpoint da tela: a janela é redimensionável.
-- Ícones de skills ficam em `public/skills/` no formato do skillicons.dev (bloco 256×256, `rx=60`): `{icon}.svg`, ou `{icon}-light.svg` + `{icon}-dark.svg` com `themed: true` em `src/content/skills.js`.
+- Ícones de skills ficam em `public/skills/` no formato do skillicons.dev (bloco 256×256, `rx=60`): `{icon}.svg`, ou `{icon}-light.svg` + `{icon}-dark.svg` com `themed: true` em `src/content/skills.js`. O globo do app Skills usa o logo solto: ao criar uma skill com ícone, adicione o logo e a cor dela em `BRANDS` (`src/components/apps/SkillsGlobe.jsx`); sem isso, o globo mostra o bloco do skillicons.
 - Lint segue as regras do React Compiler: nada de `setState` síncrono em efeito, nem mutar props/retornos de hooks (refs passados como prop terminam em `Ref`).
 
 ## Regras
@@ -57,5 +57,6 @@ Antes de dar algo por pronto: `lint`, `format:check`, `test`, `build` e `test:e2
 - **Tailwind 4**: configuração no CSS (`src/styles/globals.css`, `@theme`), tema por `data-theme` no `<html>`.
 - **Testes**: o jsdom não tem `matchMedia` nem `scrollIntoView` (stubs em `tests/setup.js`). O e2e usa WebGL por software (SwiftShader) e 2 workers; a mesa 3D é lenta assim, então só os testes da intro passam por ela (`skipIntro` + `test.slow()`) e os demais entram com `enterSystem` (sessão já vista) ou deep link.
 - **three r186 / R3F 9**: `PCFSoftShadowMap` foi removido — use `shadows="percentage"` no `Canvas`. Evite `RectAreaLight` (a tabela dela soma ~315 KB ao chunk). O mapa de sombra não atualiza sozinho: quem anima chama `useInvalidateShadows()` (`desk/shadows.js`). `useGLTF` sem Draco (o decodificador viria de CDN); meshopt já vem no pacote.
+- **`PerformanceMonitor` (drei)**: `flipflops`/`onFallback` contam toda avaliação, inclusive as subidas — numa máquina rápida pulava a intro sozinho em ~10s. Use só `onDecline` com `bounds`, e meça só com a mesa parada (`stage === 'closed'`).
 - **Pós-processamento**: o `EffectComposer` desliga o tone mapping do renderer, então o `ToneMapping` (modo `NEUTRAL`, que mantém as cores da tela de bloqueio) fica por último. Bloom com `luminanceThreshold={1}` (só o que passa de 1). Não use `N8AO` (~80 KB gzip).
 - **React Compiler × three**: preparar modelos (`useModel(url, prepare)`) com funções declaradas fora do componente; mudar material/objeto retornado de hook só dentro de `useFrame` via `ref.current`, nunca por atribuição direta ao valor do hook.

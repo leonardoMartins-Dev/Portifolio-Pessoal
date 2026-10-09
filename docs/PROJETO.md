@@ -14,6 +14,7 @@
 > - **App GitHub, demo acordada e "Fora do código" (revisão de 03/10/2026, pedido do autor):** novo app **GitHub** (`github`) com gráfico de contribuições, repositórios recentes e últimos commits, ao vivo e sem chave obrigatória (§12.3); o app Projetos **acorda a demo do WaveHub** (Render, plano gratuito) assim que abre (§10.2); o Sobre ganhou a seção **"Fora do código"** com os hobbies que o autor contou: One Piece, tênis e Atlético Mineiro (§10.1).
 > - **App Certificados (revisão de 03/10/2026, pedido do autor):** novo app **Certificados** (`certificates`) para o autor ir completando com o tempo; o primeiro é o Gemini Academy para Universitários 2026 (Google for Education). Ver §10.4.1.
 > - **Ordem dos projetos (revisão de 03/10/2026, decisão do autor):** a timeline **abre do mais recente ao mais antigo** e um controle "Mais recentes / Mais antigos" inverte para a ordem do enunciado (do mais antigo ao mais recente). O Terminal (`projects`) segue a ordem padrão do app. Ver §10.2.
+> - **Atividade (WakaTime), GitHub (Stats) e globo das Skills (revisão de 08/10/2026, pedido do autor):** os apps viraram **Atividade (WakaTime)**, com o tempo **total** programando (desde o primeiro dia com código) no lugar da semana e sem o gráfico por dia (§12.2), e **GitHub (Stats)**, com perfil e estatísticas no estilo do comando `stats` do portfólio do professor, em abas (§12.3). O app Skills ganhou a visualização em **globo 3D** (inspirada em abdulmomin.dev) ao lado da grade, e React e Vite entraram nas skills (§10.4).
 > - Onde o texto abaixo cita Next.js, Route Handlers, next-intl, `next/font` ou `next/image`, vale o equivalente desta revisão.
 
 
@@ -175,8 +176,8 @@ flowchart LR
 | `/{locale}/{appId}` inválido | Janela "App não encontrado" no estilo do sistema (404) |
 | `/api/chat` | POST, streaming. Assistente de IA |
 | `/api/spotify` | GET. Agora tocando, recentes e top (cache curto) |
-| `/api/wakatime` | GET. Estatísticas da semana (cache de 1h) |
-| `/api/github` | GET. Contribuições, repositórios e commits (cache de 30 min) |
+| `/api/wakatime` | GET. Tempo total programando e linguagens (cache de 1h) |
+| `/api/github` | GET. Perfil, estatísticas, contribuições, repositórios e commits (cache de 30 min) |
 
 **`appId`** é igual nos dois idiomas: `about`, `projects`, `experience`, `skills`, `certificates`, `resume`, `contact`, `music`, `activity`, `github`, `assistant`, `terminal`, `settings`, `system`.
 
@@ -432,7 +433,7 @@ Ajustes oferece "Rever intro".
 - **Barra de status (cabeçalho):** relógio, PT | EN e tema.
 - **Tela inicial:**
   - Cartão de perfil com foto, nome e cargo.
-  - Widgets opcionais: "Tocando agora" e "Horas na semana".
+  - Widgets opcionais: "Tocando agora" e "Tempo programando".
   - Grade de ícones com 4 colunas.
 - **Dock (rodapé):** 4 apps fixos. Sugestão: Projetos, Assistente, Contato, Sobre.
 - **Apps em tela cheia** com animação de subir e cabeçalho com voltar + título. O Voltar do navegador fecha o app, porque a URL muda.
@@ -478,6 +479,7 @@ Cada app é um componente em `src/components/apps/`, carregado sob demanda. Todo
 ### 10.4 Skills (`skills`)
 - Grupos (Front-end, Back-end, Ferramentas, Idiomas…) com ícones.
 - Nível opcional, mostrado com discrição (sem barras de "90%").
+- **Duas visualizações** (controle "Lista / Globo", a escolha fica salva nas preferências): a grade por grupos e um **globo 3D** com as skills que têm ícone (logos coloridos de `react-icons/si`), que gira sozinho e pode ser arrastado. O globo é lazy (o three.js só baixa quando ele é escolhido), para de renderizar com a janela fora da tela, não gira sozinho com movimento reduzido e, sem WebGL, oferece voltar à lista. Os nomes vão para o leitor de tela numa lista escondida.
 
 ### 10.4.1 Certificados (`certificates`)
 - **Conteúdo:** `src/content/certificates.js` (nome como está no certificado, emissor, data `YYYY-MM-DD`, carga horária, descrição e temas PT/EN, PDF, prévia e `credentialUrl`); arquivos em `public/certificates/`.
@@ -504,8 +506,8 @@ Cada app é um componente em `src/components/apps/`, carregado sob demanda. Todo
 - **Envio:** EmailJS com **dois templates**, como no guia do professor: notificação para o autor e confirmação para o remetente.
 
 ### 10.7 Música (`music`): ver §12.1
-### 10.8 Atividade (`activity`): ver §12.2
-### 10.8.1 GitHub (`github`): ver §12.3
+### 10.8 Atividade (WakaTime) (`activity`): ver §12.2
+### 10.8.1 GitHub (Stats) (`github`): ver §12.3
 ### 10.9 Assistente (`assistant`): ver §11
 
 ### 10.10 Terminal (`terminal`)
@@ -644,35 +646,44 @@ Regras:
 6. **Fallback (`expired`, `unconfigured` ou autor sem Premium):** embed oficial do Spotify de uma playlist do autor (`site.config.spotifyPlaylistId`). Os cards de terceiros que o professor usa servem como alternativa.
 7. **README:** guia passo a passo + aviso de reautorizar a cada < 6 meses.
 
-### 12.2 WakaTime (app Atividade)
+### 12.2 WakaTime (app Atividade (WakaTime))
 
-1. O autor instala o plugin do WakaTime no editor (**o quanto antes**: o plano gratuito mostra só a última semana).
-2. Em wakatime.com/share/embed, o autor cria dois embeds em **formato JSON**: "Languages" e "Coding Activity", ambos dos últimos 7 dias. As URLs vão para as variáveis de ambiente.
-3. `GET /api/wakatime` busca os dois JSONs no servidor (eles não têm CORS, só JSONP) e normaliza para:
+1. O autor instala o plugin do WakaTime no editor (**o quanto antes**).
+2. Em wakatime.com/share/embed, o autor cria dois embeds em **formato JSON**: "Coding Activity" com o maior período (**Last Year**) e "Languages" com **All Time**. As URLs vão para as variáveis de ambiente.
+3. `GET /api/wakatime` busca os dois JSONs no servidor (eles não têm CORS, só JSONP) e soma o período inteiro a partir do primeiro dia com código:
    ```
-   { totalSeconds, dailyAverageSeconds,
-     days: [{ date, seconds }],
-     languages: [{ name, percent, seconds }] }
+   { totalSeconds, dailyAverageSeconds, activeDays, since,
+     bestDay: { date, seconds } | null,
+     languages: [{ name, color, percent, seconds }] }
    ```
-   O cache é de 1h. **Faça uma chamada real primeiro e adapte ao formato retornado.**
-4. **UI:** total da semana, média diária, barras por dia, barras horizontais por linguagem e rodapé "dados via WakaTime". Gráficos simples em CSS/SVG, sem biblioteca pesada.
+   A média conta só os dias com código (como no WakaTime). Enquanto a conta tiver menos de um ano, é o total de sempre; depois, o "desde" continua certo. O cache é de 1h.
+4. **UI:** total (com "desde"), média por dia ativo, dias com código, melhor dia, barras horizontais por linguagem e rodapé "dados via WakaTime". Sem gráfico por dia (o embed de um ano tem 365 dias, quase todos zerados). Gráficos simples em CSS, sem biblioteca pesada.
 
-### 12.3 GitHub (app GitHub)
+### 12.3 GitHub (app GitHub (Stats))
 
 1. Funciona **sem variável**: o usuário vem de `site.config.social.github`.
 2. `GET /api/github` (servidor, `server/github.js`) junta:
    - **Repositórios:** REST `/users/{login}/repos?sort=pushed`, sem forks nem o repositório do README do perfil.
    - **Commits:** REST `/repos/{login}/{repo}/commits?author={login}` nos 4 repositórios com push mais recente, sem merges. (Desde ago/2025 o `PushEvent` da API de eventos não traz mais a lista de commits.)
    - **Gráfico de contribuições:** página pública `github.com/users/{login}/contributions`; com `GITHUB_TOKEN`, a GraphQL oficial (`contributionsCollection.contributionCalendar`), com a página pública de reserva.
+   - **Perfil:** REST `/users/{login}` (nome, foto, bio, seguidores, data de criação).
+   - **Contribuições de sempre:** uma página pública por ano desde a criação da conta (`?from=AAAA-01-01&to=AAAA-12-31`, cortando os dias futuros) ou, com token, uma consulta GraphQL com um ano por alias. Daí saem total, dias ativos, melhor dia, sequência atual (termina hoje ou ontem) e maior, totais por ano e por dia da semana.
+   - **Buscas:** PRs e issues do autor (`/search/issues`) e 4 buscas de até 100 commits, uma por trimestre dos últimos 12 meses (`/search/commits`), com peso pelo total de cada trimestre: horários dos commits (hora do relógio do autor) e, somando os trimestres, os commits dos últimos 12 meses.
+   - **Linguagens:** sem token, a linguagem principal de cada repositório; com token, bytes de código (GraphQL).
    ```
-   { login, profileUrl, repoCount,
+   { login, profileUrl, profile | null, repoCount, stars, forks,
      repos: [{ name, description, language: { name, color }, stars, url, pushedAt }],
      commits: [{ sha, message, repo, url, date }],
-     calendar: { total, days: [{ date, count, level }] } | null }
+     calendar: { total, days: [{ date, count, level }] } | null,
+     contributions: { total, activeDays, firstDate, bestDay, currentStreak, longestStreak,
+                      years: [{ year, total }], weekdays: [7] } | null,
+     pullRequests, issues, commitsLastYear,
+     commitHours: { sampled, total, peakHour, hours: [24 %], periods } | null,
+     languages: { unit: 'repos' | 'bytes', total, repos, items } | null }
    ```
-   Cache de 30 min; se o GitHub falhar, devolve o último resumo bom. Sem o gráfico, o app mostra o resto.
-3. **UI:** contribuições no último ano, dias ativos nos últimos 30 e repositórios próprios; gráfico na cor de destaque com as semanas mais recentes que cabem na largura da janela; repositórios recentes (linguagem, estrelas, "atualizado há…") e últimos commits; rodapé "dados via GitHub".
-4. **Token (opcional):** sem token, 60 req/h por IP (compartilhado na Vercel). Um fine-grained token só com acesso público sobe para 5.000/h.
+   Cache de 30 min; se o GitHub falhar, devolve o último resumo bom. Cada parte extra é opcional (vem `null`) e o app mostra o resto.
+3. **UI:** perfil (foto, bio, "no GitHub desde") e abas. **Resumo:** contribuições, commits, PRs, issues, estrelas, forks, seguidores, repositórios, sequências, melhor dia e dias ativos; gráfico de contribuições na cor de destaque com as semanas que cabem na largura. **Atividade:** contribuições por ano e por dia da semana e horários dos commits (24 colunas + períodos do dia). **Linguagens:** barra dividida e lista com a cor de cada linguagem. **Repositórios:** recentes (linguagem, estrelas, "atualizado há…") e últimos commits. Rodapé "dados via GitHub".
+4. **Token (opcional):** sem token, 60 req/h e 10 buscas/min por IP (compartilhado na Vercel). Um fine-grained token só com acesso público sobe para 5.000/h e 30 buscas/min.
 
 ### 12.4 EmailJS (Contato)
 - Pacote `@emailjs/browser`.

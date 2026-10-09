@@ -116,7 +116,7 @@
     "statusBar": "Barra de status",
     "nowPlaying": "Tocando agora",
     "lastPlayed": "Tocou por último",
-    "weekHours": "Programando na semana",
+    "codingTime": "Tempo programando",
     "hoursShort": "{{hours}} h {{minutes}} min"
   },
   "about": {
@@ -169,7 +169,14 @@
   },
   "skills": {
     "heading": "Habilidades",
-    "learning": "Em estudo"
+    "learning": "Em estudo",
+    "view": "Visualização",
+    "viewList": "Lista",
+    "viewGlobe": "Globo",
+    "globeLoading": "Carregando o globo…",
+    "globeHint": "Arraste para girar o globo",
+    "globeError": "O globo não pôde ser exibido neste navegador.",
+    "backToList": "Ver em lista"
   },
   "certificates": {
     "heading": "Cursos e certificados",
@@ -252,14 +259,15 @@
     "empty": "Nada por aqui ainda."
   },
   "activity": {
-    "heading": "Programando nos últimos 7 dias",
-    "total": "Total na semana",
-    "average": "Média diária",
-    "byDay": "Por dia",
+    "heading": "Tempo total programando",
+    "total": "Total",
+    "since": "desde {{date}}",
+    "average": "Média por dia ativo",
+    "activeDays": "Dias com código",
+    "bestDay": "Melhor dia",
     "languages": "Linguagens",
     "other": "Outras",
     "duration": "{{hours}} h {{minutes}} min",
-    "dayBar": "{{day}}: {{hours}} h {{minutes}} min",
     "dataVia": "dados via WakaTime",
     "loading": "Carregando estatísticas…",
     "unconfigured": "As estatísticas do WakaTime ainda não estão configuradas.",
@@ -268,7 +276,6 @@
   "github": {
     "heading": "Programando em público",
     "profile": "Ver perfil no GitHub",
-    "contributionsYear": "Contribuições no último ano",
     "activeDays": "Dias ativos (últimos 30)",
     "repos": "Repositórios próprios",
     "contributions": "Contribuições",
@@ -286,7 +293,61 @@
     "dataVia": "dados via GitHub, atualizados a cada 30 minutos",
     "loading": "Carregando o GitHub…",
     "unconfigured": "O perfil do GitHub ainda não está configurado.",
-    "error": "Não foi possível carregar os dados do GitHub agora."
+    "error": "Não foi possível carregar os dados do GitHub agora.",
+    "sections": "Seções do GitHub",
+    "tabs": {
+      "overview": "Resumo",
+      "activity": "Atividade",
+      "languages": "Linguagens",
+      "repos": "Repositórios"
+    },
+    "memberSince": "No GitHub desde {{date}}",
+    "stats": {
+      "contributions": "Contribuições",
+      "commits": "Commits",
+      "pullRequests": "Pull requests",
+      "issues": "Issues",
+      "stars": "Estrelas",
+      "forks": "Forks",
+      "followers": "Seguidores",
+      "currentStreak": "Sequência atual",
+      "longestStreak": "Maior sequência",
+      "bestDay": "Melhor dia"
+    },
+    "notes": {
+      "since": "desde {{date}}",
+      "lastYear": "no último ano",
+      "last12Months": "nos últimos 12 meses",
+      "inRepos_one": "em {{count}} repositório",
+      "inRepos_other": "em {{count}} repositórios",
+      "following": "seguindo {{count}}",
+      "noStreak": "nenhuma agora"
+    },
+    "days_one": "{{value}} dia",
+    "days_other": "{{value}} dias",
+    "byYear": "Contribuições por ano",
+    "yearContributions_one": "{{year}}: {{value}} contribuição",
+    "yearContributions_other": "{{year}}: {{value}} contribuições",
+    "byWeekday": "Contribuições por dia da semana",
+    "commitHours": "Horários dos commits",
+    "hourRange": "{{from}}h–{{to}}h",
+    "hourShare": "{{range}}: {{percent}} dos commits",
+    "periods": {
+      "night": "Madrugada (0h–6h)",
+      "morning": "Manhã (6h–12h)",
+      "afternoon": "Tarde (12h–18h)",
+      "evening": "Noite (18h–24h)"
+    },
+    "hoursNote": "Estimativa a partir de {{sampled}} de {{total}} commits dos últimos 12 meses, no horário de quem fez o commit.",
+    "noActivity": "Sem dados de atividade agora.",
+    "noLanguages": "Sem dados de linguagens agora.",
+    "languagesByBytes": "Somadas por bytes de código: {{size}} em {{count}} repositórios públicos.",
+    "languagesByRepo_one": "Pela linguagem principal de {{count}} repositório.",
+    "languagesByRepo_other": "Pela linguagem principal de {{count}} repositórios.",
+    "reposCount_one": "{{count}} repositório",
+    "reposCount_other": "{{count}} repositórios",
+    "otherLanguages_one": "Outra ({{count}})",
+    "otherLanguages_other": "Outras ({{count}})"
   },
   "assistant": {
     "intro": "Pergunte sobre {{name}}, os projetos ou como usar o sistema.",

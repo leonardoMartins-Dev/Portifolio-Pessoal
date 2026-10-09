@@ -1,7 +1,10 @@
 /**
- * WakaTime (§12.2). Lê os dois embeds JSON públicos do autor ("Coding
- * Activity" e "Languages", últimos 7 dias). Eles não têm CORS, por isso a
- * busca é feita no servidor. Formatos retornados pelo WakaTime:
+ * WakaTime (§12.2). Lê os dois embeds JSON públicos do autor: "Coding
+ * Activity" no maior período que o WakaTime oferece (último ano) e
+ * "Languages" de todo o período. Eles não têm CORS, por isso a busca é feita
+ * no servidor. Os números somam o período inteiro, a partir do primeiro dia
+ * com código: enquanto a conta tiver menos de um ano, é o total de sempre.
+ * Formatos retornados pelo WakaTime:
  *
  *   Coding Activity: { data: [{ grand_total: { total_seconds }, range: { date } }] }
  *   Languages:       { data: [{ name, percent, color }] }
@@ -21,18 +24,21 @@ function assertWakatimeUrl(url) {
   return parsed;
 }
 
-/** Normaliza os dois JSONs para o formato do app Atividade. */
+/** Normaliza os dois JSONs para o app Atividade: totais de todo o período. */
 export function normalizeWakatime(activityJson, languagesJson) {
-  const days = (activityJson?.data ?? [])
+  const activeDays = (activityJson?.data ?? [])
     .map((day) => ({
       date: day.range?.date ?? day.range?.start?.slice(0, 10) ?? '',
       seconds: Math.round(Number(day.grand_total?.total_seconds) || 0),
     }))
-    .filter((day) => day.date)
+    .filter((day) => day.date && day.seconds > 0)
     .sort((a, b) => a.date.localeCompare(b.date));
 
-  const totalSeconds = days.reduce((sum, day) => sum + day.seconds, 0);
-  const dailyAverageSeconds = days.length ? Math.round(totalSeconds / days.length) : 0;
+  const totalSeconds = activeDays.reduce((sum, day) => sum + day.seconds, 0);
+  const bestDay = activeDays.reduce(
+    (best, day) => (day.seconds > (best?.seconds ?? 0) ? day : best),
+    null,
+  );
 
   const languages = (languagesJson?.data ?? [])
     .map((language) => {
@@ -47,7 +53,15 @@ export function normalizeWakatime(activityJson, languagesJson) {
     .filter((language) => language.name && language.percent > 0)
     .sort((a, b) => b.percent - a.percent);
 
-  return { totalSeconds, dailyAverageSeconds, days, languages };
+  return {
+    totalSeconds,
+    // Como no WakaTime: a média conta só os dias em que houve código.
+    dailyAverageSeconds: activeDays.length ? Math.round(totalSeconds / activeDays.length) : 0,
+    activeDays: activeDays.length,
+    since: activeDays[0]?.date ?? null,
+    bestDay,
+    languages,
+  };
 }
 
 export async function getWakatimeStats() {

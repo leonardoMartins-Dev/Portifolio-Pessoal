@@ -1,9 +1,28 @@
-import { CodeXml, Database, Languages, Layers, Lightbulb, Wrench } from 'lucide-react';
+import {
+  CodeXml,
+  Database,
+  Globe,
+  Languages,
+  Layers,
+  LayoutGrid,
+  Lightbulb,
+  Wrench,
+} from 'lucide-react';
+import { lazy, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import { skillName, skills } from '../../content/skills.js';
 import { useLocale, useLocalized } from '../../lib/hooks.js';
+import { useOS } from '../../lib/os-store.js';
+import { ErrorBoundary } from '../os/ErrorBoundary.jsx';
 import { AppScroll } from '../ui/AppSection.jsx';
+import { Button } from '../ui/Button.jsx';
 import { Chip } from '../ui/Chip.jsx';
+import { EmptyState } from '../ui/EmptyState.jsx';
+import { Segmented } from '../ui/Segmented.jsx';
+import { Spinner } from '../ui/Spinner.jsx';
+
+// O globo (three.js) só é baixado quando o visitante escolhe essa visualização.
+const SkillsGlobe = lazy(() => import('./SkillsGlobe.jsx'));
 
 const GROUP_ICONS = {
   code: CodeXml,
@@ -14,14 +33,66 @@ const GROUP_ICONS = {
   languages: Languages,
 };
 
-/** Skills em grupos: grade de ícones (como no perfil do GitHub), chips ou lista (§10.4). */
+/**
+ * Skills em grupos: grade de ícones (como no perfil do GitHub), chips ou lista
+ * (§10.4). A outra visualização é um globo 3D com as skills que têm ícone.
+ */
 export default function Skills() {
   const { t } = useTranslation();
   const l = useLocalized();
+  const view = useOS((state) => state.skillsView);
+  const setView = useOS((state) => state.setSkillsView);
+
+  const header = (
+    <div className="flex flex-wrap items-center justify-between gap-3">
+      <h3 className="text-xl font-semibold tracking-tight">{t('skills.heading')}</h3>
+      <Segmented
+        label={t('skills.view')}
+        value={view}
+        onChange={setView}
+        options={[
+          { value: 'list', label: t('skills.viewList'), icon: LayoutGrid },
+          { value: 'globe', label: t('skills.viewGlobe'), icon: Globe },
+        ]}
+      />
+    </div>
+  );
+
+  if (view === 'globe') {
+    return (
+      <div className="flex h-full flex-col px-5 py-6 sm:px-7">
+        {header}
+        <ErrorBoundary
+          fallback={
+            <EmptyState icon={Globe} title={t('skills.globeError')} className="flex-1">
+              <Button size="sm" onClick={() => setView('list')}>
+                <LayoutGrid aria-hidden className="size-3.5" />
+                {t('skills.backToList')}
+              </Button>
+            </EmptyState>
+          }
+        >
+          <Suspense
+            fallback={
+              <p
+                role="status"
+                className="flex flex-1 items-center justify-center gap-2 text-sm text-muted"
+              >
+                <Spinner />
+                {t('skills.globeLoading')}
+              </p>
+            }
+          >
+            <SkillsGlobe />
+          </Suspense>
+        </ErrorBoundary>
+      </div>
+    );
+  }
 
   return (
     <AppScroll>
-      <h3 className="text-xl font-semibold tracking-tight">{t('skills.heading')}</h3>
+      {header}
       <div className="mt-5 flex flex-col gap-7">
         {skills.map((group) => {
           const Icon = GROUP_ICONS[group.icon] ?? CodeXml;

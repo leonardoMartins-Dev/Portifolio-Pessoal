@@ -21,6 +21,12 @@ gsap.ticker.lagSmoothing(0);
 // Os modelos começam a baixar assim que este chunk carrega.
 preloadModels({ plant: !globalThis.matchMedia?.('(max-width: 767.98px)').matches });
 
+// Desempenho baixo com a mesa parada: abaixo de 40 fps a resolução cai para 1x;
+// se nem assim passar de 20 fps, a intro é pulada. Não use o `flipflops` do
+// drei: ele conta também as subidas e, numa máquina folgada, pulava a intro
+// sozinho depois de uns 10s.
+const MIN_FPS = { full: 40, lowRes: 20 };
+
 /** Entrada: a cena aparece e a câmera se aproxima devagar da mesa. */
 function enterTimeline(anim, onComplete) {
   return gsap.timeline({ onComplete }).to(anim, { enter: 1, duration: 2.4, ease: 'power2.out' });
@@ -176,7 +182,14 @@ export default function Intro({ mode, onDone, onSkip }) {
         }}
         aria-hidden
       >
-        <PerformanceMonitor onDecline={() => setDpr(1)} onFallback={skip} flipflops={3} />
+        {/* Só mede com a mesa parada: o carregamento trava quadros, e pular no
+            meio da abertura perderia o app escolhido. */}
+        {stage === 'closed' && (
+          <PerformanceMonitor
+            bounds={() => [dpr > 1 ? MIN_FPS.full : MIN_FPS.lowRes, Infinity]}
+            onDecline={() => (dpr > 1 ? setDpr(1) : skip())}
+          />
+        )}
         <Suspense fallback={null}>
           <Scene
             animRef={anim}

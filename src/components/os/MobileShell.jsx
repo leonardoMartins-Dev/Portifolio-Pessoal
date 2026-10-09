@@ -104,7 +104,7 @@ function HomeScreen({ onOpen }) {
                 className="flex w-full flex-col items-center gap-1.5 rounded-md py-1"
               >
                 <AppIcon app={app} size="lg" />
-                <span className="w-full truncate text-center text-[11px] font-medium text-white drop-shadow-[0_1px_2px_rgb(0_0_0/0.6)]">
+                <span className="line-clamp-2 w-full text-center text-[11px] leading-tight font-medium text-white drop-shadow-[0_1px_2px_rgb(0_0_0/0.6)]">
                   {l(app.title)}
                 </span>
               </button>
@@ -116,7 +116,7 @@ function HomeScreen({ onOpen }) {
   );
 }
 
-/** Widgets opcionais: "Tocando agora" e "Horas na semana" (só se configurados). */
+/** Widgets opcionais: "Tocando agora" e "Tempo programando" (só se configurados). */
 function Widgets({ onOpen }) {
   const { t } = useTranslation();
   const spotify = useSpotify();
@@ -125,9 +125,9 @@ function Widgets({ onOpen }) {
   const track =
     spotify.status === 'ok' ? (spotify.data.nowPlaying?.track ?? spotify.data.recent?.[0]) : null;
   const playing = Boolean(spotify.data?.nowPlaying?.isPlaying);
-  const week = wakatime.status === 'ok' ? splitDuration(wakatime.data.totalSeconds) : null;
+  const coding = wakatime.status === 'ok' ? splitDuration(wakatime.data.totalSeconds) : null;
 
-  if (!track && !week) return null;
+  if (!track && !coding) return null;
   return (
     <div className="grid grid-cols-2 gap-3">
       {track && (
@@ -146,17 +146,17 @@ function Widgets({ onOpen }) {
           </span>
         </button>
       )}
-      {week && (
+      {coding && (
         <button
           type="button"
           onClick={() => onOpen('activity')}
           className="flex min-h-24 flex-col justify-between gap-2 rounded-lg p-3 text-left text-text glass"
         >
           <span className="text-[11px] font-semibold text-accent-ink uppercase">
-            {t('mobile.weekHours')}
+            {t('mobile.codingTime')}
           </span>
           <span className="text-2xl font-semibold tabular-nums">
-            {t('mobile.hoursShort', week)}
+            {t('mobile.hoursShort', coding)}
           </span>
         </button>
       )}

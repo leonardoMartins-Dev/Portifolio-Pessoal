@@ -112,10 +112,10 @@ export const APP_META = [
   },
   {
     id: 'activity',
-    title: { pt: 'Atividade', en: 'Activity' },
+    title: { pt: 'Atividade (WakaTime)', en: 'Activity (WakaTime)' },
     description: {
-      pt: 'Horas programando na última semana e linguagens mais usadas (WakaTime).',
-      en: 'Hours coding in the last week and most used languages (WakaTime).',
+      pt: 'Tempo total programando (desde o primeiro dia no WakaTime), média por dia ativo, melhor dia e linguagens mais usadas.',
+      en: 'Total time coding (since the first day on WakaTime), average per active day, best day and most used languages.',
     },
     tint: ['#a6e06b', '#58b23a'],
     defaultSize: { w: 680, h: 540 },
@@ -125,10 +125,10 @@ export const APP_META = [
   },
   {
     id: 'github',
-    title: { pt: 'GitHub', en: 'GitHub' },
+    title: { pt: 'GitHub (Stats)', en: 'GitHub (Stats)' },
     description: {
-      pt: 'GitHub ao vivo: gráfico de contribuições do último ano, repositórios recentes e últimos commits.',
-      en: 'Live GitHub: contribution graph for the last year, recent repositories and latest commits.',
+      pt: 'Estatísticas do GitHub ao vivo: contribuições, sequências, commits, PRs, estrelas, linguagens, horários dos commits, repositórios recentes e últimos commits.',
+      en: 'Live GitHub stats: contributions, streaks, commits, PRs, stars, languages, commit hours, recent repositories and latest commits.',
     },
     tint: ['#4cc38a', '#1f7a4d'],
     defaultSize: { w: 760, h: 640 },

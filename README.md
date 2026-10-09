@@ -89,7 +89,7 @@
 1. **Entrada 3D** — a mesa de trabalho do autor: notebook, luminária, livros, currículo, celular e objetos pessoais (boneco do Luffy, raquete de tênis, quadro do Galo). Cada objeto é um atalho para um app; no clique, o notebook abre, a tela acende e a câmera entra até a tela cobrir a janela, já na **tela de bloqueio**.
 2. **Sistema operacional próprio** — barra de menu, dock e janelas que se arrastam, redimensionam, minimizam e maximizam. Identidade própria: inspirado em laptops modernos, sem copiar nenhum sistema existente.
 3. **Assistente de IA com ferramentas** — responde sobre o autor e sobre o sistema e **executa ações**: abre apps, mostra um projeto específico, troca idioma e tema.
-4. **Dados ao vivo** — música tocando agora (Spotify), horas programando na semana (WakaTime) e atividade no GitHub (contribuições, repositórios e commits).
+4. **Dados ao vivo** — música tocando agora (Spotify), tempo total programando (WakaTime) e estatísticas do GitHub (contribuições, sequências, commits, PRs, linguagens e horários dos commits).
 5. **Celular** — abaixo de 768px o sistema vira uma interface de telefone, com os mesmos apps.
 
 **Para quem.** Recrutadores, professores e colegas que querem conhecer o autor de forma rápida e memorável.
@@ -108,10 +108,11 @@
 - 🙋 **Sobre:** apresentação, formação, foco atual, objetivos e "Fora do código" (One Piece, tênis e Galo, os mesmos objetos da mesa 3D).
 - 🗂️ **Projetos em linha do tempo**, do mais recente ao mais antigo, com um botão que inverte para a ordem do mais antigo ao mais recente, com tecnologias, GitHub, demo, imagem/GIF/vídeo, filtro por tecnologia e `?project=` para destacar um projeto. Demos em plano gratuito (o WaveHub, no Render) são **acordadas assim que o app abre**, para o servidor já estar ligado no clique em Demo.
 - 💼 **Experiências** com tipo, período ("mar 2024 – atual") e filtro.
+- ✨ **Skills** em grade de ícones ou num **globo 3D** que gira e pode ser arrastado (inspirado em [abdulmomin.dev](https://www.abdulmomin.dev/); o three.js só é baixado quando o globo é escolhido, e a escolha fica salva).
 - 🏅 **Certificados:** cursos concluídos do mais recente ao mais antigo, com prévia, emissor, data, carga horária, PDF para ver ou baixar e link de verificação (o QR code do certificado). Para adicionar um novo, veja [Como adicionar um certificado](#-como-adicionar-um-certificado).
 - 📨 **Contato:** e-mail (com copiar), WhatsApp, LinkedIn e GitHub + formulário validado (Zod) que envia dois e-mails pelo EmailJS.
 - 🤖 **Assistente de IA** em streaming, com markdown, sugestões, Ctrl/⌘K, limite de uso e ferramentas no cliente.
-- 🎵 **Spotify** (tocando agora, recentes, top + mini player na barra de menu), ⏱️ **WakaTime** (horas na semana, por dia e por linguagem) e 🐙 **GitHub** (gráfico de contribuições do último ano, repositórios recentes e últimos commits; funciona sem chave).
+- 🎵 **Spotify** (tocando agora, recentes, top + mini player na barra de menu), ⏱️ **Atividade (WakaTime)** (tempo total programando desde o primeiro dia, média por dia ativo, melhor dia e linguagens) e 🐙 **GitHub (Stats)** (perfil, contribuições de sempre, sequências, commits, PRs, estrelas, gráfico do último ano, contribuições por ano e por dia da semana, horários dos commits, linguagens, repositórios recentes e últimos commits; funciona sem chave).
 - ⌨️ **Terminal** com comandos PT/EN, histórico (↑/↓) e autocompletar (Tab) — homenagem ao portfólio-terminal do professor.
 - ♿ **Acessibilidade:** navegação completa por teclado, foco visível, `role="dialog"`, rótulos traduzidos, contraste AA e `prefers-reduced-motion`.
 
@@ -222,16 +223,16 @@ flowchart LR
 
 ### Rotas
 
-| Rota                         | Comportamento                                                      |
-| ---------------------------- | ------------------------------------------------------------------ |
-| `/`                          | Redireciona para `/pt` ou `/en` (idioma do navegador; padrão `pt`) |
-| `/{locale}`                  | Intro 3D e tela de bloqueio (uma vez por sessão), depois o desktop |
-| `/{locale}/{appId}`          | Deep link: pula a intro e abre o sistema com o app em foco         |
-| `/{locale}/{appId}` inválido | Janela "App não encontrado" no estilo do sistema                   |
-| `/api/chat`                  | `GET`: o assistente está disponível? `POST`: resposta em streaming |
-| `/api/spotify`               | `GET`: tocando agora, recentes e top (cache de 30s)                |
-| `/api/wakatime`              | `GET`: estatísticas da semana (cache de 1h)                        |
-| `/api/github`                | `GET`: contribuições, repositórios e commits (cache de 30 min)     |
+| Rota                         | Comportamento                                                                        |
+| ---------------------------- | ------------------------------------------------------------------------------------ |
+| `/`                          | Redireciona para `/pt` ou `/en` (idioma do navegador; padrão `pt`)                   |
+| `/{locale}`                  | Intro 3D e tela de bloqueio (uma vez por sessão), depois o desktop                   |
+| `/{locale}/{appId}`          | Deep link: pula a intro e abre o sistema com o app em foco                           |
+| `/{locale}/{appId}` inválido | Janela "App não encontrado" no estilo do sistema                                     |
+| `/api/chat`                  | `GET`: o assistente está disponível? `POST`: resposta em streaming                   |
+| `/api/spotify`               | `GET`: tocando agora, recentes e top (cache de 30s)                                  |
+| `/api/wakatime`              | `GET`: tempo total programando e linguagens (cache de 1h)                            |
+| `/api/github`                | `GET`: perfil, estatísticas, contribuições, repositórios e commits (cache de 30 min) |
 
 Apps (`appId`, iguais nos dois idiomas): `about`, `projects`, `experience`, `skills`, `certificates`, `resume`, `contact`, `music`, `activity`, `github`, `assistant`, `terminal`, `settings`, `system`.
 
@@ -276,16 +277,16 @@ Copie o arquivo de exemplo e preencha o que for usar. **Nenhuma variável é obr
 cp .env.example .env.local
 ```
 
-| Variável                                                                                                                       | Onde     | Uso                                            |
-| :----------------------------------------------------------------------------------------------------------------------------- | :------- | :--------------------------------------------- |
-| `GOOGLE_GENERATIVE_AI_API_KEY`                                                                                                 | servidor | Assistente de IA (Google Gemini)               |
-| `GEMINI_MODEL`                                                                                                                 | servidor | ID do modelo (vazio = `gemini-3.5-flash-lite`) |
-| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`                                                                           | servidor | Limite de uso do assistente                    |
-| `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN`                                                          | servidor | App Música e mini player                       |
-| `WAKATIME_LANGUAGES_URL`, `WAKATIME_ACTIVITY_URL`                                                                              | servidor | App Atividade                                  |
-| `GITHUB_TOKEN` (opcional)                                                                                                      | servidor | App GitHub: limite maior e gráfico via GraphQL |
-| `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID_FOR_ME`, `VITE_EMAILJS_TEMPLATE_ID_FOR_SENDER`, `VITE_EMAILJS_PUBLIC_KEY` | cliente  | Formulário de Contato                          |
-| `VITE_SITE_URL`                                                                                                                | cliente  | URLs absolutas (Open Graph, sitemap, hreflang) |
+| Variável                                                                                                                       | Onde     | Uso                                                                                |
+| :----------------------------------------------------------------------------------------------------------------------------- | :------- | :--------------------------------------------------------------------------------- |
+| `GOOGLE_GENERATIVE_AI_API_KEY`                                                                                                 | servidor | Assistente de IA (Google Gemini)                                                   |
+| `GEMINI_MODEL`                                                                                                                 | servidor | ID do modelo (vazio = `gemini-3.5-flash-lite`)                                     |
+| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`                                                                           | servidor | Limite de uso do assistente                                                        |
+| `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN`                                                          | servidor | App Música e mini player                                                           |
+| `WAKATIME_LANGUAGES_URL`, `WAKATIME_ACTIVITY_URL`                                                                              | servidor | App Atividade                                                                      |
+| `GITHUB_TOKEN` (opcional)                                                                                                      | servidor | App GitHub (Stats): limite maior, contribuições via GraphQL e linguagens por bytes |
+| `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID_FOR_ME`, `VITE_EMAILJS_TEMPLATE_ID_FOR_SENDER`, `VITE_EMAILJS_PUBLIC_KEY` | cliente  | Formulário de Contato                                                              |
+| `VITE_SITE_URL`                                                                                                                | cliente  | URLs absolutas (Open Graph, sitemap, hreflang)                                     |
 
 > [!IMPORTANT]
 > Tudo com prefixo `VITE_` vai para o JavaScript público. As chaves do **Gemini**, do **Spotify**, do **Upstash** e o token do **GitHub** nunca usam esse prefixo: são lidas só pelas funções em `api/`. As do EmailJS são públicas por design — restrinja os domínios permitidos no painel do EmailJS.
@@ -366,18 +367,22 @@ Escopos usados: `user-read-currently-playing user-read-recently-played user-top-
 
 ### ⏱️ WakaTime
 
-1. Instale o plugin do [WakaTime](https://wakatime.com/plugins) no seu editor **o quanto antes** — o plano gratuito mostra só a última semana.
-2. Acesse [wakatime.com/share/embed](https://wakatime.com/share/embed) e crie **dois** embeds, ambos em **formato JSON** e com período **Last 7 Days**:
-   - **Coding Activity** → copie a URL para `WAKATIME_ACTIVITY_URL`;
-   - **Languages** → copie a URL para `WAKATIME_LANGUAGES_URL`.
-3. Pronto: `/api/wakatime` busca os dois JSONs no servidor (eles não têm CORS), normaliza para `{ totalSeconds, dailyAverageSeconds, days, languages }` e guarda em cache por 1h.
+1. Instale o plugin do [WakaTime](https://wakatime.com/plugins) no seu editor **o quanto antes**.
+2. Acesse [wakatime.com/share/embed](https://wakatime.com/share/embed) e crie **dois** embeds, ambos em **formato JSON**:
+   - **Coding Activity**, com o maior período (**Last Year**) → copie a URL para `WAKATIME_ACTIVITY_URL`;
+   - **Languages**, com **All Time** → copie a URL para `WAKATIME_LANGUAGES_URL`.
+3. Pronto: `/api/wakatime` busca os dois JSONs no servidor (eles não têm CORS), soma o período inteiro a partir do primeiro dia com código e devolve `{ totalSeconds, dailyAverageSeconds, activeDays, since, bestDay, languages }` (a média conta só os dias com código, como no WakaTime), com cache de 1h. Enquanto a conta tiver menos de um ano, o total é o de sempre; depois, o app continua mostrando "desde" a data certa.
 
 ### 🐙 GitHub
 
-O app **GitHub** funciona **sem configuração**: o usuário vem de `social.github` no `src/site.config.js`.
+O app **GitHub (Stats)** funciona **sem configuração**: o usuário vem de `social.github` no `src/site.config.js`. As estatísticas extras seguem o comando `stats` do [portfólio do professor](https://github.com/joaopauloaramuni/joaopauloaramuni-portfolio) e ficam em abas: **Resumo**, **Atividade**, **Linguagens** e **Repositórios**.
 
-- **Repositórios e commits:** API REST pública (`/users/{login}/repos` e `/repos/{login}/{repo}/commits?author={login}`). Os commits vêm dos 4 repositórios com push mais recente, sem merges, porque o evento de push da API pública não traz mais a lista de commits.
-- **Gráfico de contribuições:** sem token, vem da página pública do perfil (`github.com/users/{login}/contributions`); com token, da API GraphQL oficial (`contributionsCollection`), com a página pública de reserva.
+- **Perfil, repositórios e commits:** API REST pública (`/users/{login}`, `/users/{login}/repos` e `/repos/{login}/{repo}/commits?author={login}`). Estrelas e forks somam os repositórios próprios. Os commits vêm dos 4 repositórios com push mais recente, sem merges, porque o evento de push da API pública não traz mais a lista de commits.
+- **Gráfico de contribuições** (último ano): sem token, vem da página pública do perfil (`github.com/users/{login}/contributions`); com token, da API GraphQL oficial (`contributionsCollection`), com a página pública de reserva.
+- **Contribuições de sempre** (total, sequência atual e maior, melhor dia, por ano e por dia da semana): uma página pública por ano desde a criação da conta (`?from=AAAA-01-01&to=AAAA-12-31`) ou, com token, uma consulta GraphQL com um ano por alias.
+- **PRs, issues e horários dos commits:** API de busca (`/search/issues` e `/search/commits`). Os horários usam 4 buscas de até 100 commits, uma por trimestre dos últimos 12 meses, com peso pelo total de cada trimestre; a hora é a do relógio de quem fez o commit. A soma dos trimestres dá os commits dos últimos 12 meses.
+- **Linguagens:** sem token, pela linguagem principal de cada repositório; com token, somadas por bytes de código (GraphQL).
+- Cada parte extra é opcional: se uma fonte falhar, ela some do app sem derrubar o resto.
 - `/api/github` junta tudo, guarda em cache por 30 min e, se o GitHub falhar, devolve o último resumo bom.
 
 Sem token, a API REST aceita 60 requisições por hora **por IP**, e na Vercel o IP é compartilhado com outros sites. Para não depender disso em produção:
@@ -632,7 +637,8 @@ _Ferramenta: Playwright_ (contra o build de produção). **Desktop:** pular a in
 ## 🙏 Agradecimentos
 
 - [**Engenharia de Software PUC Minas**](https://www.instagram.com/engsoftwarepucminas/) — pela estrutura acadêmica e pelo incentivo às boas práticas de engenharia.
-- [**Prof. Dr. João Paulo Aramuni**](https://github.com/joaopauloaramuni) — pela disciplina, pelo template deste README e pelo portfólio em estilo terminal ([aramuni.dev](https://aramuni.dev/)), homenageado no app **Terminal** deste sistema.
+- [**Prof. Dr. João Paulo Aramuni**](https://github.com/joaopauloaramuni) — pela disciplina, pelo template deste README e pelo portfólio em estilo terminal ([aramuni.dev](https://aramuni.dev/)), homenageado no app **Terminal** deste sistema. O globo das Skills e as estatísticas do app GitHub (Stats) foram adaptados do código dele (licença MIT).
+- [**Abdul Momin**](https://www.abdulmomin.dev/) — pelo globo de skills ("Skills.json") que inspirou a visualização em globo do app Skills.
 - [**Poly Haven**](https://polyhaven.com/) — mesa, luminária e planta da intro 3D e as HDRIs `wooden_lounge` e `lebombo` usadas na iluminação ([CC0](https://polyhaven.com/license)).
 - Escudo do **Clube Atlético Mineiro** ([Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Clube_Atl%C3%A9tico_Mineiro_logo.svg)) e personagem **Luffy** (_One Piece_, de Eiichiro Oda; o boneco é feito em código, inspirado no estilo dos bonecos da Funko) aparecem só como decoração pessoal da mesa 3D; pertencem aos seus donos.
 

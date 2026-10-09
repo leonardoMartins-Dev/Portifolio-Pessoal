@@ -82,7 +82,7 @@ function createLiveResource(url, { intervalMs } = {}) {
 export const spotifyResource = createLiveResource('/api/spotify', { intervalMs: 30_000 });
 export const useSpotify = spotifyResource.use;
 
-/** WakaTime: estatísticas da semana (o servidor guarda em cache por 1h). */
+/** WakaTime: tempo total programando e linguagens (o servidor guarda em cache por 1h). */
 export const wakatimeResource = createLiveResource('/api/wakatime');
 export const useWakatime = wakatimeResource.use;
 

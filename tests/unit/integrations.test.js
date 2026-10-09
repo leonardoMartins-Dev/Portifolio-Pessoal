@@ -23,11 +23,15 @@ describe('WakaTime', () => {
     ],
   };
 
-  it('normaliza os dois JSONs embutíveis', () => {
+  it('normaliza os dois JSONs embutíveis: totais de todo o período', () => {
     const stats = normalizeWakatime(activity, languages);
     expect(stats.totalSeconds).toBe(10800);
-    expect(stats.dailyAverageSeconds).toBe(3600);
-    expect(stats.days.map((d) => d.date)).toEqual(['2026-09-24', '2026-09-25', '2026-09-26']);
+    // A média conta só os dias com código (o dia zerado fica de fora).
+    expect(stats.dailyAverageSeconds).toBe(5400);
+    expect(stats.activeDays).toBe(2);
+    expect(stats.since).toBe('2026-09-24');
+    expect(stats.bestDay).toEqual({ date: '2026-09-24', seconds: 7200 });
+    expect(stats).not.toHaveProperty('days');
     expect(stats.languages.map((l) => l.name)).toEqual(['JavaScript', 'TypeScript']);
     expect(stats.languages[0].seconds).toBe(8100);
   });
@@ -36,7 +40,9 @@ describe('WakaTime', () => {
     expect(normalizeWakatime({}, null)).toEqual({
       totalSeconds: 0,
       dailyAverageSeconds: 0,
-      days: [],
+      activeDays: 0,
+      since: null,
+      bestDay: null,
       languages: [],
     });
   });

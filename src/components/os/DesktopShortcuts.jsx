@@ -56,7 +56,7 @@ export function DesktopShortcuts() {
       </p>
       <nav aria-label={t('desktop.apps')} className="absolute inset-y-0 left-0 py-4 pl-3">
         {/* Preenche de cima para baixo e abre novas colunas quando a altura acaba. */}
-        <ul className="grid h-full auto-cols-[5.75rem] grid-flow-col grid-rows-[repeat(auto-fill,5.5rem)] gap-x-1">
+        <ul className="grid h-full auto-cols-[5.75rem] grid-flow-col grid-rows-[repeat(auto-fill,6rem)] gap-x-1">
           {appIcons.map((item) => (
             <li key={item.id}>
               <DesktopIcon item={item} hintId={hintId} data-desktop-app={item.id} />
@@ -90,7 +90,7 @@ function DesktopIcon({ item, hintId, ...props }) {
       onDoubleClick={() => pointerType.current === 'mouse' && item.open()}
       // Teclado (Enter/Espaço dispara click com detail 0) ou toque: abre direto.
       onClick={(event) => (event.detail === 0 || pointerType.current !== 'mouse') && item.open()}
-      className="group flex h-[5.25rem] w-[5.75rem] flex-col items-center gap-1.5 rounded-sm p-1.5 focus:bg-white/15 focus:outline-none focus-visible:outline-2 focus-visible:outline-white"
+      className="group flex min-h-[5.25rem] w-[5.75rem] flex-col items-center gap-1.5 rounded-sm p-1.5 focus:bg-white/15 focus:outline-none focus-visible:outline-2 focus-visible:outline-white"
       {...props}
     >
       <span
@@ -100,7 +100,7 @@ function DesktopIcon({ item, hintId, ...props }) {
       >
         {item.icon}
       </span>
-      <span className="max-w-full truncate rounded-[6px] bg-black/45 px-1.5 py-0.5 text-center text-[11px] leading-tight font-medium text-white group-focus:bg-accent">
+      <span className="line-clamp-2 max-w-full rounded-[6px] bg-black/45 px-1.5 py-0.5 text-center text-[11px] leading-tight font-medium text-white group-focus:bg-accent">
         {item.label}
       </span>
     </button>

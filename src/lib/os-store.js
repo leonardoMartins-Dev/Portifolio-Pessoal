@@ -49,6 +49,7 @@ const defaultPrefs = {
   sound: false,
   reducedMotion: false,
   firstVisitDone: false,
+  skillsView: 'list', // 'list' | 'globe'
 };
 
 function osState(set, get) {
@@ -184,6 +185,7 @@ function osState(set, get) {
     setWallpaper: (wallpaper) => set({ wallpaper }),
     setSound: (sound) => set({ sound }),
     setReducedMotion: (reducedMotion) => set({ reducedMotion }),
+    setSkillsView: (skillsView) => set({ skillsView }),
     markFirstVisitDone: () => set({ firstVisitDone: true }),
   };
 }
@@ -204,6 +206,7 @@ export function createOSStore({ persistPrefs = true } = {}) {
         sound: state.sound,
         reducedMotion: state.reducedMotion,
         firstVisitDone: state.firstVisitDone,
+        skillsView: state.skillsView,
       }),
     }),
   );

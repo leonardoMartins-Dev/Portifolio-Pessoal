@@ -151,7 +151,9 @@ test('abrir Projetos acorda o servidor da demo do WaveHub', async ({ page }) => 
   await expect.poll(() => pings).toEqual(['https://wavehub-fhec.onrender.com/login']);
 });
 
-test('GitHub (API simulada): números, gráfico, repositórios e commits', async ({ page }) => {
+test('GitHub (Stats) (API simulada): números, gráfico, abas, repositórios e commits', async ({
+  page,
+}) => {
   // Um ano de dias, com contribuições só no último mês.
   const days = Array.from({ length: 365 }, (_, index) => {
     const date = new Date(Date.UTC(2025, 9, 4) + index * 86_400_000).toISOString().slice(0, 10);
@@ -185,6 +187,17 @@ test('GitHub (API simulada): números, gráfico, repositórios e commits', async
           },
         ],
         calendar: { total: days.reduce((sum, day) => sum + day.count, 0), days },
+        stars: 3,
+        forks: 0,
+        pullRequests: 9,
+        issues: 0,
+        commitsLastYear: 114,
+        languages: {
+          unit: 'repos',
+          total: 2,
+          repos: 2,
+          items: [{ name: 'Java', color: '#b07219', value: 2, percent: 100 }],
+        },
       },
     }),
   );
@@ -192,12 +205,27 @@ test('GitHub (API simulada): números, gráfico, repositórios e commits', async
   const window = page.locator('[data-window="github"]');
   await expect(window.getByRole('heading', { name: 'Programando em público' })).toBeVisible();
   await expect(window.getByRole('img', { name: /^Gráfico de contribuições: 50 no/ })).toBeVisible();
+  await expect(window.getByText('Pull requests', { exact: true })).toBeVisible();
+  await window.getByRole('radio', { name: 'Linguagens' }).click();
+  await expect(window.getByText('Pela linguagem principal de 2 repositórios.')).toBeVisible();
+  await window.getByRole('radio', { name: 'Repositórios' }).click();
   await expect(window.getByRole('link', { name: /^WaveHub/ })).toHaveAttribute(
     'href',
     'https://github.com/leonardoMartins-Dev/WaveHub',
   );
   await expect(window.getByText('feat: player único no rodapé')).toBeVisible();
   await expect(window.getByRole('link', { name: /Ver perfil no GitHub/ })).toBeVisible();
+});
+
+test('Skills: troca para o globo 3D e volta para a lista', async ({ page }) => {
+  await page.goto('/pt/skills');
+  const window = page.locator('[data-window="skills"]');
+  await expect(window.getByText('Vite', { exact: true })).toBeVisible();
+  await window.getByRole('radio', { name: 'Globo' }).click();
+  await expect(window.getByText('Arraste para girar o globo')).toBeVisible();
+  await expect(window.locator('canvas')).toBeVisible();
+  await window.getByRole('radio', { name: 'Lista' }).click();
+  await expect(window.getByText('Vite', { exact: true })).toBeVisible();
 });
 
 test('Terminal executa comandos e abre apps', async ({ page }) => {

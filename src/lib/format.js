@@ -114,3 +114,28 @@ export function formatWeekday(isoDate, locale) {
     .format(new Date(`${isoDate}T00:00:00Z`))
     .replace('.', '');
 }
+
+/** 1234 → "1.234" (pt) / "1,234" (en). */
+export function formatNumber(value, locale) {
+  return new Intl.NumberFormat(intlLocale(locale)).format(value);
+}
+
+/** 42.857 → "42,9%" (pt) / "42.9%" (en). */
+export function formatPercent(value, locale) {
+  return new Intl.NumberFormat(intlLocale(locale), {
+    style: 'percent',
+    maximumFractionDigits: 1,
+  }).format(value / 100);
+}
+
+/** Bytes → "1,2 MB" / "340 kB" (unidade abreviada do Intl). */
+export function formatBytes(bytes, locale) {
+  const [unit, size] =
+    bytes >= 1e6 ? ['megabyte', 1e6] : bytes >= 1e3 ? ['kilobyte', 1e3] : ['byte', 1];
+  return new Intl.NumberFormat(intlLocale(locale), {
+    style: 'unit',
+    unit,
+    unitDisplay: 'short',
+    maximumFractionDigits: 1,
+  }).format(bytes / size);
+}
