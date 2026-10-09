@@ -910,7 +910,7 @@ Também, **no estilo do README do professor**:
 
 - [ ] **Hoje:** instalar o plugin do WakaTime no editor.
 - [ ] Decidir: nome do sistema, cor de destaque e logo/monograma.
-- [ ] **Wireframes no Figma** (média fidelidade): intro, desktop com janela aberta, cada app e versão mobile. Exportar para `docs/wireframes/`.
+- [x] **Wireframes no Figma** (média fidelidade): intro, desktop com janela aberta, cada app e versão mobile. Exportar para `docs/wireframes/`. Feito em alta fidelidade, gerado do próprio site (`npm run figma`): [protótipo no Figma](https://www.figma.com/design/3XSBPtUAl2tmkEHDh2lHw2/Untitled).
 - [ ] **Conteúdo:**
   - Bio PT/EN (formação, área, interesses, objetivos).
   - Foto.

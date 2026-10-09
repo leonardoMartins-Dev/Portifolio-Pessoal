@@ -6,3 +6,5 @@ package-lock.json
 public/
 # A especificação é escrita à mão; não reformatar.
 docs/
+# Plugin do Figma gerado pelo npm run figma.
+scripts/figma/plugin/code.js

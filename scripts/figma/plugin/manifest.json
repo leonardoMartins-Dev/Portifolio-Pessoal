@@ -1,0 +1,13 @@
+{
+  "name": "Portifólio — protótipo",
+  "id": "portifolio-prototipo-local",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": { "allowedDomains": ["none"] },
+  "menu": [
+    { "name": "Wireframe (preto e branco)", "command": "wireframe" },
+    { "name": "Alta fidelidade (cores e imagens)", "command": "full" }
+  ]
+}

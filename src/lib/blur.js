@@ -15,8 +15,8 @@ export function drawCover(ctx, image, width, height) {
 export function blurredCanvas(image) {
   let source = image;
   for (const [w, h] of [
-    [48, 30],
-    [160, 100],
+  [384, 240], [192, 120], [96, 60], [48, 30],
+  [96, 60], [192, 120], [384, 240],
   ]) {
     const step = document.createElement('canvas');
     step.width = w;

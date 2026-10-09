@@ -20,7 +20,8 @@
     "test:e2e": "playwright test",
     "spotify:token": "node scripts/spotify-token.mjs",
     "screenshots": "node scripts/screenshots.mjs",
-    "models": "node scripts/fetch-models.mjs"
+    "models": "node scripts/fetch-models.mjs",
+    "figma": "node scripts/figma/capture.mjs"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.87",

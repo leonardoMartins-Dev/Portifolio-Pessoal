@@ -6,7 +6,13 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 
 export default defineConfig([
-  globalIgnores(['dist', 'coverage', 'playwright-report', 'test-results']),
+  globalIgnores([
+    'dist',
+    'coverage',
+    'playwright-report',
+    'test-results',
+    'scripts/figma/plugin/code.js',
+  ]),
   {
     files: ['**/*.{js,jsx,mjs}'],
     extends: [
@@ -28,6 +34,11 @@ export default defineConfig([
     // Código que roda no Node: funções da Vercel, scripts, configs e testes.
     files: ['api/**', 'server/**', 'scripts/**', '*.config.js', 'tests/**'],
     languageOptions: { globals: { ...globals.node, ...globals.browser } },
+  },
+  {
+    // Plugin do Figma: roda no ambiente de plugins, com `figma` e os dados da captura.
+    files: ['scripts/figma/plugin-main.js'],
+    languageOptions: { sourceType: 'script', globals: { figma: 'readonly', DATA: 'readonly' } },
   },
   // Desliga regras de estilo que conflitam com o Prettier (deve vir por último).
   prettier,

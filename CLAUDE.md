@@ -13,6 +13,7 @@ npm run test:e2e      # Playwright (tests/e2e; faz o build antes)
 npm run build         # build de produção (dist/)
 npm run screenshots   # prints do README + imagem OG (com o dev rodando; GPU=1 usa a placa de vídeo)
 npm run models        # baixa e prepara os modelos 3D e as HDRIs da intro (Poly Haven → public/models/, public/hdri/)
+npm run figma         # protótipo no Figma: captura as telas (com o dev rodando) e gera o plugin em scripts/figma/plugin/
 ```
 
 Antes de dar algo por pronto: `lint`, `format:check`, `test`, `build` e `test:e2e` passando.
@@ -25,6 +26,7 @@ Antes de dar algo por pronto: `lint`, `format:check`, `test`, `build` e `test:e2
 - `src/lib/os-bridge.js` — navegação fora do React (assistente, Terminal). **A URL é o comando**: `/{locale}/{appId}` abre o app.
 - `src/components/os/` — shell desktop (`DesktopShell`, `useUrlSync`), mobile (`MobileShell`) e `LockScreen` (o shell fica montado por baixo, com `inert`).
 - `src/components/intro/` — mesa 3D (R3F + GSAP), carregada sob demanda: `desk/` tem um arquivo por objeto, `desk/layout.js` as posições e `desk-objects.js` os atalhos objeto → app. Modelos e HDRIs do Poly Haven em `public/models/` e `public/hdri/` (orçamento de 3 MB para modelos + uma HDRI, com teste). Direção visual **realista**: material e luz de verdade em tudo, paleta quente; o Luffy fica em `desk/Luffy.jsx` (medidas em larguras de cabeça).
+- `scripts/figma/` — protótipo no Figma tirado do site: `capture.mjs` serializa cada tela e `plugin-main.js` (sem `?.`/`??`, para o ambiente de plugins) recria as camadas e os links. Tela nova: adicione em `screenList()`; link novo: em `markLinks()`.
 - `api/*.js` — Vercel Functions (handlers Web `GET`/`POST`): `chat`, `spotify`, `wakatime`, `github`. `server/` — código só do servidor.
 
 ## Convenções

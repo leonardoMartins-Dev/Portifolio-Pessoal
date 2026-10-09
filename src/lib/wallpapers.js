@@ -3,10 +3,12 @@
  * aparece na tela do notebook 3D, para a transição ficar contínua.
  */
 export const WALLPAPERS = [
-  { id: 'aurora', src: '/wallpapers/aurora.svg', base: '#0c1024' },
-  { id: 'dune', src: '/wallpapers/dune.svg', base: '#e9d3b8' },
-  { id: 'tide', src: '/wallpapers/tide.svg', base: '#06262a' },
-  { id: 'graphite', src: '/wallpapers/graphite.svg', base: '#16171b' },
+  { id: 'aurora', src: '/wallpapers/aurora.svg', base: '#16224a' },
+  { id: 'dune', src: '/wallpapers/dune.svg', base: '#e7b799' },
+  { id: 'tide', src: '/wallpapers/tide.svg', base: '#0b3a42' },
+  { id: 'graphite', src: '/wallpapers/graphite.svg', base: '#1c1d24' },
+  { id: 'serra', src: '/wallpapers/serra.svg', base: '#5e4170' },
+  { id: 'prism', src: '/wallpapers/prism.svg', base: '#ddd6ea' },
 ];
 
 export function getWallpaper(id) {

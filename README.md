@@ -249,11 +249,36 @@ Apps (`appId`, iguais nos dois idiomas): `about`, `projects`, `experience`, `ski
 
 ## 🎨 Wireframes
 
-Os protótipos de média fidelidade (Figma) ficam em [`docs/wireframes/`](docs/wireframes/): intro, desktop com janela aberta, cada app e a versão mobile.
+🔗 **[Abrir o protótipo no Figma](https://www.figma.com/design/3XSBPtUAl2tmkEHDh2lHw2/Untitled)**
 
-<!-- TODO(conteúdo): exportar os wireframes do Figma para docs/wireframes/ e exibir aqui, por exemplo:
-| Intro | Desktop | Mobile |
-| :---: | :---: | :---: |
+O protótipo no **Figma** é gerado a partir do próprio site, então fica sempre alinhado com ele. São 22 telas, montadas na página aberta (o plano gratuito do Figma limita o número de páginas), em dois grupos: **Desktop** (1440×900) e **Celular** (390×844).
+
+- **Desktop:** intro (mesa 3D), tela de bloqueio, área de trabalho e cada app com a janela aberta (Skills em lista e em globo).
+- **Celular:** tela inicial, Sobre, Projetos e Contato.
+
+O plugin tem dois estilos no menu: **Wireframe (preto e branco)**, com caixas e contornos, textos reais, ícones em traço e imagens como caixas com um X; e **Alta fidelidade**, com cores, sombras e imagens como no site. Nos dois, tudo é camada editável e o protótipo é clicável: notebook → bloqueio → "Entrar" → área de trabalho; dock e ícones → apps; "X" → área de trabalho; no celular, ícone → app e "Voltar" → início.
+
+Como gerar:
+
+1. Com `npm run dev` rodando, rode `npm run figma`. Ele captura cada tela e gera o plugin em `scripts/figma/plugin/code.js` (fica fora do Git).
+2. No **Figma desktop**, abra um arquivo e vá em _Plugins → Development → Import plugin from manifest…_ → `scripts/figma/plugin/manifest.json`.
+3. Rode _Plugins → Development → Portifólio — protótipo → Wireframe (preto e branco)_ (ou _Alta fidelidade_). As telas aparecem abaixo do que já houver na página, com os fluxos "desktop" e "celular" prontos para o modo de apresentação.
+4. Exporte as telas em PNG para [`docs/wireframes/`](docs/wireframes/).
+
+Quando o site mudar, é só repetir os passos.
+
+### Telas exportadas
+
+|                                                                                                                                         |                                                                                                                           |                                                                                                                                |
+| :-------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------: |
+|       <img src="docs/wireframes/01%20%C2%B7%20Intro%20%28mesa%203D%29.png" width="280" alt="Intro (mesa 3D)"><br>Intro (mesa 3D)        | <img src="docs/wireframes/02%20%C2%B7%20Tela%20de%20bloqueio.png" width="280" alt="Tela de bloqueio"><br>Tela de bloqueio | <img src="docs/wireframes/03%20%C2%B7%20%C3%81rea%20de%20trabalho.png" width="280" alt="Área de trabalho"><br>Área de trabalho |
+|                          <img src="docs/wireframes/04%20%C2%B7%20Sobre.png" width="280" alt="Sobre"><br>Sobre                           |               <img src="docs/wireframes/05%20%C2%B7%20Projetos.png" width="280" alt="Projetos"><br>Projetos               |         <img src="docs/wireframes/06%20%C2%B7%20Experi%C3%AAncias.png" width="280" alt="Experiências"><br>Experiências         |
+|          <img src="docs/wireframes/07%20%C2%B7%20Skills%20%28lista%29.png" width="280" alt="Skills (lista)"><br>Skills (lista)          |   <img src="docs/wireframes/08%20%C2%B7%20Skills%20%28globo%29.png" width="280" alt="Skills (globo)"><br>Skills (globo)   |           <img src="docs/wireframes/09%20%C2%B7%20Certificados.png" width="280" alt="Certificados"><br>Certificados            |
+|                  <img src="docs/wireframes/10%20%C2%B7%20Curr%C3%ADculo.png" width="280" alt="Currículo"><br>Currículo                  |                <img src="docs/wireframes/11%20%C2%B7%20Contato.png" width="280" alt="Contato"><br>Contato                 |                  <img src="docs/wireframes/12%20%C2%B7%20M%C3%BAsica.png" width="280" alt="Música"><br>Música                  |
+| <img src="docs/wireframes/13%20%C2%B7%20Atividade%20%28WakaTime%29.png" width="280" alt="Atividade (WakaTime)"><br>Atividade (WakaTime) |   <img src="docs/wireframes/14%20%C2%B7%20GitHub%20%28Stats%29.png" width="280" alt="GitHub (Stats)"><br>GitHub (Stats)   |              <img src="docs/wireframes/15%20%C2%B7%20Assistente.png" width="280" alt="Assistente"><br>Assistente               |
+|                      <img src="docs/wireframes/16%20%C2%B7%20Terminal.png" width="280" alt="Terminal"><br>Terminal                      |                <img src="docs/wireframes/17%20%C2%B7%20Ajustes.png" width="280" alt="Ajustes"><br>Ajustes                 |                                                                                                                                |
+
+---: | :---: | :---: |
 | <img src="docs/wireframes/intro.png" width="260"> | <img src="docs/wireframes/desktop.png" width="260"> | <img src="docs/wireframes/mobile.png" width="140"> |
 -->
 
@@ -307,17 +332,18 @@ npm run dev
 
 Abra [http://localhost:5173](http://localhost:5173): você será redirecionado para `/pt` ou `/en` conforme o idioma do navegador. As funções de `api/` rodam junto, lendo o `.env.local`.
 
-| Script                                    | O que faz                                                                     |
-| :---------------------------------------- | :---------------------------------------------------------------------------- |
-| `npm run dev`                             | Servidor de desenvolvimento (front + `api/`)                                  |
-| `npm run build` / `npm run preview`       | Build de produção e servidor para testá-lo                                    |
-| `npm run lint`                            | ESLint                                                                        |
-| `npm run format` / `npm run format:check` | Formata / confere a formatação (Prettier)                                     |
-| `npm test`                                | Testes de unidade (Vitest)                                                    |
-| `npm run test:e2e`                        | Testes e2e (Playwright; faz o build antes)                                    |
-| `npm run spotify:token`                   | Gera o refresh token do Spotify                                               |
-| `npm run screenshots`                     | Gera os prints deste README e a imagem Open Graph (com `npm run dev` rodando) |
-| `npm run models`                          | Baixa e prepara os modelos 3D e as HDRIs da intro (Poly Haven)                |
+| Script                                    | O que faz                                                                            |
+| :---------------------------------------- | :----------------------------------------------------------------------------------- |
+| `npm run dev`                             | Servidor de desenvolvimento (front + `api/`)                                         |
+| `npm run build` / `npm run preview`       | Build de produção e servidor para testá-lo                                           |
+| `npm run lint`                            | ESLint                                                                               |
+| `npm run format` / `npm run format:check` | Formata / confere a formatação (Prettier)                                            |
+| `npm test`                                | Testes de unidade (Vitest)                                                           |
+| `npm run test:e2e`                        | Testes e2e (Playwright; faz o build antes)                                           |
+| `npm run spotify:token`                   | Gera o refresh token do Spotify                                                      |
+| `npm run screenshots`                     | Gera os prints deste README e a imagem Open Graph (com `npm run dev` rodando)        |
+| `npm run models`                          | Baixa e prepara os modelos 3D e as HDRIs da intro (Poly Haven)                       |
+| `npm run figma`                           | Gera o plugin do Figma com o protótipo de todas as telas (com `npm run dev` rodando) |
 
 ---
 
@@ -526,7 +552,7 @@ Todo push na `main` gera um deploy de produção e todo Pull Request gera uma **
 │   ├── wireframes/            # 🎨 Protótipos exportados do Figma
 │   └── screenshots/           # 🖼️ Prints deste README (npm run screenshots)
 ├── public/                    # 📁 Estáticos: brand (logo, OG), certificates, cv, hdri, images, models (3D), projects, wallpapers
-├── scripts/                   # 🛠️ spotify-token.mjs, screenshots.mjs, fetch-models.mjs
+├── scripts/                   # 🛠️ spotify-token.mjs, screenshots.mjs, fetch-models.mjs, figma/ (protótipo)
 ├── src/
 │   ├── components/
 │   │   ├── intro/             # 💻 Mesa 3D (desk/: um arquivo por objeto), notebook, textura da tela, sequência GSAP

@@ -16,6 +16,9 @@ test-results/
 # vercel
 .vercel
 
+# plugin do Figma gerado pelo npm run figma (pesado, com as imagens das telas)
+scripts/figma/plugin/code.js
+
 # sistema / editores
 .DS_Store
 *.log
