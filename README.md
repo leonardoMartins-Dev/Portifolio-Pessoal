@@ -72,7 +72,7 @@
 
 ## 🔗 Links Úteis
 
-- 🌐 **Demo Online:** _em breve_ <!-- TODO: link do deploy na Vercel -->
+- 🌐 **Online:** https:[leomartinsdev.me](https://www.leomartinsdev.me/pt)<!-- TODO: link do deploy na Vercel -->
   > 💻 **Descrição:** aplicação publicada na Vercel (plano Hobby), com Preview automático a cada Pull Request.
 - 📖 **Especificação:** [`docs/PROJETO.md`](docs/PROJETO.md)
   > 📚 **Descrição:** requisitos, arquitetura, identidade visual e plano de execução por fases — a fonte de verdade do projeto.
